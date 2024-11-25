@@ -1,6 +1,6 @@
 // RotatingSphere.js
 import React, { useRef } from 'react';
-import { Canvas, useLoader, extend } from '@react-three/fiber';
+import { Canvas, extend } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';

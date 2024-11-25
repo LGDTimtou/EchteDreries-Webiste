@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import "./App.css";
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-primary); /* Use a clean, modern font */
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between; /* Align content to the left and right */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    background-color: var(--bg-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.header-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column; /* Stack name and tagline vertically */
+    align-items: flex-start;
+}
+
+.header-right {
+    display: flex;
+    justify-content: flex-end; /* Push navigation to the far right */
+    padding-right: 100px;
+}
+
+.name {
+    color: var(--accent-color);
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.tagline {
+    color: var(--text-color);
+    font-size: 16px;
+    padding-left: 3px;
+    opacity: 0.8; /* Slightly muted */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* Add spacing between links */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    color: var(--hover-color);
+}
