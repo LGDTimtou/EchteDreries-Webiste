@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import Boffen from './pages/Boffen';
-import Timtou from './pages/Timtou'
+import TimtouHome from './pages/TimtouHome'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Boffen />} />
         <Route path="/test" element={<Main />} />
-        <Route path="/timtou" element={<Timtou />} />
+        <Route path="/timtou" element={<TimtouHome />} />
       </Routes>
     </Router>
   );
