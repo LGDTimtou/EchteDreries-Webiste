@@ -3,74 +3,57 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/custom_enchants/SideBar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ sections, activePage, setActivePage }) => {
   const [openSections, setOpenSections] = useState({});
 
-  const toggleSection = (section) => {
+  const toggleSection = (index) => {
     setOpenSections((prev) => ({
       ...prev,
-      [section]: !prev[section],
+      [index]: !prev[index],
     }));
   };
 
-  const sections = [
-    {
-      title: "Healthy contributions",
-      items: ["Item 1", "Item 2", "Item 3"],
-    },
-    {
-      title: "Issue & PR templates",
-      items: ["Item 4", "Item 5"],
-    },
-    {
-      title: "Moderation",
-      items: ["Item 6", "Item 7"],
-    },
-    {
-      title: "Maintaining safety",
-      items: ["Item 8"],
-    },
-    {
-      title: "Using wikis",
-      items: [
-        "About wikis",
-        "Manage wiki pages",
-        "Create footer or sidebar",
-        "Editing wiki content",
-        "View a history of changes",
-        "Change access permissions",
-        "Disabling wikis",
-      ],
-    },
-  ];
+  const handleItemClick = (item) => {
+    setActivePage(item);
+  };
 
-  return (
-    <div className="sidebar">
-      {sections.map((section, index) => (
-        <div key={index} className="sidebar-section">
+  const renderSections = (sections, parentIndex = "", level = 0) =>
+    sections.map((section, index) => {
+      const currentIndex = parentIndex ? `${parentIndex}-${index}` : `${index}`;
+      const isActive = activePage === section.title;
+
+      return (
+        <div key={currentIndex} className={`sidebar-section level-${level}`}>
           <div
-            className="sidebar-section-title"
-            onClick={() => toggleSection(index)}
+            className={`sidebar-section-title ${
+              isActive ? "active" : ""
+            } level-${level}`}
+            onClick={() => {
+              if (section.subsections && section.subsections.length > 0) {
+                toggleSection(currentIndex);
+              } else {
+                handleItemClick(section.title);
+              }
+            }}
           >
             <span>{section.title}</span>
-            <FontAwesomeIcon
-              icon={openSections[index] ? faChevronDown : faChevronRight}
-              className="toggle-icon"
-            />
+            {section.subsections && section.subsections.length > 0 && (
+              <FontAwesomeIcon
+                icon={openSections[currentIndex] ? faChevronDown : faChevronRight}
+                className="toggle-icon"
+              />
+            )}
           </div>
-          {openSections[index] && (
+          {openSections[currentIndex] && section.subsections && (
             <div className="sidebar-section-items">
-              {section.items.map((item, i) => (
-                <div key={i} className="sidebar-item">
-                  {item}
-                </div>
-              ))}
+              {renderSections(section.subsections, currentIndex, level + 1)}
             </div>
           )}
         </div>
-      ))}
-    </div>
-  );
+      );
+    });
+
+  return <div className="sidebar">{renderSections(sections)}</div>;
 };
 
 export default Sidebar;

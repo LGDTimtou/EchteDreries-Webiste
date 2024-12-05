@@ -8,11 +8,43 @@ import "../styles/custom_enchants/CustomEnchants.css";
 const CustomEnchants = () => {
   const [activePage, setActivePage] = useState("Home");
 
+  const sections = [
+    {
+      title: "Home",
+    },
+    {
+      title: "Custom Enchant Builder"
+    },
+    {
+      title: "Built-in Custom Enchants"
+    },
+    {
+      title: "Commands"
+    },
+    {
+      title: "Triggers",
+      subsections: [
+        {
+          title: "Armor",
+          subsections: [],
+        },
+        {
+          title: "Account Settings",
+          subsections: [],
+        },
+      ],
+    },
+  ];
+
   return (
     <div className="app-container">
         <Header/>
         <div className="custom-enchants-container">
-            <Sidebar setActivePage={setActivePage} activePage={activePage} />
+            <Sidebar
+                sections={sections}
+                activePage={activePage}
+                setActivePage={setActivePage}
+            />
             <div className="content-container">
                 <Content activePage={activePage} />
             </div>

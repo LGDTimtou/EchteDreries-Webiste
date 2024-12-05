@@ -1,13 +1,15 @@
 import React from "react";
 import "../../styles/custom_enchants/Content.css";
+import HomeContent from "./content_pages/HomeContent";
+import CustomEnchantBuilderContent from "./content_pages/custom_enchant_builder/CustomEnchantBuilderContent";
+
 
 const Content = ({ activePage}) => {
     return (
         <div className="content">
-        <h1>{activePage}</h1>
         <p>
-            {activePage === "Home" && "Welcome to the Home page!"}
-            {activePage === "About" && "Learn more About us here."}
+            {activePage === "Home" && <HomeContent/>}
+            {activePage === "Custom Enchant Builder" && <CustomEnchantBuilderContent/>}
             {activePage === "Services" && "Check out our Services."}
             {activePage === "Contact" && "Feel free to Contact us."}
         </p>

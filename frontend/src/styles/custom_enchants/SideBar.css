@@ -1,58 +1,55 @@
-/* Sidebar Container */
 .sidebar {
     width: 250px;
     background-color: #0d1117; /* Dark background color */
     color: #c9d1d9; /* Light gray text */
-    padding: 10px 15px;
+    padding: 10px 7px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    border-right: 2px solid #30363d; /* Border color */
-  }
-  
-  /* Section */
-  .sidebar-section {
-    margin-bottom: 10px;
-  }
-  
-  /* Section Title */
-  .sidebar-section-title {
+    border-right: 1px solid #30363d; /* Border color */
+}
+
+
+.sidebar-section-title {
     font-size: 14px;
     font-weight: 600;
-    padding: 10px;
-    background-color: #161b22; /* Slightly darker background */
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    background-color: #0d1117; /* Slightly darker background */
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: background 0.3s ease;
-  }
-  
-  .sidebar-section-title:hover {
+    margin-bottom: 5px;
+}
+
+.sidebar-section-title:hover {
     background-color: #21262d; /* Hover effect background */
-  }
-  
-  /* Collapsible Items */
-  .sidebar-section-items {
-    padding-left: 15px;
-    margin-top: 5px;
-  }
-  
-  /* Individual Items */
-  .sidebar-item {
-    padding: 8px 10px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    color: #c9d1d9;
-  }
-  
-  .sidebar-item:hover {
-    background-color: #21262d;
-  }
-  
-  /* Toggle Icon */
-  .toggle-icon {
+}
+
+.active {
+    background-color: #21262d; /* Highlight color */
+    color: #58a6ff; /* Active text color */
+    font-weight: bold;
+}
+
+
+.sidebar-section-title.level-1 {
     font-size: 12px;
-    color: #8b949e; /* Muted icon color */
-  }
-  
+    font-weight: 500;
+    height: 20px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.sidebar-section-title.level-2 {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 10px;
+    margin-left: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
