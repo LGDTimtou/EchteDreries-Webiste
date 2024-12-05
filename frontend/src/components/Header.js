@@ -1,21 +1,19 @@
 import React from "react";
 import "../styles/Header.css";
+import profilePicture from "../assets/images/portret.jpg";
 
-const Header = () => {
+const Header = ( {pageName} ) => {
     return (
         <header className="header">
-            <div className="header-container">
-                <div className="header-left">
-                    <h1 className="name">Timon Coucke</h1>
-                    <p className="tagline">Software Engineer | Computer Science @ UGent</p>
-                </div>
-                <nav className="header-right">
-                    <ul className="nav-links">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
+            <div className="header-left">
+                <img src={profilePicture} alt="Profile" className="header-logo" />
+                <h1 className="header-title">Timon Coucke</h1>
+            </div>
+            <div className="header-center">
+                <h1 className="header-title">⚡Custom Enchantments⚡</h1>
+            </div>
+            <div className="header-right">
+
             </div>
         </header>
     );

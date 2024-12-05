@@ -1,0 +1,64 @@
+.project-item {
+    display: flex;
+    flex-direction: row; /* Side-by-side layout for text and image */
+    gap: 20px; /* Space between text and image */
+    align-items: center; /* Align content vertically */
+    background-color: var(--bg-color); /* Use the background color */
+    border: 1px solid var(--accent-color); /* Use accent color for the border */
+    border-radius: 15px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    padding: 20px; /* Space inside the bounding box */
+    margin-bottom: 20px; /* Space between each project */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Smooth hover animation */
+    color: var(--text-color); /* Use the soft white text color */
+}
+
+.project-item:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow on hover */
+}
+
+.project-item:nth-child(odd) .project-image {
+    order: -1; /* Reverse order for odd projects */
+}
+
+.project-text {
+    flex: 1;
+    text-align: left;
+}
+
+.project-text h3 {
+    color: var(--accent-color); /* Use the accent color for headers */
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.project-text p {
+    color: var(--text-color); /* Use soft white for body text */
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.project-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.project-image img {
+    width: 100%;
+    max-width: 300px;
+    max-height: 200px;
+    height: auto;
+    border-radius: 10px; /* Add slight rounding for aesthetics */
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    border: 2px solid var(--hover-color); /* Cyan border to make the image stand out */
+}
+
+.project-image img:hover {
+    transform: scale(1.05); /* Gentle zoom effect */
+    border-color: var(--accent-color); /* Highlight image border with accent color on hover */
+}

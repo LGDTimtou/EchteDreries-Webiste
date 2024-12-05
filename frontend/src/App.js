@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Main from './pages/Main';
 import Home from './pages/Home'
+import CustomEnchants from './pages/CustomEnchants';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/timtou" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/custom_enchants" element={<CustomEnchants />} />
       </Routes>
     </Router>
   );

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import "../styles/Home.css";
+import "../styles/home/Home.css";
 import profilePicture from "../assets/images/portret.jpg";
-import renoperfectPicture from "../assets/images/renoperfect.jpg"
+import renoperfectPicture from "../assets/images/renoperfect.jpg";
+import ninalottesPicture from "../assets/images/ninalottes_health.jpg";
+import customEnchantsPicture from "../assets/images/custom_enchants.gif";
+import Project from "../components/home/Project";
+import Header from "../components/home/HomeHeader";
+import Footer from "../components/Footer";
 
 const Home = () => {
     const [isIntroVisible, setIsIntroVisible] = useState(true);
@@ -18,7 +21,6 @@ const Home = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // Initialize IntersectionObserver after intro disappears
     useEffect(() => {
         if (!isIntroVisible) {
             const observer = new IntersectionObserver(
@@ -27,16 +29,16 @@ const Home = () => {
                         setProjectsVisible(true);
                     }
                 },
-                { threshold: 0.5 } // Trigger when 30% of the section is visible
+                { threshold: 0.5 }
             );
 
             if (projectsRef.current) {
                 observer.observe(projectsRef.current);
             }
 
-            return () => observer.disconnect(); // Clean up the observer
+            return () => observer.disconnect();
         }
-    }, [isIntroVisible]); // Re-run only after `isIntroVisible` changes
+    }, [isIntroVisible]);
 
     return (
         <>
@@ -49,13 +51,12 @@ const Home = () => {
             {!isIntroVisible && (
                 <div className="homepage">
                     <Header />
-                    {/* About Section */}
                     <section id="about" className="about">
                         <div className="about-container">
                             <div className="about-text">
                                 <h2>About Me</h2>
                                 <p>
-                                    Hello! I'm <strong>Timon Coucke</strong>, a 4th-year Master student at the <strong>University of Ghent (UGent)</strong>. 
+                                    Hello! I'm <strong>Timon Coucke</strong>, a 4th-year Master student at the <strong>University of Ghent (UGent)</strong>.
                                     I also work as a freelancing software engineer.
                                 </p>
                                 <p>
@@ -63,7 +64,7 @@ const Home = () => {
                                 </p>
                                 <p>
                                     In my free time, I love creating mods and plugins for a variety of games, combining my technical skills with creativity.
-                                </p>    
+                                </p>
                             </div>
                             <div className="about-image">
                                 <img src={profilePicture} alt="Timon Coucke" />
@@ -73,7 +74,6 @@ const Home = () => {
 
                     <div className="divider"></div>
 
-                    {/* Projects Section */}
                     <section
                         id="projects"
                         className={`projects ${projectsVisible ? "fade-in" : ""}`}
@@ -82,31 +82,27 @@ const Home = () => {
                         <div className="container">
                             <h2>My Projects</h2>
                             <div className="project-list">
-                                {/* Project 1 */}
-                                <div className="project-item">
-                                    <div className="project-text">
-                                        <h3>RenoPerfect Full Stack Website</h3>
-                                        <p>
-                                            Short description of the project. This could be a web app, game, or software you've developed.
-                                        </p>
-                                    </div>
-                                    <div className="project-image">
-                                    <img src={renoperfectPicture} alt="RenoPerfect" />
-                                    </div>
-                                </div>
-
-                                {/* Project 2 */}
-                                <div className="project-item">
-                                    <div className="project-text">
-                                        <h3>Another Project Title</h3>
-                                        <p>
-                                            Another project description to showcase your work. Highlight the key features or benefits.
-                                        </p>
-                                    </div>
-                                    <div className="project-image">
-                                        <img src="https://via.placeholder.com/300" alt="Project 2" />
-                                    </div>
-                                </div>
+                                <Project
+                                    title="Full stack website: RenoPerfect"
+                                    description="Short description of the project. This could be a web app, game, or software you've developed."
+                                    imageUrl={renoperfectPicture}
+                                    link="https://renoperfect.be"
+                                    altText="RenoPerfect"
+                                />
+                                <Project
+                                    title="Frontend website: Ninalottes Health"
+                                    description="Another project description to showcase your work. Highlight the key features or benefits."
+                                    imageUrl={ninalottesPicture}
+                                    link="https://ninalotteshealth.com"
+                                    altText="NinalottesHealth"
+                                />
+                                <Project
+                                    title="Minecraft plugin: ⚡Custom Enchants⚡"
+                                    description="Another project description to showcase your work. Highlight the key features or benefits."
+                                    imageUrl={customEnchantsPicture}
+                                    link="https://www.spigotmc.org/resources/⚡advanced⚡-custom-enchants⚡-create-new-enchants.102514/"
+                                    altText="CustomEnchants"
+                                />
                             </div>
                         </div>
                     </section>

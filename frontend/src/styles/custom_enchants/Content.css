@@ -1,0 +1,15 @@
+.content-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #0d1117;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.content h1 {
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 16px;
+    color: #555;
+}
