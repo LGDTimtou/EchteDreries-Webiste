@@ -1,0 +1,57 @@
+/* Modern Input Field Styling */
+.input-field,
+.select-field {
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background-color: #2c313a; /* Slightly lighter background for contrast */
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.select-field {
+  appearance: none; /* Removes default browser styling */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath fill='%23ffffff' d='M0 0l5 6 5-6H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.input-field:focus,
+.select-field:focus {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 8px rgba(126, 231, 135, 0.5);
+}
+
+.input-field:hover,
+.select-field:hover {
+  border-color: var(--text-secondary);
+}
+
+.input-label {
+  font-family: 'Minecraft', monospace;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-right: 10px;
+}
+
+.input-field-text {
+  width: 200px
+}
+
+.input-field-number {
+  appearance: none;
+  width: 30px
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

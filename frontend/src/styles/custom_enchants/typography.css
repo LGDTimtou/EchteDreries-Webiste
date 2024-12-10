@@ -1,0 +1,19 @@
+/* Introductory Text */
+.content-intro {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+
+.content-box-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--highlight-color);
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+  
+}

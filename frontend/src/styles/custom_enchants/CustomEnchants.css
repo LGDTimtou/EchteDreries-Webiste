@@ -1,19 +1,15 @@
-.app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; 
-    background-color: #f4f4f9;
-    font-family: Arial, sans-serif;
-}
+@font-face {
+    font-family: 'Minecraft';
+    src: url('../../assets/fonts/minecraft.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
-.custom-enchants-container {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-}
+@import './base.css';
+@import './containers.css';
+@import './typography.css';
+@import './forms.css';
+@import './buttons.css';
+@import './animations.css';
 
-.content-container {
-    flex: 1;
-    padding: 1rem;
-}
 
