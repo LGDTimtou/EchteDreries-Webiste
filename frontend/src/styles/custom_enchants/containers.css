@@ -37,3 +37,21 @@
     align-items: flex-start; 
     flex-wrap: wrap;
   }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: 'Minecraft', monospace;
+    padding: 6px 12px;
+    border-radius: 12px; /* More rounded corners */
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: transform 0.2s, box-shadow 0.2s; /* Add hover animation */
+  }
+
+  .tag:hover {
+    transform: translateY(-1px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  }

@@ -21,3 +21,46 @@
     box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.5);
   }
   
+  .remove-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .remove-btn:hover {
+    color: #ff4d4d;
+  }
+  
+  .field-actions {
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  .add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* Smaller size */
+    height: 24px; /* Smaller size */
+    background-color: #28a745; /* Green color */
+    color: var(--bg-primary); /* Text color */
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    font-size: 1rem; /* Adjusted font size */
+    transition: all 0.3s ease-in-out; /* Smooth interaction */
+  }
+  
+  .add-btn:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4); /* Subtle shadow on hover */
+  }
+  
+  .add-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Focus ring for accessibility */
+  }

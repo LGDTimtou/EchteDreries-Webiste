@@ -55,3 +55,45 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.addable-select-field {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: var(--bg-content-box);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px;
+  gap: 10px;
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-top: 5px;
+  z-index: 10;
+  width: 200px;
+  max-height: 150px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-option {
+  padding: 10px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-option:hover {
+  background-color: var(--highlight-color);
+  color: var(--bg-primary);
+}

@@ -3,6 +3,7 @@ import InputField from "../InputField";
 import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
 import { versions, triggers } from "../../../../data";
+import AddableSelectField from "../AddableSelectField";
 
 const CustomEnchantBuilderContent = () => {
   const [formState, setFormState] = useState({
@@ -55,6 +56,10 @@ const CustomEnchantBuilderContent = () => {
             name="anvil_cost"
             value={formState.anvil_cost}
             onChange={handleChange}
+          />
+          <AddableSelectField
+            label = "Targets: "
+            options={["kak", "drol", "teeeeeeeeeeeeeeeeeeest", "piemel", "hihihahahahhahaha", "jaaaaaaaaaaaaaaaaaa"]}
           />
         </div>
       </div>
