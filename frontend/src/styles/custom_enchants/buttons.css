@@ -47,7 +47,7 @@
     width: 24px; /* Smaller size */
     height: 24px; /* Smaller size */
     background-color: #28a745; /* Green color */
-    color: var(--bg-primary); /* Text color */
+    color: #ffffff; /* Text color */
     border: none;
     border-radius: 50%; /* Circular button */
     cursor: pointer;

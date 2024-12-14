@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../../styles/custom_enchants/CustomEnchants.css";
 
-const AddableSelectField = ({ options }) => {
+const AddableSelectField = ({ label, options }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -11,14 +11,19 @@ const AddableSelectField = ({ options }) => {
   };
 
   const handleOptionClick = (option) => {
-    if (!selectedItems.includes(option)) {
-      setSelectedItems([...selectedItems, option]);
-    }
-    setDropdownVisible(false); // Close dropdown after selection
+    const overriddenItems = selectedItems.filter((item) =>
+      option.overrides.includes(item.name)
+    );
+
+    setSelectedItems((prev) => [
+      ...prev.filter((item) => !overriddenItems.includes(item)),
+      option,
+    ]);
+    setDropdownVisible(false);
   };
 
   const handleRemove = (item) => {
-    setSelectedItems(selectedItems.filter((selected) => selected !== item));
+    setSelectedItems((prev) => prev.filter((selected) => selected.name !== item.name));
   };
 
   const handleKeyDown = (event) => {
@@ -43,34 +48,43 @@ const AddableSelectField = ({ options }) => {
     };
   }, []);
 
+  const availableOptions = options.filter(
+    (option) =>
+      !selectedItems.some((selected) => selected.name === option.name) &&
+      !selectedItems.some((selected) => selected.overrides.includes(option.name))
+  );
+
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+      <label className="input-label">
+        {label}
+      </label>
       <div className="addable-select-field">
-        {selectedItems.map((item, index) => (
-          <div className="tag" key={index}>
-            {item}
+        {selectedItems.map((item) => (
+          <div className="tag" key={item.name}>
+            {item.label}
             <button className="remove-btn" onClick={() => handleRemove(item)}>
               ×
             </button>
           </div>
         ))}
         <div className="field-actions" ref={dropdownRef}>
-          <button className="add-btn" onClick={handleAddClick}>
+          {availableOptions.length > 0 && (
+            <button className="add-btn" onClick={handleAddClick}>
             +
-          </button>
+            </button>
+          )}
           {dropdownVisible && (
             <div className="dropdown-options">
-              {options
-                .filter((option) => !selectedItems.includes(option))
-                .map((option, index) => (
-                  <div
-                    key={index}
-                    className="dropdown-option"
-                    onClick={() => handleOptionClick(option)}
-                  >
-                    {option}
-                  </div>
-                ))}
+              {availableOptions.map((option) => (
+                <div
+                  key={option.name}
+                  className="dropdown-option"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.label}
+                </div>
+              ))}
             </div>
           )}
         </div>

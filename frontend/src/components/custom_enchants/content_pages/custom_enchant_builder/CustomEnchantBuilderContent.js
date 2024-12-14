@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
-import { versions, triggers } from "../../../../data";
+import { versions, enchantment_targets } from "../../../../data";
 import AddableSelectField from "../AddableSelectField";
 
 const CustomEnchantBuilderContent = () => {
@@ -13,7 +13,7 @@ const CustomEnchantBuilderContent = () => {
   });
 
   const handleChange = (event) => {
-    console.log(formState);
+    console.log(enchantment_targets);
     
     const { name, value } = event.target;
     setFormState((prevState) => ({
@@ -39,6 +39,7 @@ const CustomEnchantBuilderContent = () => {
           />
           <InputField 
             label="Enchantment Name: " 
+            description="kak"
             placeholder=""
             name="enchantment_name"
             value={formState.enchantment_name}
@@ -49,18 +50,25 @@ const CustomEnchantBuilderContent = () => {
       <div className="content-box">
         <h2 className="content-box-title">Enchantment Definition</h2>
         <div className="field-container">
-          <InputField
-            label="Anvil Cost"
-            placeholder=""
-            type="number"
-            name="anvil_cost"
-            value={formState.anvil_cost}
-            onChange={handleChange}
-          />
           <AddableSelectField
             label = "Targets: "
-            options={["kak", "drol", "teeeeeeeeeeeeeeeeeeest", "piemel", "hihihahahahhahaha", "jaaaaaaaaaaaaaaaaaa"]}
+            options={enchantment_targets}
           />
+          <AddableSelectField
+            label = "Tags: "
+            options={enchantment_targets}
+          />
+        </div>
+        <div className="field-container">
+          <InputField
+              label="Anvil Cost"
+              description= "The amount of levels this enchanment costs to apply in an anvil"
+              placeholder=""
+              type="number"
+              name="anvil_cost"
+              value={formState.anvil_cost}
+              onChange={handleChange}
+            />
         </div>
       </div>
     </div>

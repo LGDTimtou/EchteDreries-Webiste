@@ -55,3 +55,44 @@
     transform: translateY(-1px); /* Slight lift on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
   }
+
+  .tooltip-bubble {
+    position: absolute;
+    bottom: 180%; /* Position the tooltip slightly higher */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+    color: #fff; /* White text */
+    padding: 8px 12px; /* Add padding inside the bubble */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 0.8rem; /* Small font size */
+    max-width: 400px; /* Tooltip should never exceed 400px */
+    width: max-content; /* Automatically fit content width, up to max-width */
+    white-space: pre-wrap; /* Preserve spaces and wrap text when necessary */
+    word-break: break-word; /* Break long words onto the next line if needed */
+    text-align: center; /* Center the text */
+    z-index: 1000; /* Ensure it appears above other elements */
+    pointer-events: none; /* Prevent interfering with hover */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out; /* Smooth appearance */
+    display: block; /* Ensure block-level behavior for proper wrapping */
+  }
+  
+  /* Tooltip arrow */
+  .tooltip-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* Place the arrow at the bottom of the bubble */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent; /* Dark arrow */
+  }
+  
+  /* Show tooltip when hovering */
+  .input-label:hover .tooltip-bubble {
+    opacity: 1; /* Make tooltip visible */
+    visibility: visible;
+  }
+  
