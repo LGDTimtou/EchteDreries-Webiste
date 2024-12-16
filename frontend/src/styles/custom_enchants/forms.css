@@ -74,8 +74,8 @@ input[type="number"] {
   flex-wrap: wrap;
   gap: 10px;
   width: 100%;
-  min-width: 200px;
-  max-width: 300px;
+  min-width: 250px;
+  max-width: 280px;
 }
 
 .dropdown-options {
@@ -132,4 +132,18 @@ input[type="number"] {
 .dropdown-options {
   scrollbar-width: thin; /* Makes the scrollbar thinner */
   scrollbar-color: var(--highlight-color) var(--bg-secondary); /* Thumb and track colors */
+}
+
+.custom-option-input {
+  padding: 10px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  cursor: text; /* Ensure text cursor for input */
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  font-family: 'Minecraft', monospace;
+  background-color: transparent; /* Match dropdown-option background */
+  border: 1px solid var(--border-color); /* Add a subtle border */
+  border-radius: 4px; /* Optional: Add rounded edges for consistency */
+  width: calc(100% - 20px); /* Ensure it matches the dropdown's width */
+  outline: none; /* Remove default focus outline */
 }

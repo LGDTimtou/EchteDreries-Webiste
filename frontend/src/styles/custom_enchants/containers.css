@@ -56,6 +56,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
   }
 
+  .tag:hover .tooltip-bubble {
+    opacity: 1; /* Make tooltip visible */
+    visibility: visible;
+  }
+
   .tooltip-bubble {
     position: absolute;
     bottom: 180%; /* Position the tooltip slightly higher */

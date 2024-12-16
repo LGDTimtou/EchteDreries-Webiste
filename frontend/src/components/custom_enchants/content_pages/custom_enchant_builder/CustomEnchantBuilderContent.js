@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
-import { versions, enchantment_targets } from "../../../../data";
+import { versions, enchantment_targets, enchantment_tags, enchantments } from "../../../../data";
 import AddableSelectField from "../AddableSelectField";
 
 const CustomEnchantBuilderContent = () => {
@@ -32,6 +32,7 @@ const CustomEnchantBuilderContent = () => {
         <div className="field-container">
           <SelectField 
             label="Minecraft Version: " 
+            description= "The Minecraft version you will use this enchantment on"
             options={versions.map((item) => ({ value: item, label: item }))} 
             name="minecraft_version"
             value={formState.minecraft_version}
@@ -39,7 +40,7 @@ const CustomEnchantBuilderContent = () => {
           />
           <InputField 
             label="Enchantment Name: " 
-            description="kak"
+            description="The name you want the enchantment to have"
             placeholder=""
             name="enchantment_name"
             value={formState.enchantment_name}
@@ -52,14 +53,20 @@ const CustomEnchantBuilderContent = () => {
         <div className="field-container">
           <AddableSelectField
             label = "Targets: "
+            description= "The target items for your enchantment"
             options={enchantment_targets}
           />
           <AddableSelectField
             label = "Tags: "
-            options={enchantment_targets}
+            description= "Modifiers to customize your enchantment's vanilla behaviour"
+            options={enchantment_tags}
           />
-        </div>
-        <div className="field-container">
+          <AddableSelectField
+            label = "Conflicts with: "
+            description= "Enchantments that cannot be combined with your enchantment on the same item."
+            options={enchantments}
+            customOptionsAllowed={true}
+          />
           <InputField
               label="Anvil Cost"
               description= "The amount of levels this enchanment costs to apply in an anvil"
@@ -70,6 +77,7 @@ const CustomEnchantBuilderContent = () => {
               onChange={handleChange}
             />
         </div>
+        
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
-const SelectField = ({ label, options, name, value, onChange }) => {
+const SelectField = ({ label, description, options, name, value, onChange }) => {
   const selectRef = useRef(null);
 
   useEffect(() => {
@@ -33,6 +33,7 @@ const SelectField = ({ label, options, name, value, onChange }) => {
     <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
       <label className="input-label">
         {label}
+        <div className="tooltip-bubble">{description}</div>
       </label>
       <select 
         className="select-field" 
