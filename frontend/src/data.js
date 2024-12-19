@@ -231,7 +231,7 @@ const flattenEnchantmentTargets = (target, parents = []) => {
 export const enchantment_targets = flattenEnchantmentTargets(enchantment_targets_nested);
 
 
-export const triggers = {
+export const triggers_nested = {
     "armor": [
         {
             "name": "armor_de_equip",
@@ -456,6 +456,42 @@ export const triggers = {
     ]
 }
 
+export const trigger_condition_descriptions = {
+    block: "Select which blocks should trigger the enchantment (All by default)",
+    entity: "Select which entities should trigger the enchantment (All by default)",
+    mob: "Select which mobs should trigger the enchantment (All by default)",
+    animal: "Select which animals should trigger the enchantment (All by default)",
+    items: "Select which items should trigger the enchantment (All by default)",
+    armor: "Select which armor should trigger the enchantment (All by default)",
+    prime_cause: "Select what tnt prime cause should trigger the enchantment (All by default)",
+    damage_causes: "Select which damage cause should trigger the enchantment (All by default)",
+    empty: "Fill in what should trigger the enchantment (All by default)",
+  };
+
+function flattenAndAddLabels(triggersNested) {
+    const titleCase = (str) =>
+      str
+        .replace(/_/g, " ")
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+  
+    const flattenedList = [];
+    Object.values(triggersNested).forEach((category) => {
+      category.forEach((item) => {
+        flattenedList.push({
+          ...item,
+          label: titleCase(item.name),
+        });
+      });
+    });
+    return flattenedList;
+  }
+  
+export const triggers = flattenAndAddLabels(triggers_nested);
+
+
 
 export const enchantments = [
     {
@@ -670,3 +706,69 @@ export const enchantments = [
     }
 ]
   
+
+export const prime_causes = [
+    {
+      name: "fire",
+      label: "Fire",
+    },
+    {
+      name: "redstone",
+      label: "Redstone",
+    },
+    {
+      name: "player",
+      label: "Player",
+    },
+    {
+      name: "explosion",
+      label: "Explosion",
+    },
+    {
+      name: "projectile",
+      label: "Projectile",
+    },
+    {
+      name: "block_break",
+      label: "Block Break",
+    },
+    {
+      name: "dispenser",
+      label: "Dispenser",
+    },
+]
+
+export const damage_causes = [
+    { name: "kill", label: "Kill" },
+    { name: "world_border", label: "World Border" },
+    { name: "contact", label: "Contact" },
+    { name: "entity_attack", label: "Entity Attack" },
+    { name: "entity_sweep_attack", label: "Entity Sweep Attack" },
+    { name: "projectile", label: "Projectile" },
+    { name: "suffocation", label: "Suffocation" },
+    { name: "fall", label: "Fall" },
+    { name: "fire", label: "Fire" },
+    { name: "fire_tick", label: "Fire Tick" },
+    { name: "melting", label: "Melting" },
+    { name: "lava", label: "Lava" },
+    { name: "drowning", label: "Drowning" },
+    { name: "block_explosion", label: "Block Explosion" },
+    { name: "entity_explosion", label: "Entity Explosion" },
+    { name: "void", label: "Void" },
+    { name: "lightning", label: "Lightning" },
+    { name: "suicide", label: "Suicide" },
+    { name: "starvation", label: "Starvation" },
+    { name: "poison", label: "Poison" },
+    { name: "magic", label: "Magic" },
+    { name: "wither", label: "Wither" },
+    { name: "falling_block", label: "Falling Block" },
+    { name: "thorns", label: "Thorns" },
+    { name: "dragon_breath", label: "Dragon Breath" },
+    { name: "custom", label: "Custom" },
+    { name: "fly_into_wall", label: "Fly Into Wall" },
+    { name: "hot_floor", label: "Hot Floor" },
+    { name: "cramming", label: "Cramming" },
+    { name: "dryout", label: "Dryout" },
+    { name: "freeze", label: "Freeze" },
+    { name: "sonic_boom", label: "Sonic Boom" },
+  ];

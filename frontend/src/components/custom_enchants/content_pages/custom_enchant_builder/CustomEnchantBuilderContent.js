@@ -2,9 +2,10 @@ import React, {useState} from "react";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
-import { versions, enchantment_targets, enchantment_tags, enchantments } from "../../../../data";
+import { versions, enchantment_targets, enchantment_tags, enchantments, triggers } from "../../../../data";
 import AddableSelectField from "../AddableSelectField";
 import CheckboxField from "../CheckboxField";
+import TriggerSelectField from "./TriggerSelectField";
 
 
 
@@ -78,6 +79,13 @@ const CustomEnchantBuilderContent = () => {
     }));
   }
 
+  const handleAddableSelectboxChange = (name, values) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: values,
+    }));
+  }
+
   return (
     <div>
       <p className="content-intro">
@@ -106,33 +114,37 @@ const CustomEnchantBuilderContent = () => {
       </div>
       <div className="content-box">
         <h2 className="content-box-title">Enchantment Definition</h2>
-        <div className="field-container">
-          <AddableSelectField
-            label = "Targets: "
-            description= "The target items for your enchantment"
-            options={enchantment_targets}
-          />
-          <AddableSelectField
-            label = "Tags: "
-            description= "Modifiers to customize your enchantment's vanilla behaviour"
-            options={enchantment_tags}
-          />
-          <AddableSelectField
-            label = "Conflicts with: "
-            description= "Enchantments that cannot be combined with your enchantment on the same item."
-            options={enchantments}
-            customOptionsAllowed={true}
-          />
-          <InputField
-              label="Anvil Cost"
-              description= "The amount of levels this enchanment costs to apply in an anvil"
-              placeholder=""
-              type="number"
-              name="anvil_cost"
-              value={formState.anvil_cost}
-              onChange={handleChange}
-            />
-        </div>
+        <AddableSelectField
+          name = "targets"
+          label = "Targets: "
+          description= "The target items for your enchantment"
+          options={enchantment_targets}
+          onChange={handleAddableSelectboxChange}
+        />
+        <AddableSelectField
+          name="tags"
+          label = "Tags: "
+          description= "Modifiers to customize your enchantment's vanilla behaviour"
+          options={enchantment_tags}
+          onChange={handleAddableSelectboxChange}
+        />
+        <AddableSelectField
+          name="conflicts_with"
+          label = "Conflicts with: "
+          description= "Enchantments that cannot be combined with your enchantment on the same item."
+          options={enchantments}
+          customOptionsAllowed={true}
+          onChange={handleAddableSelectboxChange}
+        />
+        <InputField
+          label="Anvil Cost"
+          description= "The amount of levels this enchanment costs to apply in an anvil"
+          placeholder=""
+          type="number"
+          name="anvil_cost"
+          value={formState.anvil_cost}
+          onChange={handleChange}
+        />
         
       </div>
       <div className="content-box">
@@ -207,7 +219,13 @@ const CustomEnchantBuilderContent = () => {
         }
         <div className="content-box">
           <h2 className="content-box-title">Triggers</h2>
+          <TriggerSelectField
+            triggerOptions={triggers}
+            version={formState.minecraft_version}
+            onChange={handleAddableSelectboxChange}
+          />
         </div>
+        <p>{JSON.stringify(formState, null, '\t')}</p>
       </div>
     </div>
   );

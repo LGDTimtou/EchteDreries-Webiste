@@ -64,3 +64,57 @@
     outline: none;
     box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Focus ring for accessibility */
   }
+
+  .trigger-remove-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem; /* Slightly larger for visibility */
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .trigger-remove-btn:hover {
+    color: #ff4d4d; /* Highlight color on hover */
+  }
+
+  .batch-add-btn-inline {
+    position: absolute;
+    top: 10%; /* Center vertically */
+    right: 2px; /* Position slightly inside the input field */
+    background-color: var(--highlight-color-hover); /* Match your app's highlight color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px; /* Compact size */
+    font-size: 0.85rem; /* Slightly smaller font */
+    font-weight: bold; /* Make the text stand out */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Hover and Focus Effects */
+  .batch-add-btn-inline:hover {
+    transform: scale(1.1);
+  }
+
+  .clear-all-btn {
+    position: absolute;
+    top: 7px; /* Align with the top of the component */
+    right: 1px; /* Adjust spacing from the right */
+    background: none;
+    border: none;
+    font-size: 1.2rem; /* Slightly larger icon size */
+    cursor: pointer;
+    color: red; /* Match text color */
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .clear-all-btn:hover {
+    color: #ff4d4d; /* Highlight color for hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+  }
+  

@@ -36,6 +36,7 @@
     gap: 20px; 
     align-items: center; 
     flex-wrap: wrap;
+    width: 100%
   }
 
   .tag {
@@ -100,4 +101,23 @@
     opacity: 1; /* Make tooltip visible */
     visibility: visible;
   }
+
+  .trigger-card {
+    background-color: var(--bg-secondary); /* Match app theme */
+    border-radius: 8px; /* Slightly smaller radius for distinction */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtler shadow for differentiation */
+    padding: 16px; /* Padding for the content */
+    margin-bottom: 20px; /* Spacing between cards */
+    max-width: calc(100% - 40px); /* Ensure it doesn't overflow the content page */
+    width: 100%; /* Flexibility for responsiveness */
+    animation: fadeIn 0.3s ease-in-out;
+    border: 1px solid var(--border-color); /* Thin border for clarity */
+    position: relative; /* Required for the absolutely positioned button */
+  }
+
+  .add-trigger-section {
+    position: relative; /* Add this to make the dropdown align correctly */
+  }
+
+  
   

@@ -30,14 +30,6 @@
   border-color: var(--text-secondary);
 }
 
-.input-label {
-  position: relative;
-  font-family: 'Minecraft', monospace;
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin-right: 10px;
-}
-
 .input-field-text {
   width: 200px
 }
@@ -73,9 +65,9 @@ input[type="number"] {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  width: 100%;
-  min-width: 250px;
-  max-width: 280px;
+  width: 100%; /* Ensures full width of the parent container */
+  max-width: 100%; /* Prevents overflow */
+  flex-grow: 1;
 }
 
 .dropdown-options {
@@ -144,7 +136,7 @@ input[type="number"] {
   background-color: transparent; /* Match dropdown-option background */
   border: 1px solid var(--border-color); /* Add a subtle border */
   border-radius: 4px; /* Optional: Add rounded edges for consistency */
-  width: calc(100% - 20px); /* Ensure it matches the dropdown's width */
+  min-width: calc(100% - 22px);
   outline: none; /* Remove default focus outline */
 }
 

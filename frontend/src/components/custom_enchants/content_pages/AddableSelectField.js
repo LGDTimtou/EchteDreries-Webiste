@@ -1,18 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../../styles/custom_enchants/CustomEnchants.css";
 
-function titleCase(str) {
-  return str
-    .replaceAll("_", " ")
-    .toLowerCase()
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
 
-
-const AddableSelectField = ({ label, description, options, customOptionsAllowed }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+const AddableSelectField = ({ name, label, description, options, values = [], onChange, customOptionsAllowed }) => {
+  const [selectedItems, setSelectedItems] = useState(values);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [customOption, setCustomOption] = useState("");
@@ -27,16 +18,35 @@ const AddableSelectField = ({ label, description, options, customOptionsAllowed 
   };
 
   const handleOptionClick = (option) => {
-    setSelectedItems((prev) => [
-      ...prev.filter((item) => !option.overrides.includes(item.name)),
-      option,
-    ]);
+    setSelectedItems((prev) => {
+      const isOverridden = prev.some((item) => item.overrides.includes(option.name));
+      if (isOverridden) return prev;
+  
+      const newSelectedItems = [
+        ...prev.filter((item) => !option.overrides.includes(item.name)),
+        option,
+      ];
+  
+      onChange(name, newSelectedItems);
+      return newSelectedItems;
+    });
     setDropdownVisible(false);
     setCustomOption("");
   };
 
+  const handleBatchAdd = (options) => {
+    options.forEach((option) => {
+      handleOptionClick(option);
+    })
+  };
+
   const handleRemove = (item) => {
-    setSelectedItems((prev) => prev.filter((selected) => selected.name !== item.name));
+    setSelectedItems((prev) => {
+      const newSelectedItems = prev.filter((selected) => selected.name !== item.name)
+      
+      onChange(name, newSelectedItems);
+      return newSelectedItems;
+    });
   };
 
   const handleKeyDown = (event) => {
@@ -76,11 +86,18 @@ const AddableSelectField = ({ label, description, options, customOptionsAllowed 
   );
 
   return (
-    <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+    <div style={{ display: "flex", alignItems: "center", marginBottom: "20px", position: "relative" }}>
       <label className="input-label">
         {label}
         <div className="tooltip-bubble">{description}</div>
       </label>
+      <button
+        className="clear-all-btn"
+        onClick={() => selectedItems.forEach((item) => handleRemove(item))} // Clear all selected items
+        title="Clear All"
+      >
+        🗑️
+      </button>
       <div className="addable-select-field">
         {selectedItems.map((item) => (
           <div className="tag" key={item.name}>
@@ -92,21 +109,34 @@ const AddableSelectField = ({ label, description, options, customOptionsAllowed 
           </div>
         ))}
         <div className="field-actions" ref={dropdownRef}>
-          {(availableOptions.length > 0 || searchQuery !== "") && (
-            <button className="add-btn" onClick={handleAddClick}>
-            +
-            </button>
-          )}
+          
+          <button className="add-btn" onClick={handleAddClick}>
+          +
+          </button>
+          
           {dropdownVisible && (
             <div className="dropdown-options">
-              <input
-                type="text"
-                className="input-field"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ marginBottom: "8px", width: "calc(100% - 30px)" }}
-              />
+              {(searchQuery !== "" || availableOptions.length !== 0) && (
+                <div style={{ position: "relative" }}>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ marginBottom: "8px", width: "calc(100% - 30px)" }}
+                />
+                {/* Batch Add Button */}
+                {availableOptions.length > 0 && searchQuery !== "" && (
+                  <button
+                    className="batch-add-btn-inline"
+                    onClick={() => handleBatchAdd(availableOptions)}
+                  >
+                    ➕
+                  </button>
+                )}
+              </div>
+              )}
               {availableOptions.map((option) => (
                 <div
                   key={option.name}
@@ -133,7 +163,7 @@ const AddableSelectField = ({ label, description, options, customOptionsAllowed 
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
-                      handleOptionClick({name: customOption.replaceAll(' ', '_'), label: titleCase(customOption), overrides: []});
+                      handleOptionClick({name: customOption.trim().replaceAll(' ', '_'), label: customOption, overrides: []});
                     }
                   }}
                 />
