@@ -34,7 +34,7 @@
   .field-container {
     display: flex;
     gap: 20px; 
-    align-items: flex-start; 
+    align-items: center; 
     flex-wrap: wrap;
   }
 

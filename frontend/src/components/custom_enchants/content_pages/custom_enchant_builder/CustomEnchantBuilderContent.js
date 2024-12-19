@@ -4,23 +4,79 @@ import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
 import { versions, enchantment_targets, enchantment_tags, enchantments } from "../../../../data";
 import AddableSelectField from "../AddableSelectField";
+import CheckboxField from "../CheckboxField";
+
+
+
+
+const restrictions = {
+  weight: {
+    min: 1, 
+    max: 1024, 
+    parse: (n) => parseInt(n) 
+  },
+  min_cost_base: {
+    min: 1, 
+    max: 30, 
+    parse: (n) => parseInt(n) 
+  },
+  min_cost_incr: {
+    min: 0,
+    max: 30,
+    parse: (n) => parseInt(n)
+  },
+  max_cost_base: {
+    min: 1, 
+    max: 30, 
+    parse: (n) => parseInt(n) 
+  },
+  max_cost_incr: {
+    min: 0,
+    max: 30,
+    parse: (n) => parseInt(n)
+  },
+}
+
 
 const CustomEnchantBuilderContent = () => {
   const [formState, setFormState] = useState({
     minecraft_version: versions[0],
     enchantment_name: "",
     anvil_cost: 2,
+    in_enchanting_table: true,
+    weight: 10,
+    min_cost_base: 2,
+    min_cost_incr: 1,
+    max_cost_base: 5,
+    max_cost_incr: 1,
   });
 
-  const handleChange = (event) => {
-    console.log(enchantment_targets);
-    
+  const handleChange = (event) => {    
     const { name, value } = event.target;
+
+    const restriction = restrictions[name];
+    let parsedValue = undefined;
+    if (restriction) {
+      parsedValue = restriction.parse(value);
+      if (parsedValue < restriction.min || parsedValue > restriction.max)
+        return;
+    } else {
+      parsedValue = value;
+    }
+    
     setFormState((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: parsedValue,
     }));
   };
+
+  const handleCheckboxChange = (event) => {
+    const {name, checked} = event.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+  }
 
   return (
     <div>
@@ -78,6 +134,80 @@ const CustomEnchantBuilderContent = () => {
             />
         </div>
         
+      </div>
+      <div className="content-box">
+        <h2 className="content-box-title">Enchanting Table</h2>
+        <div className="field-container">
+          <CheckboxField
+            label="Enabled"
+            description="Wether this enchant should appear in enchanting tables"
+            name="in_enchanting_table"
+            checked={formState.in_enchanting_table}
+            onChange={handleCheckboxChange}
+          />
+          {formState.in_enchanting_table &&
+            <InputField
+              label="Weight"
+              description="The likeliness of this enchantment appearing in enchanting tables [1:1024]"
+              placeholder=""
+              type="number"
+              name="weight"
+              value={formState.weight}
+              onChange={handleChange}
+              min={1}
+              max={1024}
+            />
+          }
+        </div>
+
+        {formState.in_enchanting_table && 
+          <div>
+            <div className="field-container">
+              <InputField
+                  label="Minimum Cost Base"
+                  description="The minimum possible cost for this enchantment at level I"
+                  placeholder=""
+                  type="number"
+                  name="min_cost_base"
+                  value={formState.min_cost_base}
+                  onChange={handleChange}
+                />
+                <InputField
+                  label="Minimum Cost Increment"
+                  description="The amount of levels added to the minimum for each level above level I"
+                  placeholder=""
+                  type="number"
+                  name="min_cost_incr"
+                  value={formState.min_cost_incr}
+                  onChange={handleChange}
+                />
+            </div>  
+
+            <div className="field-container">
+              <InputField
+                  label="Maximum Cost Base"
+                  description="The maximum possible cost for this enchantment at level I"
+                  placeholder=""
+                  type="number"
+                  name="max_cost_base"
+                  value={formState.max_cost_base}
+                  onChange={handleChange}
+                />
+                <InputField
+                  label="Maximum Cost Increment"
+                  description="The amount of levels added to the maximum for each level above level I"
+                  placeholder=""
+                  type="number"
+                  name="max_cost_incr"
+                  value={formState.max_cost_incr}
+                  onChange={handleChange}
+                />
+            </div>  
+          </div>
+        }
+        <div className="content-box">
+          <h2 className="content-box-title">Triggers</h2>
+        </div>
       </div>
     </div>
   );
