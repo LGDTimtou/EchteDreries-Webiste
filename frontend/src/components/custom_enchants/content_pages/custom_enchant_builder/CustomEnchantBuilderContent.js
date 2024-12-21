@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
-import { versions, enchantment_targets, enchantment_tags, enchantments, triggers } from "../../../../data";
+import { versions, enchantment_targets, enchantment_tags, enchantments, triggers, command_parameters } from "../../../../data";
 import AddableSelectField from "../AddableSelectField";
 import CheckboxField from "../CheckboxField";
 import TriggerSelectField from "./TriggerSelectField";
+import LevelCreationField from "./LevelCreationField"
 
 
 
@@ -35,7 +36,7 @@ const restrictions = {
     min: 0,
     max: 30,
     parse: (n) => parseInt(n)
-  },
+  }
 }
 
 
@@ -50,6 +51,15 @@ const CustomEnchantBuilderContent = () => {
     min_cost_incr: 1,
     max_cost_base: 5,
     max_cost_incr: 1,
+    levels: [
+      {
+        cooldown: 60,
+        chance: 100,
+        cancel_event: false,
+        commands: []
+      }
+    ],
+    triggers: []
   });
 
   const handleChange = (event) => {    
@@ -57,7 +67,7 @@ const CustomEnchantBuilderContent = () => {
 
     const restriction = restrictions[name];
     let parsedValue = undefined;
-    if (restriction) {
+    if (restriction && value.trim() !== "") {
       parsedValue = restriction.parse(value);
       if (parsedValue < restriction.min || parsedValue > restriction.max)
         return;
@@ -85,6 +95,15 @@ const CustomEnchantBuilderContent = () => {
       [name]: values,
     }));
   }
+
+  const filteredParameters = () => {
+    return command_parameters.filter((parameter) =>
+      parameter.triggers.includes("global") ||
+      parameter.triggers.some((trigger) => formState.triggers.map((trigger) => trigger.name).includes(trigger))
+    );
+  };
+
+  
 
   return (
     <div>
@@ -225,6 +244,16 @@ const CustomEnchantBuilderContent = () => {
             onChange={handleAddableSelectboxChange}
           />
         </div>
+
+        <div className="content-box">
+          <h2 className="content-box-title">Levels</h2>
+          <LevelCreationField
+            levels={formState.levels}
+            parameters={filteredParameters()}
+            onChange={(value) => setFormState((prevState) => ({...prevState, levels: value}))}
+          />
+        </div>
+
         <p>{JSON.stringify(formState, null, '\t')}</p>
       </div>
     </div>

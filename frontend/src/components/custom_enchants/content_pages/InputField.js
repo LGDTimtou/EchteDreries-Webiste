@@ -7,10 +7,7 @@ const InputField = ({
   name, 
   value, 
   onChange, 
-  description, 
-  min, 
-  max, 
-  step = 1 
+  description
 }) => {
   
   return (
@@ -29,7 +26,6 @@ const InputField = ({
         name={name}
         value={value}
         onChange={onChange}
-        {...(type === "number" && { min, max, step })}
       />
     </div>
   );

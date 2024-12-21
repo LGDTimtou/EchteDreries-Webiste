@@ -170,7 +170,7 @@ const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
             ×
             </button>
 
-            <p> - {trigger.description}</p>
+            <p className="minecraft-gray"> - {trigger.description}</p>
 
             {/* Trigger Conditions or Fallback */}
             {trigger.condition_type !== null ? (

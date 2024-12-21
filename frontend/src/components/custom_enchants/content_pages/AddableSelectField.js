@@ -109,10 +109,11 @@ const AddableSelectField = ({ name, label, description, options, values = [], on
           </div>
         ))}
         <div className="field-actions" ref={dropdownRef}>
-          
-          <button className="add-btn" onClick={handleAddClick}>
-          +
-          </button>
+          {(availableOptions.length !== 0 || searchQuery !== "" || customOptionsAllowed) && 
+            <button className="add-btn" onClick={handleAddClick}>
+            +
+            </button>
+          }
           
           {dropdownVisible && (
             <div className="dropdown-options">

@@ -5,10 +5,12 @@
   color: var(--text-secondary);
   text-align: center;
   line-height: 1.6;
+  font-family: 'Minecraft', monospace;
 }
 
 
 .content-box-title {
+  font-family: 'Minecraft', monospace;
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--highlight-color);
@@ -19,6 +21,7 @@
 }
 
 .trigger-title {
+  font-family: 'Minecraft', monospace;
   font-size: 1.25rem;
   font-weight: bold;
   color: var(--highlight-color);
@@ -37,7 +40,59 @@
   white-space: nowrap;
 }
 
-p {
+.minecraft {
+  font-family: 'Minecraft', monospace;
+}
+
+.minecraft-gray {
   font-family: 'Minecraft', monospace;
   color: var(--text-secondary);
+}
+
+.parameters-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.parameters-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--highlight-color);
+  margin-bottom: 10px;
+  padding-left: 10px;
+  font-family: 'Minecraft', monospace;
+}
+
+.parameters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parameter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.parameter-item:last-child {
+  border-bottom: none;
+}
+
+.parameter-name {
+  font-family: 'Minecraft', monospace;
+  color: #4caf50; /* Highlight color for the parameter name */
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.parameter-description {
+  font-family: 'Minecraft', monospace;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
