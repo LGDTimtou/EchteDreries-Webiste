@@ -1,6 +1,7 @@
 import React from "react";
 import InputField from "../InputField";
 import CheckboxField from "../CheckboxField";
+import SelectField from "../SelectField";
 
 const restrictions = {
     cooldown: {
@@ -16,8 +17,6 @@ const restrictions = {
 }
 
 const LevelField = ({ id, level, onChange, onRemove }) => {
-    
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -47,6 +46,34 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
         };
         onChange(id, updatedLevel);
       }
+
+
+    const handleAddCommand = () => {
+        const updatedCommands = [
+            ...level.commands,
+            { type: "command", value: ""}
+        ]
+        onChange(id, { ...level, commands: updatedCommands});
+    };
+
+    const handleRemoveCommand = (index) => {
+        const updatedCommands = level.commands.filter((_, i) => i !== index);
+        onChange(id, { ...level, commands: updatedCommands });
+    };
+
+    const handleCommandChange = (index, e) => {
+        const {name, value} = e.target;
+        console.log(e.target);
+        console.log(value);
+        
+        
+        const updatedCommands = level.commands.map((cmd, i) =>
+            i === index ? { ...cmd, [name]: value } : cmd
+        );
+        console.log(updatedCommands);
+        
+        onChange(id, { ...level, commands: updatedCommands });
+    };
 
 
     return (
@@ -89,6 +116,47 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
             />
         </div>
         <p className="minecraft">Commands:</p>
+        {level.commands.map((command, index) => (
+                <div key={index} className="field-container">
+                    <SelectField
+                        label="Instruction Type: "
+                        description="The type of instruction you want to execute"
+                        options={[{name: "command", label: "Command"}, {name: "delay", label: "Delay"}]}
+                        name="type"
+                        value={command.type}
+                        onChange={(e) => handleCommandChange(index, e)}
+                    
+                    />
+                    {command.type === "delay" ? (
+                        <InputField
+                            label="Delay: "
+                            description="A delay in seconds before the next command is executed"
+                            placeholder=""
+                            type="number"
+                            name="value"
+                            value={command.value}
+                            onChange={(e) => handleCommandChange(index, e)}
+                        />
+                    ) : (
+                        <InputField
+                            label="Command: "
+                            description="The Minecraft command to be executed by the console"
+                            name="value"
+                            value={command.value}
+                            onChange={(e) => handleCommandChange(index, e)}
+                        />
+                    )}
+                    <button
+                        className="remove-btn"
+                        onClick={() => handleRemoveCommand(index)}
+                    >
+                        ×
+                    </button>
+                </div>
+            ))}
+            <button className="add-btn" onClick={handleAddCommand}>
+                + Add Command
+            </button>
 
 
     </div>

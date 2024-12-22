@@ -43,7 +43,7 @@ const SelectField = ({ label, description, options, name, value, onChange }) => 
         onChange={onChange}
       >
         {options.map((option, index) => (
-          <option key={index} value={option.value}>
+          <option key={index} value={option.name}>
             {option.label}
           </option>
         ))}
