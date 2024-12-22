@@ -119,5 +119,35 @@
     position: relative; /* Add this to make the dropdown align correctly */
   }
 
-  
+  .command-card {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    column-gap: 15px;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.command-card-column {
+  flex-direction: column;
+}
+
+.textarea-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.command-card textarea {
+  width: 95%;
+  margin-top: 10px;
+}
+
   

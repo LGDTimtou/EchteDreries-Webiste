@@ -2,6 +2,7 @@ import React from "react";
 import InputField from "../InputField";
 import CheckboxField from "../CheckboxField";
 import SelectField from "../SelectField";
+import ResizableTextArea from "../ResizableTextAreaField";
 
 const restrictions = {
     cooldown: {
@@ -63,12 +64,8 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
 
     const handleCommandChange = (index, e) => {
         const {name, value} = e.target;
-        console.log(e.target);
-        console.log(value);
-        
-        
         const updatedCommands = level.commands.map((cmd, i) =>
-            i === index ? { ...cmd, [name]: value } : cmd
+            i === index ? { ...cmd, [name]: value.replace(/[\r\n]+/g, " ") } : cmd
         );
         console.log(updatedCommands);
         
@@ -78,7 +75,7 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
 
     return (
     <div className="trigger-card">
-        <h3 className="trigger-title">Level {id + 1}</h3>
+        <h3 className="subsection-title">‎ Level {id + 1}</h3>
         
         {id !== 0 && (
             <button
@@ -100,7 +97,7 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
             />
             <InputField
                 label="Chance"
-                description="The chance of the commands being executed each time the enchantment is triggered ]0:100]"
+                description="The chance of the commands being executed every time the enchantment is triggered ]0:100]"
                 placeholder=""
                 type="number"
                 name="chance"
@@ -115,17 +112,19 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
                 onChange={handleCheckboxChange}
             />
         </div>
-        <p className="minecraft">Commands:</p>
-        {level.commands.map((command, index) => (
-                <div key={index} className="field-container">
+        <h4 className="commands-title">‎ Instructions:</h4>
+            {level.commands.map((command, index) => (
+                <div key={index} className={`command-card ${command.type === "command" ? "command-card-column" : ""}`}>
                     <SelectField
                         label="Instruction Type: "
                         description="The type of instruction you want to execute"
-                        options={[{name: "command", label: "Command"}, {name: "delay", label: "Delay"}]}
+                        options={[
+                            { name: "command", label: "Command" },
+                            { name: "delay", label: "Delay" },
+                        ]}
                         name="type"
                         value={command.type}
                         onChange={(e) => handleCommandChange(index, e)}
-                    
                     />
                     {command.type === "delay" ? (
                         <InputField
@@ -138,26 +137,26 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
                             onChange={(e) => handleCommandChange(index, e)}
                         />
                     ) : (
-                        <InputField
+                        <ResizableTextArea
                             label="Command: "
-                            description="The Minecraft command to be executed by the console"
+                            description="The Minecraft command to be executed by the console (new lines will be replaced with spaces)"
                             name="value"
                             value={command.value}
                             onChange={(e) => handleCommandChange(index, e)}
                         />
                     )}
                     <button
-                        className="remove-btn"
+                        className="remove-btn-command"
                         onClick={() => handleRemoveCommand(index)}
                     >
                         ×
                     </button>
+                    
                 </div>
             ))}
-            <button className="add-btn" onClick={handleAddCommand}>
-                + Add Command
+            <button className="add-btn-text" onClick={handleAddCommand}>
+                + Add Instruction
             </button>
-
 
     </div>
   );

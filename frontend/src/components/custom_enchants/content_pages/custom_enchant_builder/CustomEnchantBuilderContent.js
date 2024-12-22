@@ -9,7 +9,26 @@ import TriggerSelectField from "./TriggerSelectField";
 import LevelCreationField from "./LevelCreationField"
 
 
-
+const defaultFormState = {
+  minecraft_version: versions[0],
+  enchantment_name: "",
+  anvil_cost: 2,
+  in_enchanting_table: true,
+  weight: 10,
+  min_cost_base: 2,
+  min_cost_incr: 1,
+  max_cost_base: 5,
+  max_cost_incr: 1,
+  levels: [
+    {
+      cooldown: 60,
+      chance: 100,
+      cancel_event: false,
+      commands: []
+    }
+  ],
+  triggers: []
+}
 
 const restrictions = {
   weight: {
@@ -41,26 +60,7 @@ const restrictions = {
 
 
 const CustomEnchantBuilderContent = () => {
-  const [formState, setFormState] = useState({
-    minecraft_version: versions[0],
-    enchantment_name: "",
-    anvil_cost: 2,
-    in_enchanting_table: true,
-    weight: 10,
-    min_cost_base: 2,
-    min_cost_incr: 1,
-    max_cost_base: 5,
-    max_cost_incr: 1,
-    levels: [
-      {
-        cooldown: 60,
-        chance: 100,
-        cancel_event: false,
-        commands: []
-      }
-    ],
-    triggers: []
-  });
+  const [formState, setFormState] = useState(defaultFormState);
 
   const handleChange = (event) => {    
     const { name, value } = event.target;
@@ -102,6 +102,13 @@ const CustomEnchantBuilderContent = () => {
       parameter.triggers.some((trigger) => formState.triggers.map((trigger) => trigger.name).includes(trigger))
     );
   };
+
+  const clearAllInput = () => {
+    const confirmed = window.confirm("Are you sure you want to clear all inputs?");
+    if (confirmed) {
+        setFormState(defaultFormState);
+    }
+  }
 
   
 
@@ -253,8 +260,20 @@ const CustomEnchantBuilderContent = () => {
             onChange={(value) => setFormState((prevState) => ({...prevState, levels: value}))}
           />
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div className="content-box">
+          <h2 className="content-box-title">Output</h2>
+          <button className="add-btn-text" onClick={""}>
+            Get Yaml Output
+          </button>
+          <button className="add-btn-text red" onClick={clearAllInput}>
+            Clear All Input
+          </button>
+        </div>
 
-        <p>{JSON.stringify(formState, null, '\t')}</p>
       </div>
     </div>
   );

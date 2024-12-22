@@ -23,7 +23,7 @@ const LevelCreationField = ({ onChange, levels, parameters }) => {
   return (
     <div>
         <div className="parameters-section">
-            <p className="parameters-title">Usable Command Parameters:</p>
+            <p className="subsection-title">‎ Usable Command Parameters:</p>
             <div className="parameters-list">
             {parameters.map((parameter) => (
                 <div key={parameter.name} className="parameter-item">
@@ -48,8 +48,8 @@ const LevelCreationField = ({ onChange, levels, parameters }) => {
         ))}
 
         <div className="add-trigger-section">
-            <button className="add-btn" onClick={handleAddLevelClick}>
-            +
+            <button className="add-btn-text" onClick={handleAddLevelClick}>
+            + Add Level
             </button>
         </div>
     </div>

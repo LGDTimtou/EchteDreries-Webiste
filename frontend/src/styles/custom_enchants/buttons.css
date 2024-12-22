@@ -22,14 +22,15 @@
   }
   
   .remove-btn {
+    align-self: center; /* Vertically align with other items */
+    margin-left: 10px; /* Separate it from form fields */
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 1.2rem;
-    margin-left: 8px;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: color 0.2s;
-  }
+    transition: color 0.2s ease, transform 0.2s ease;
+}
   
   .remove-btn:hover {
     color: #ff4d4d;
@@ -41,6 +42,7 @@
   }
   
   .add-btn {
+    font-family: 'Minecraft', monospace;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,3 +120,53 @@
     transform: scale(1.1); /* Slight zoom on hover */
   }
   
+  .add-btn-text {
+    font-family: 'Minecraft', monospace;
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 8px;
+    font-size: 0.9rem;
+    color: #000000;
+    background: linear-gradient(135deg, #4caf50, #43a047);
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+}
+
+.add-btn-text:hover {
+    color: #fff;  
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.remove-btn-command {
+  position: absolute; /* Position relative to the .command-card */
+  top: 10px; /* Adjust spacing from the top */
+  right: 10px;
+  align-self: center; /* Vertically align with other items */
+  margin-left: 10px; /* Separate it from form fields */
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.remove-btn-command:hover {
+  color: #ff4d4d;
+}
+
+
+.red {
+  color: #000000;
+  background: #ff4d4d;
+}
+
+.red:hover {
+  color: #ffffff;
+  background: #ff4d4d;
+  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.4);
+}

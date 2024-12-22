@@ -160,7 +160,7 @@ const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
       {triggers.map((trigger) => (
         <div key={trigger.name} className="trigger-card">
             {/* Trigger Title */}
-            <h3 className="trigger-title">{trigger.label}</h3>
+            <h3 className="subsection-title">{trigger.label}</h3>
 
             {/* Remove Button */}
             <button
@@ -190,8 +190,8 @@ const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
         ))}
 
       <div className="add-trigger-section" ref={dropdownRef}>
-        <button className="add-btn" onClick={handleAddTriggerClick}>
-          +
+        <button className="add-btn-text" onClick={handleAddTriggerClick}>
+          + Add Trigger
         </button>
         {dropdownVisible && (
           <div className="dropdown-options">
