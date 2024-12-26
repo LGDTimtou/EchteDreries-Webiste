@@ -150,4 +150,19 @@
   margin-top: 10px;
 }
 
-  
+.error-list {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #ffeded; /* Light red background */
+  border: 1px solid #ff4d4d; /* Red border */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 77, 77, 0.2); /* Subtle shadow */
+}
+
+.error-item {
+  font-family: 'Minecraft', monospace;
+  font-size: 1rem;
+  color: #b30000; /* Darker red for text */
+  margin-bottom: 8px;
+  line-height: 1.5;
+}

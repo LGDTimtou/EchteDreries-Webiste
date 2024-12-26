@@ -42,16 +42,16 @@ wolf_summoner:
 
   triggers:
     right_click_item: []
-  cooldown_message: '&dYou have to wait %time_left% to spawn your wolfs again!'
+  cooldown_message: "&dYou have to wait %time_left% to spawn your wolfs again!"
   levels:
-    '1':
+    "1":
       cooldown: 120
       commands:
         - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
           Attacker\""}
         - delay 15
         - kill @e[type=wolf,name="%player%s Attacker"]
-    '2':
+    "2":
       commands:
         - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
           Attacker\""}
@@ -59,7 +59,7 @@ wolf_summoner:
           Attacker\""}
         - delay 30
         - kill @e[type=wolf,name="%player%s Attacker"]
-    '3':
+    "3":
       commands:
         - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
           Attacker\""}
@@ -81,7 +81,7 @@ silencium:
       max_cost_base: 10
       max_cost_incr: 11
     anvil_cost: 2
-    conflicts_with: [ ]
+    conflicts_with: []
     tags:
       in_enchanting_table: true
       treasure: true
@@ -100,7 +100,6 @@ silencium:
     3:
       chance: 100
 
-
 lightweight:
   enabled: true
   definition:
@@ -112,7 +111,7 @@ lightweight:
       max_cost_base: 10
       max_cost_incr: 11
     anvil_cost: 2
-    conflicts_with: [ ]
+    conflicts_with: []
     tags:
       in_enchanting_table: true
       treasure: true
@@ -131,7 +130,6 @@ lightweight:
     3:
       chance: 30
 
-
 diamond_fish:
   enabled: true
   definition:
@@ -143,7 +141,7 @@ diamond_fish:
       max_cost_base: 10
       max_cost_incr: 11
     anvil_cost: 2
-    conflicts_with: [ ]
+    conflicts_with: []
     tags:
       in_enchanting_table: true
       treasure: true
@@ -178,7 +176,7 @@ absorb:
       max_cost_base: 10
       max_cost_incr: 11
     anvil_cost: 2
-    conflicts_with: [ ]
+    conflicts_with: []
     tags:
       in_enchanting_table: true
       treasure: true
@@ -211,12 +209,12 @@ rage:
       max_cost_base: 10
       max_cost_incr: 11
     anvil_cost: 2
-    conflicts_with: [ ]
+    conflicts_with: []
     tags:
       in_enchanting_table: true
       treasure: true
       tradeable: true
-    targets: [ armor_torso ]
+    targets: [armor_torso]
 
   triggers:
     take_damage_from_entity: []
@@ -226,7 +224,7 @@ rage:
       chance: 10
       commands:
         - 'tellraw %player% {"text": "You have been enraged with strength I", "color": "green"}'
-        - 'effect give %player% minecraft:strength 5'
+        - "effect give %player% minecraft:strength 5"
     2:
       chance: 20
     3:
@@ -235,12 +233,12 @@ rage:
       chance: 40
       commands:
         - 'tellraw %player% {"text": "You have been enraged with strength II", "color": "green"}'
-        - 'effect give %player% minecraft:strength 5 1'
+        - "effect give %player% minecraft:strength 5 1"
     5:
       chance: 50
       commands:
         - 'tellraw %player% {"text": "You have been enraged with strength III", "color": "green"}'
-        - 'effect give %player% minecraft:strength 5 2'
+        - "effect give %player% minecraft:strength 5 2"
 
 head_hunter:
   enabled: True
@@ -253,7 +251,7 @@ head_hunter:
       max_cost_base: 10
       max_cost_incr: 11
     anvil_cost: 2
-    conflicts_with: [ ]
+    conflicts_with: []
     tags:
       in_enchanting_table: true
       treasure: true
@@ -273,3 +271,29 @@ head_hunter:
     3:
       chance: 25
 
+wolf_hunter:
+  enabled: true
+  definition:
+    max_level: 1
+    anvil_cost: 2
+    conflicts_with: []
+    targets: []
+    tags:
+      in_enchanting_table: true
+    enchanting_table:
+      weight: 10
+      min_cost_base: 2
+      min_cost_incr: 1
+      max_cost_base: 5
+      max_cost_incr: 1
+  triggers:
+    block_damaged: []
+  levels:
+    "1":
+      cancel_event: false
+      cooldown: 60
+      chance: 100
+      commands: []
+  cooldown_message:
+    "&7You, &6%player%&7, have to wait %time_left% before you can
+    use %enchantment% again!"

@@ -3,7 +3,6 @@ import "../../../styles/custom_enchants/CustomEnchants.css";
 
 
 const AddableSelectField = ({ name, label, description, options, values = [], onChange, customOptionsAllowed }) => {
-  const [selectedItems, setSelectedItems] = useState(values);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [customOption, setCustomOption] = useState("");
@@ -18,18 +17,18 @@ const AddableSelectField = ({ name, label, description, options, values = [], on
   };
 
   const handleOptionClick = (option) => {
-    setSelectedItems((prev) => {
-      const isOverridden = prev.some((item) => item.overrides.includes(option.name));
-      if (isOverridden) return prev;
-  
-      const newSelectedItems = [
-        ...prev.filter((item) => !option.overrides.includes(item.name)),
+    let newSelectedItems = undefined;
+    const isOverridden = values.some((item) => item.overrides.includes(option.name));
+    if (isOverridden) 
+      newSelectedItems = values;
+    else {
+      newSelectedItems = [
+        ...values.filter((item) => !option.overrides.includes(item.name)),
         option,
       ];
+    }
   
-      onChange(name, newSelectedItems);
-      return newSelectedItems;
-    });
+    onChange(name, newSelectedItems);
     setDropdownVisible(false);
     setCustomOption("");
   };
@@ -41,12 +40,8 @@ const AddableSelectField = ({ name, label, description, options, values = [], on
   };
 
   const handleRemove = (item) => {
-    setSelectedItems((prev) => {
-      const newSelectedItems = prev.filter((selected) => selected.name !== item.name)
-      
-      onChange(name, newSelectedItems);
-      return newSelectedItems;
-    });
+    const newSelectedItems = values.filter((selected) => selected.name !== item.name)
+    onChange(name, newSelectedItems);
   };
 
   const handleKeyDown = (event) => {
@@ -80,8 +75,8 @@ const AddableSelectField = ({ name, label, description, options, values = [], on
 
   const availableOptions = safeOptions.filter(
     (option) =>
-      !selectedItems.some((selected) => selected.name === option.name) &&
-      !selectedItems.some((selected) => selected.overrides.includes(option.name)) &&
+      !values.some((selected) => selected.name === option.name) &&
+      !values.some((selected) => selected.overrides.includes(option.name)) &&
       option.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -93,13 +88,13 @@ const AddableSelectField = ({ name, label, description, options, values = [], on
       </label>
       <button
         className="clear-all-btn"
-        onClick={() => selectedItems.forEach((item) => handleRemove(item))} // Clear all selected items
+        onClick={() => onChange(name, [])}
         title="Clear All"
       >
         🗑️
       </button>
       <div className="addable-select-field">
-        {selectedItems.map((item) => (
+        {values.map((item) => (
           <div className="tag" key={item.name}>
             {item.label}
             { item.description && <div className="tooltip-bubble">{item.description}</div>}

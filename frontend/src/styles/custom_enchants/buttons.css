@@ -141,6 +141,15 @@
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
 }
 
+.copy-success {
+  background: linear-gradient(135deg, #2196F3, #1976D2); /* Blauwe kleur voor succes */
+  color: white;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5); /* subtiele glow */
+  transform: scale(1.05); /* kleine schaalvergroting */
+  pointer-events: none; /* voorkom dat de knop opnieuw geklikt kan worden tijdens de feedback */
+}
+
+
 .remove-btn-command {
   position: absolute; /* Position relative to the .command-card */
   top: 10px; /* Adjust spacing from the top */

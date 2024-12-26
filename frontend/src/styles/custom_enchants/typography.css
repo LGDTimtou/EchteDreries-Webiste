@@ -96,3 +96,12 @@
   margin-bottom: 10px;
   margin-top: 20px;
 }
+
+.error-list-title {
+  font-family: 'Minecraft', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff4d4d; /* Bright red color */
+  margin-bottom: 10px;
+  text-align: center;
+}

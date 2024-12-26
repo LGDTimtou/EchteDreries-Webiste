@@ -4,37 +4,14 @@ import CheckboxField from "../CheckboxField";
 import SelectField from "../SelectField";
 import ResizableTextArea from "../ResizableTextAreaField";
 
-const restrictions = {
-    cooldown: {
-        min: 0,
-        max: Infinity,
-        parse: (n) => parseInt(n)
-    },
-    chance: {
-        min: 0.01,
-        max: 100,
-        parse: (n) => parseFloat(n)
-    }
-}
 
 const LevelField = ({ id, level, onChange, onRemove }) => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        const restriction = restrictions[name]
-        let parsedValue = undefined
-        if (restriction && value.trim() !== "") {
-            parsedValue = restriction.parse(value)
-            if (parsedValue < restriction.min || parsedValue > restriction.max)
-                return
-        } else {
-            parsedValue = value
-        }
-
-
         const updatedLevel = {
             ...level,
-            [name]: parsedValue,
+            [name]: value,
         };
         onChange(id, updatedLevel);
     };
@@ -64,10 +41,10 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
 
     const handleCommandChange = (index, e) => {
         const {name, value} = e.target;
+
         const updatedCommands = level.commands.map((cmd, i) =>
             i === index ? { ...cmd, [name]: value.replace(/[\r\n]+/g, " ") } : cmd
         );
-        console.log(updatedCommands);
         
         onChange(id, { ...level, commands: updatedCommands });
     };
@@ -116,7 +93,7 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
             {level.commands.map((command, index) => (
                 <div key={index} className={`command-card ${command.type === "command" ? "command-card-column" : ""}`}>
                     <SelectField
-                        label="Instruction Type: "
+                        label="Instruction Type"
                         description="The type of instruction you want to execute"
                         options={[
                             { name: "command", label: "Command" },
@@ -128,7 +105,7 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
                     />
                     {command.type === "delay" ? (
                         <InputField
-                            label="Delay: "
+                            label="Delay"
                             description="A delay in seconds before the next command is executed"
                             placeholder=""
                             type="number"
@@ -138,7 +115,7 @@ const LevelField = ({ id, level, onChange, onRemove }) => {
                         />
                     ) : (
                         <ResizableTextArea
-                            label="Command: "
+                            label="Command"
                             description="The Minecraft command to be executed by the console (new lines will be replaced with spaces)"
                             name="value"
                             value={command.value}

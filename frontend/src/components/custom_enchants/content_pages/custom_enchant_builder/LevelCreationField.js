@@ -1,5 +1,6 @@
 import React from "react";
 import LevelField from "./LevelField";
+import { command_functions } from "../../../../data/commandFunctions";
 
 const LevelCreationField = ({ onChange, levels, parameters }) => {
 
@@ -30,6 +31,19 @@ const LevelCreationField = ({ onChange, levels, parameters }) => {
                 <span className="parameter-name">%{parameter.name}%</span>
                 <span className="parameter-description">
                     {parameter.description}
+                </span>
+                </div>
+            ))}
+            </div>
+        </div>
+        <div className="parameters-section">
+            <p className="subsection-title">‎ Usable Command Functions:</p>
+            <div className="parameters-list">
+            {command_functions.map((command_function) => (
+                <div key={command_function.name} className="parameter-item">
+                <span className="parameter-name">{command_function.name}</span>
+                <span className="parameter-description">
+                    {command_function.description}
                 </span>
                 </div>
             ))}

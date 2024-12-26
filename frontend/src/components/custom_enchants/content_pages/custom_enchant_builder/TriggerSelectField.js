@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import AddableSelectField from "../AddableSelectField";
-import { prime_causes, damage_causes, trigger_condition_descriptions } from "../../../../data";
+import { prime_causes } from "../../../../data/primeCauses";
+import { damage_causes } from "../../../../data/damageCauses";
+import { trigger_condition_descriptions } from "../../../../data/triggerConditionDescriptions";
 
 const triggerConditionMap = {
     block: {
