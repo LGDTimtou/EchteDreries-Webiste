@@ -1,4 +1,4 @@
-const triggers_nested = {
+export const triggers_nested = {
     "armor": [
         {
             "name": "armor_de_equip",

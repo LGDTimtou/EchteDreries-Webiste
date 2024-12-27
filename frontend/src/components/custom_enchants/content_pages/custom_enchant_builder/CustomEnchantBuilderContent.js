@@ -102,8 +102,6 @@ const CustomEnchantBuilderContent = () => {
     setTimeout(() => setCopySuccess(false), 3000);
   } 
 
-  
-
   return (
     <div>
       <p className="content-intro">

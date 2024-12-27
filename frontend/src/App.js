@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/custom_enchants" element={<CustomEnchants />} />
+        <Route path="/custom_enchants/*" element={<CustomEnchants />} />
       </Routes>
     </Router>
   );
