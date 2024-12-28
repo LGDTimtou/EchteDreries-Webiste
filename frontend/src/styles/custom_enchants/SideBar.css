@@ -47,9 +47,10 @@
 
 .sidebar-section-title.level-2 {
     font-size: 12px;
-    font-weight: 400;
-    padding: 8px 10px;
-    margin-left: 30px;
+    font-weight: 500;
+    height: 20px;
+    padding: 6px 10px;
     border-radius: 10px;
+    margin-left: 30px;
     cursor: pointer;
 }

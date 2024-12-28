@@ -13,8 +13,8 @@ const Sidebar = ({ sections, activePage, setActivePage }) => {
     }));
   };
 
-  const handleItemClick = (item) => {
-    setActivePage(item);
+  const handleItemClick = (section) => {
+    setActivePage(section.link);
   };
 
   const renderSections = (sections, parentIndex = "", level = 0) =>
@@ -32,7 +32,7 @@ const Sidebar = ({ sections, activePage, setActivePage }) => {
               if (section.subsections && section.subsections.length > 0) {
                 toggleSection(currentIndex);
               } else {
-                handleItemClick(section.title);
+                handleItemClick(section);
               }
             }}
           >
