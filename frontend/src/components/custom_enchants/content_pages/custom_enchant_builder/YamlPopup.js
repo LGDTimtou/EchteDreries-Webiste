@@ -1,13 +1,21 @@
 import React, { useState } from "react";
+import { yamlToJson } from "../../../../util/yamlParser";
 
 const YamlPopup = ({ isVisible, onClose, onConfirm }) => {
   const [yamlContent, setYamlContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (yamlContent.trim()) {
-      onConfirm(yamlContent);
-      setYamlContent("");
-      onClose();
+      setIsLoading(true);
+      try {
+        const parsedJson = await yamlToJson(yamlContent);
+        onConfirm(parsedJson);
+        setYamlContent("");
+        onClose();
+      } finally {
+        setIsLoading(false);
+      }
     } else {
       alert("Please enter valid YAML content.");
     }
@@ -25,8 +33,12 @@ const YamlPopup = ({ isVisible, onClose, onConfirm }) => {
             onChange={(e) => setYamlContent(e.target.value)}
           />
           <div className="popup-buttons">
-            <button className="add-btn-text" onClick={handleConfirm}>
-              Confirm
+            <button 
+              className="add-btn-text btn-dis" 
+              onClick={handleConfirm}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Confirm"}
             </button>
             <button className="add-btn-text red" onClick={onClose}>
               Cancel

@@ -196,4 +196,77 @@ export const command_parameters = [
       description: "The player that caused the damage",
       triggers: ["take_damage_from_player"],
     },
+    {
+      name: "entity_x",
+      description: "The x coordinate of the entity in question",
+      triggers: [
+        "damage_animal",
+        "damage_entity",
+        "damage_mob",
+        "fishing_rod_caught",
+        "kill_animal",
+        "kill_entity",
+        "kill_mob",
+        "projectile_hit_entity",
+        "take_damage_from_entity",
+        "take_damage_from_mob"
+      ]
+    },
+    {
+      name: "entity_y",
+      description: "The y coordinate of the entity in question",
+      triggers: [
+        "damage_animal",
+        "damage_entity",
+        "damage_mob",
+        "fishing_rod_caught",
+        "kill_animal",
+        "kill_entity",
+        "kill_mob",
+        "projectile_hit_entity",
+        "take_damage_from_entity",
+        "take_damage_from_mob"
+      ]
+    },
+    {
+      name: "entity_z",
+      description: "The z coordinate of the entity in question",
+      triggers: [
+        "damage_animal",
+        "damage_entity",
+        "damage_mob",
+        "fishing_rod_caught",
+        "kill_animal",
+        "kill_entity",
+        "kill_mob",
+        "projectile_hit_entity",
+        "take_damage_from_entity",
+        "take_damage_from_mob"
+      ]
+    },
+    {
+      name: "entity_tag",
+      description: "A tag to reference the entity in question, e.g. @e[tag=%entity_tag%]",
+      triggers: [
+        "damage_animal",
+        "damage_entity",
+        "damage_mob",
+        "fishing_rod_caught",
+        "kill_animal",
+        "kill_entity",
+        "kill_mob",
+        "projectile_hit_entity",
+        "take_damage_from_entity",
+        "take_damage_from_mob"
+      ]
+    },
+    {
+      name: "projectile_tag",
+      description: "A tag to reference the projectile in question, e.g. @e[tag=%projectile_tag%]",
+      triggers: [
+        "projectile_hit_block",
+        "projectile_hit_entity",
+        "projectile_land"
+      ]
+    }
   ];

@@ -12,33 +12,11 @@ import AddableSelectField from "../AddableSelectField";
 import CheckboxField from "../CheckboxField";
 import TriggerSelectField from "./TriggerSelectField";
 import LevelCreationField from "./LevelCreationField"
+import YamlPopup from "./YamlPopup";
 import { checkConstraints } from "../../../../util/constraints";
-import { jsonToYaml } from "../../../../util/yamlParser";
+import { defaultFormState, jsonToYaml } from "../../../../util/yamlParser";
 
-const defaultFormState = {
-  minecraft_version: versions[0],
-  enchantment_name: "",
-  targets: [],
-  tags: [],
-  conflicts_with: [],
-  anvil_cost: 2,
-  in_enchanting_table: true,
-  weight: 10,
-  min_cost_base: 2,
-  min_cost_incr: 1,
-  max_cost_base: 5,
-  max_cost_incr: 1,
-  cooldown_message: "&7You, &6%player%&7, have to wait %time_left% or %time_left_full_out% before you can use %enchantment% again!",
-  levels: [
-    {
-      cooldown: 60,
-      chance: 100,
-      cancel_event: false,
-      commands: []
-    }
-  ],
-  triggers: []
-}
+
 
 
 const CustomEnchantBuilderContent = () => {
@@ -48,6 +26,7 @@ const CustomEnchantBuilderContent = () => {
   });
   const [errors, setErrors] = useState([]);
   const [copySucces, setCopySuccess] = useState(false);
+  const [isPopupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('formState', JSON.stringify(formState));
@@ -107,6 +86,14 @@ const CustomEnchantBuilderContent = () => {
       <p className="content-intro">
         Use this builder to easily create custom enchantments
       </p>
+      <button className="add-btn-text" onClick={() => setPopupVisible(true)}>
+          Load Enchantment
+        </button>
+        <YamlPopup
+          isVisible={isPopupVisible}
+          onClose={() => setPopupVisible(false)}
+          onConfirm={(input) => setFormState(input)}
+        />
       <div className="content-box">
         <h2 className="content-box-title">General Information</h2>
         <SelectField 
@@ -237,6 +224,7 @@ const CustomEnchantBuilderContent = () => {
         <div className="content-box">
           <h2 className="content-box-title">Triggers</h2>
           <TriggerSelectField
+            selectedTriggers={formState.triggers}
             triggerOptions={triggers}
             version={formState.minecraft_version}
             onChange={handleAddableSelectboxChange}
@@ -286,6 +274,7 @@ const CustomEnchantBuilderContent = () => {
           )}
         </div>
       </div>
+      <p>{JSON.stringify(formState)}</p>
     </div>
   );
 };

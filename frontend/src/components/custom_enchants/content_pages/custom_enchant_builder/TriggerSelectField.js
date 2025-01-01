@@ -32,7 +32,7 @@ const triggerConditionMap = {
     prime_cause: {
         content: prime_causes,
     },
-    damage_causes: {
+    damage_cause: {
         content: damage_causes,
     },
     empty: {
@@ -42,8 +42,39 @@ const triggerConditionMap = {
 
 }
 
-const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
-  const [triggers, setTriggers] = useState([]);
+export const loadTrigger = async (trigger, version) => {
+  const triggerCondition = triggerConditionMap[trigger.trigger_conditions]
+  let conditions = undefined;
+  
+  if (triggerCondition === undefined)
+    return { name: trigger.name, label: trigger.label, description: trigger.description, fields: [], conditions: [], condition_type: null }
+
+  if (triggerCondition.content) {
+      conditions = triggerCondition.content
+  } else {
+      const response = await fetch(
+          `/minecraft-data/data/pc/${version}/${triggerCondition.file}`
+      );
+      if (!response.ok)
+      throw new Error(`Failed to fetch ${triggerCondition.file}`);
+
+      const jsonData = await response.json()
+      conditions = jsonData.filter(triggerCondition.filter).map((item) => ({
+          name: item.name,
+          label: item.displayName
+      }));
+  }
+  return {
+    name: trigger.name,
+    label: trigger.label,
+    description: trigger.description,
+    fields: [],
+    conditions,
+    condition_type: trigger.trigger_conditions
+  }
+}
+
+const TriggerSelectField = ({ selectedTriggers, triggerOptions, version, onChange }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [loadingConditions, setLoadingConditions] = useState(null);
@@ -60,74 +91,38 @@ const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
     if (trigger.trigger_conditions) {
         setLoadingConditions(trigger.name);
         try {
-            const triggerCondition = triggerConditionMap[trigger.trigger_conditions]
-            let conditions = undefined;
-            if (triggerCondition.content) {
-                conditions = triggerCondition.content
-            } else {
-                const response = await fetch(
-                    `/minecraft-data/data/pc/${version}/${triggerCondition.file}`
-                );
-                if (!response.ok)
-                throw new Error(`Failed to fetch ${triggerCondition.file}`);
-    
-                const jsonData = await response.json()
-                conditions = jsonData.filter(triggerCondition.filter).map((item) => ({
-                    name: item.name,
-                    label: item.displayName
-                }));
-            }
+            const newTrigger = await loadTrigger(trigger, version)
             
-            setTriggers((prev) => {
-                const newTriggers = [
-                    ...prev,
-                    {
-                        name: trigger.name,
-                        label: trigger.label,
-                        description: trigger.description,
-                        fields: [],
-                        conditions,
-                        condition_type: trigger.trigger_conditions
-                    },
-                ]
+            const newTriggers = [
+              ...selectedTriggers,
+              newTrigger
+            ]
 
-                onChange("triggers", newTriggers);
-                return newTriggers;
-
-                });
+            onChange("triggers", newTriggers);
         } catch (err) {
             console.error("Error loading trigger condition:", err);
         } finally {
             setLoadingConditions(null);
         }
     } else {
-        setTriggers((prev) => {
-            const newTriggers = [
-                ...prev,
-                { name: trigger.name, label: trigger.label, description: trigger.description, fields: [], conditions: [], condition_type: null },
-            ]
-            onChange("triggers", newTriggers);
-            return newTriggers;
-        });
+        const newTriggers = [
+          ...selectedTriggers,
+          { name: trigger.name, label: trigger.label, description: trigger.description, fields: [], conditions: [], condition_type: null },
+        ]
+        onChange("triggers", newTriggers);
     }
   };
 
   const handleRemoveTrigger = (triggerName) => {
-    setTriggers((prev) => {
-        const newTriggers = prev.filter((trigger) => trigger.name !== triggerName);
-        onChange("triggers", newTriggers);
-        return newTriggers;
-    });
+    const newTriggers = selectedTriggers.filter((trigger) => trigger.name !== triggerName);
+    onChange("triggers", newTriggers);
   };
 
   const handleAddField = (triggerName, fields) => {
-    setTriggers((prev) => {
-        const newTriggers = prev.map((trigger) =>
-            trigger.name === triggerName ? { ...trigger, fields } : trigger
-        )
-        onChange("triggers", newTriggers);
-        return newTriggers;
-    });
+    const newTriggers = selectedTriggers.map((trigger) =>
+      trigger.name === triggerName ? { ...trigger, fields } : trigger
+    )
+    onChange("triggers", newTriggers);
   };
 
   const handleKeyDown = (event) => {
@@ -153,13 +148,13 @@ const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
   }, []);
 
   const filteredTriggerOptions = triggerOptions.filter((option) =>
-    !triggers.some(trigger => trigger.name === option.name) &&
+    !selectedTriggers.some(trigger => trigger.name === option.name) &&
     option.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div>
-      {triggers.map((trigger) => (
+      {selectedTriggers.map((trigger) => (
         <div key={trigger.name} className="trigger-card">
             {/* Trigger Title */}
             <h3 className="subsection-title">{trigger.label}</h3>
@@ -186,7 +181,7 @@ const TriggerSelectField = ({ triggerOptions, version, onChange }) => {
                 customOptionsAllowed={true}
             />
             ) : (
-            <p className="trigger-fallback">No trigger conditions available.</p>
+            <p className="minecraft">No trigger conditions available.</p>
             )}
         </div>
         ))}

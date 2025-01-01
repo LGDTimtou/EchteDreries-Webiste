@@ -76,7 +76,7 @@ const AddableSelectField = ({ name, label, description, options, values = [], on
   const availableOptions = safeOptions.filter(
     (option) =>
       !values.some((selected) => selected.name === option.name) &&
-      !values.some((selected) => selected.overrides.includes(option.name)) &&
+      (!option.overrides || !values.some((selected) => selected.overrides?.includes(option.name))) &&
       option.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
