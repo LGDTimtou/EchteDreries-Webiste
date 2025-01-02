@@ -80,7 +80,12 @@ export const command_parameters = [
     {
       name: "item",
       description: "The type of the item in question",
-      triggers: ["left_click_item", "right_click_item", "fishing_rod_caught"],
+      triggers: ["left_click_item", "right_click_item"],
+    },
+    {
+      name: "caught",
+      description: "The entity that was caught with your fishing rod",
+      triggers: ["fishing_rod_caught"]
     },
     {
       name: "animal",

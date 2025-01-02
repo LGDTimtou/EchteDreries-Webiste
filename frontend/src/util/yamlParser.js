@@ -117,9 +117,29 @@ export const yamlToJson = async (yaml) => {
     }
 
     const tempTriggers = triggers.filter((trigger) => (Object.keys(enchantmentData.triggers) ?? []).includes(trigger.name))
-    formState.triggers = await Promise.all(tempTriggers.map((trigger) => loadTrigger(trigger, formState.minecraft_version)));
+    formState.triggers = await Promise.all(
+        tempTriggers.map(async (trigger) => {
+            const loadedTrigger = await loadTrigger(trigger, formState.minecraft_version);
+            return {
+                ...loadedTrigger,
+                fields: enchantmentData.triggers[trigger.name].map(field => 
+                    ({name: field, label: toTitleCase(field), overrides: []})
+                ) || []
+            };
+        })
+    );
 
-    //formState.levels = enchantmentData.levels.map((level) => )
+    if (enchantmentData.levels) {
+        formState.levels = Object.values(enchantmentData.levels).map((level) => ({ 
+            cooldown: level.cooldown, 
+            chance: level.chance, 
+            cancel_event: level.cancel_event, 
+            commands: level.commands.map(cmd => cmd.startsWith("delay ")
+                ? { type: "delay", value: cmd.split(" ")[1] }
+                : { type: "command", value: cmd })
+            
+        }))
+    }
     
     return formState;
 }

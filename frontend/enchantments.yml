@@ -97,8 +97,10 @@ silencium:
       cancel_event: true
     2:
       chance: 50
+      cancel_event: true
     3:
       chance: 100
+      cancel_event: true
 
 lightweight:
   enabled: true

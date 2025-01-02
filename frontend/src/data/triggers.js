@@ -3,12 +3,12 @@ export const triggers_nested = {
         {
             "name": "armor_de_equip",
             "description": "Triggered when a certain armor piece is taken off",
-            "trigger_conditions": "armor"
+            "trigger_conditions": "armor",
         },
         {
             "name": "armor_equip",
             "description": "Triggered when a certain armor piece is put on",
-            "trigger_conditions": "armor"
+            "trigger_conditions": "armor",
         }
     ],
     "block": [
@@ -98,7 +98,8 @@ export const triggers_nested = {
         {
             "name": "fishing_rod_caught",
             "description": "Triggered when something is caught using a fishing rod",
-            "trigger_conditions": "item"
+            "trigger_conditions": "item",
+            "example": "fishing_rod_caught"
         },
         {
             "name": "fishing_rod_hit_player",
@@ -166,7 +167,8 @@ export const triggers_nested = {
         {
             "name": "arrow_land",
             "description": "Triggered when an arrow lands",
-            "trigger_conditions": null
+            "trigger_conditions": null,
+            "example": "projectile_land"
         },
         {
             "name": "projectile_hit_block",
@@ -181,7 +183,8 @@ export const triggers_nested = {
         {
             "name": "projectile_land",
             "description": "Triggered when a projectile lands",
-            "trigger_conditions": null
+            "trigger_conditions": null,
+            "example": "projectile_land"
         },
         {
             "name": "snowball_hit_block",

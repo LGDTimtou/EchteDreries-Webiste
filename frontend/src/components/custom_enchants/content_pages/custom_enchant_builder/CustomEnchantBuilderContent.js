@@ -274,7 +274,6 @@ const CustomEnchantBuilderContent = () => {
           )}
         </div>
       </div>
-      <p>{JSON.stringify(formState)}</p>
     </div>
   );
 };

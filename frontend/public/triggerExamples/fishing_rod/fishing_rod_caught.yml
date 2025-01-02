@@ -1,0 +1,44 @@
+diamond_fish:
+  version: 1.21.3
+  enabled: true
+  definition:
+    max_level: 3
+    anvil_cost: 2
+    conflicts_with: []
+    targets:
+      - fishing_rod
+    tags:
+      in_enchanting_table: true
+    enchanting_table:
+      weight: 10
+      min_cost_base: 2
+      min_cost_incr: 1
+      max_cost_base: 5
+      max_cost_incr: 1
+  triggers:
+    fishing_rod_caught: []
+  levels:
+    1:
+      cancel_event: false
+      cooldown: 0
+      chance: "0.01"
+      commands:
+        - give %player% minecraft:diamond 1
+        - 'tellraw %player% {"text": "You fished up a diamond fish!!", "color":
+          "green"}'
+    2:
+      cancel_event: false
+      cooldown: 0
+      chance: "0.05"
+      commands:
+        - give %player% minecraft:diamond 1
+        - 'tellraw %player% {"text": "You fished up a diamond fish!!", "color":
+          "green"}'
+    3:
+      cancel_event: false
+      cooldown: 0
+      chance: "0.1"
+      commands:
+        - give %player% minecraft:diamond 1
+        - 'tellraw %player% {"text": "You fished up a diamond fish!!", "color":
+          "green"}'

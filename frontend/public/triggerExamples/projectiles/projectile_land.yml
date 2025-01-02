@@ -1,0 +1,42 @@
+explosive:
+  version: 1.21.3
+  enabled: true
+  definition:
+    max_level: 3
+    anvil_cost: 2
+    conflicts_with: []
+    targets:
+      - bow
+      - crossbow
+    tags:
+      in_enchanting_table: true
+    enchanting_table:
+      weight: 10
+      min_cost_base: 2
+      min_cost_incr: 1
+      max_cost_base: 5
+      max_cost_incr: 1
+  triggers:
+    projectile_land: []
+  levels:
+    "1":
+      cancel_event: false
+      cooldown: 0
+      chance: 20
+      commands:
+        - kill @e[tag=%projectile_tag%]
+        - summon creeper %projectile_x% %projectile_y% %projectile_z% {ExplosionRadius:3,Fuse:0,ActiveEffects:[{Id:14,Amplifier:0,Duration:999999,ShowParticles:0b}]}
+    "2":
+      cancel_event: false
+      cooldown: 0
+      chance: 50
+      commands:
+        - kill @e[tag=%projectile_tag%]
+        - summon creeper %projectile_x% %projectile_y% %projectile_z% {ExplosionRadius:3,Fuse:0,ActiveEffects:[{Id:14,Amplifier:0,Duration:999999,ShowParticles:0b}]}
+    "3":
+      cancel_event: false
+      cooldown: 0
+      chance: 100
+      commands:
+        - kill @e[tag=%projectile_tag%]
+        - summon creeper %projectile_x% %projectile_y% %projectile_z% {ExplosionRadius:3,Fuse:0,ActiveEffects:[{Id:14,Amplifier:0,Duration:999999,ShowParticles:0b}]}
