@@ -1,35 +1,94 @@
 /* General Content Container */
-.content-container {
-    display: flex;
-    flex-direction: column; /* Allows children to stack vertically */
-    align-items: center;
-    justify-content: flex-start; /* Align content to the top */
-    flex: 1;
-    background-color: #0d1117;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 100%; /* Ensures it takes up the full width of the container */
-    max-width: 100%;
-    min-height: 100vh; /* Ensures it takes full viewport height */
-  }
-  
-  /* General Content Page Container */
-  .content-page {
-    background-color: var(--bg-secondary);
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  
+/* Ensure the entire app takes up the full viewport height */
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main layout container without scroll */
 .custom-enchants-container {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-  }
+  display: flex;
+  flex: 1;
+  overflow: hidden; /* Prevent scrolling on the main container */
+}
+
+/* Sidebar with independent scrolling */
+.sidebar-container {
+  width: 250px;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  background-color: #161b22;
+  overflow-y: scroll; /* Ensure vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  border-right: 1px solid var(--border-color);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
+  background-color: #0d1117;
+}
+
+.sidebar-container::-webkit-scrollbar {
+  width: 0; /* Hides the scrollbar */
+  height: 0;
+}
+
+.sidebar-container {
+  scrollbar-width: none; /* Firefox: hide scrollbar */
+}
+
+/* Content area with independent scrolling */
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height) - var(--footer-height)); /* Full height minus header/footer */
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #0d1117;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
+}
+
+.content-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background-color: #30363d; /* Dark gray for the scrollbar thumb */
+  border-radius: 8px;
+  border: 2px solid #0d1117; /* Border matches background for a clean look */
+}
+
+.content-container::-webkit-scrollbar-thumb:hover {
+  background-color: #484f58; /* Lighter gray on hover */
+}
+
+.content-container::-webkit-scrollbar-track {
+  background-color: #161b22; /* Slightly darker background for the track */
+  border-radius: 8px;
+}
+
+/* For Firefox */
+.content-container {
+  scrollbar-width: thin;
+  scrollbar-color: #30363d #161b22;
+}
+
+.empty-div {
+  flex: 1;
+}
+
+/* Content page styling */
+.content-page {
+  flex: 1;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  max-width: 800px;
+  width: 100%;
+  margin: 20px auto;
+  animation: fadeIn 0.3s ease-in-out;
+}
 
   .field-container {
     display: flex;

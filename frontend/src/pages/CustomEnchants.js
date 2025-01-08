@@ -75,20 +75,25 @@ const CustomEnchants = () => {
     <div className="app-container">
       <Header />
       <div className="custom-enchants-container">
-        <Sidebar
-          sections={sections}
-          activePage={activePage}
-          setActivePage={handlePageChange}
-        />
+        <div className="sidebar-container">
+          <Sidebar
+            sections={sections}
+            activePage={activePage}
+            setActivePage={handlePageChange}
+          />
+        </div>
         <div className="content-container">
           <div className="content-page">
             <Routes>
               {renderRoutes(sections)}
             </Routes>
           </div>
+          <div className="empty-div"/>
+
+          <Footer bgColor="#0d1117" accentColor="#30363d" />
         </div>
       </div>
-      <Footer bgColor="#0d1117" accentColor="#30363d" />
+      
     </div>
   );
 };
