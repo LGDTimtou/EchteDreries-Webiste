@@ -1,0 +1,47 @@
+wolf_summoner:
+  enabled: true
+  definition:
+    max_level: 3
+    enchanting_table:
+      weight: 10
+      min_cost_base: 1
+      min_cost_incr: 11
+      max_cost_base: 10
+      max_cost_incr: 11
+    anvil_cost: 2
+    targets: [weapon]
+    conflicts_with: []
+    tags:
+      in_enchanting_table: true
+      treasure: true
+      tradeable: true
+
+  triggers:
+    right_click_item: []
+  cooldown_message: "&dYou have to wait %time_left% to spawn your wolfs again!"
+  levels:
+    "1":
+      cooldown: 120
+      commands:
+        - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
+          Attacker\""}
+        - delay 15
+        - kill @e[type=wolf,name="%player%s Attacker"]
+    "2":
+      commands:
+        - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
+          Attacker\""}
+        - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
+          Attacker\""}
+        - delay 30
+        - kill @e[type=wolf,name="%player%s Attacker"]
+    "3":
+      commands:
+        - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
+          Attacker\""}
+        - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
+          Attacker\""}
+        - summon minecraft:wolf %x% %y% %z% {Owner:%player%, CustomName:"\"%player%s
+          Attacker\""}
+        - delay 60
+        - kill @e[type=wolf,name="%player%s Attacker"]

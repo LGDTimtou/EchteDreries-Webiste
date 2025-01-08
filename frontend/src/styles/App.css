@@ -1,0 +1,9 @@
+:root {
+  --font-primary: 'Montserrat', sans-serif;
+  --bg-color: #1A1A2E; /* Dark indigo */
+  --text-color: #EAEAEA; /* Soft white */
+  --accent-color: #E94560; /* Bright red/pink */
+  --link-color: #4FFBF1; /* Vibrant cyan */
+  --hover-color: #533483; /* Purple */
+}
+

@@ -1,0 +1,189 @@
+/* Buttons */
+.content-button {
+    display: inline-block;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #58a6ff, #1f6feb);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .content-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 166, 255, 0.4);
+  }
+  
+  .content-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.5);
+  }
+  
+  .remove-btn {
+    align-self: center; /* Vertically align with other items */
+    margin-left: 10px; /* Separate it from form fields */
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+  
+  .remove-btn:hover {
+    color: #ff4d4d;
+  }
+  
+  .field-actions {
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  .add-btn {
+    font-family: 'Minecraft', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* Smaller size */
+    height: 24px; /* Smaller size */
+    background-color: #28a745; /* Green color */
+    color: #ffffff; /* Text color */
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    font-size: 1rem; /* Adjusted font size */
+    transition: all 0.3s ease-in-out; /* Smooth interaction */
+  }
+  
+  .add-btn:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4); /* Subtle shadow on hover */
+  }
+  
+  .add-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Focus ring for accessibility */
+  }
+
+  .trigger-remove-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem; /* Slightly larger for visibility */
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .trigger-remove-btn:hover {
+    color: #ff4d4d; /* Highlight color on hover */
+  }
+
+  .batch-add-btn-inline {
+    position: absolute;
+    top: 10%; /* Center vertically */
+    right: 2px; /* Position slightly inside the input field */
+    background-color: var(--highlight-color-hover); /* Match your app's highlight color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px; /* Compact size */
+    font-size: 0.85rem; /* Slightly smaller font */
+    font-weight: bold; /* Make the text stand out */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Hover and Focus Effects */
+  .batch-add-btn-inline:hover {
+    transform: scale(1.1);
+  }
+
+  .clear-all-btn {
+    position: absolute;
+    top: 7px; /* Align with the top of the component */
+    right: 1px; /* Adjust spacing from the right */
+    background: none;
+    border: none;
+    font-size: 1.2rem; /* Slightly larger icon size */
+    cursor: pointer;
+    color: red; /* Match text color */
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .clear-all-btn:hover {
+    color: #ff4d4d; /* Highlight color for hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+  }
+  
+  .add-btn-text {
+    font-family: 'Minecraft', monospace;
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 8px;
+    font-size: 0.9rem;
+    color: #000000;
+    background: linear-gradient(135deg, #4caf50, #43a047);
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+}
+
+.btn-dis:disabled {
+  background: linear-gradient(135deg, #bdbdbd, #9e9e9e); /* Grey gradient */
+  color: #6d6d6d; /* Muted text color */
+  cursor: not-allowed; /* Show "not allowed" cursor */
+  opacity: 0.7; /* Reduce visibility */
+  box-shadow: none; /* Remove any shadows if applicable */
+}
+
+.add-btn-text:hover {
+    color: #fff;  
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.copy-success {
+  background: linear-gradient(135deg, #2196F3, #1976D2); /* Blauwe kleur voor succes */
+  color: white;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5); /* subtiele glow */
+  transform: scale(1.05); /* kleine schaalvergroting */
+  pointer-events: none; /* voorkom dat de knop opnieuw geklikt kan worden tijdens de feedback */
+}
+
+
+.remove-btn-command {
+  position: absolute; /* Position relative to the .command-card */
+  top: 10px; /* Adjust spacing from the top */
+  right: 10px;
+  align-self: center; /* Vertically align with other items */
+  margin-left: 10px; /* Separate it from form fields */
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.remove-btn-command:hover {
+  color: #ff4d4d;
+}
+
+
+.red {
+  color: #000000;
+  background: #ff4d4d;
+}
+
+.red:hover {
+  color: #ffffff;
+  background: #ff4d4d;
+  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.4);
+}

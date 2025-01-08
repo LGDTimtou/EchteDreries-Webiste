@@ -1,0 +1,31 @@
+silencium:
+  enabled: true
+  definition:
+    max_level: 3
+    enchanting_table:
+      weight: 10
+      min_cost_base: 1
+      min_cost_incr: 11
+      max_cost_base: 10
+      max_cost_incr: 11
+    anvil_cost: 2
+    conflicts_with: []
+    tags:
+      in_enchanting_table: true
+      treasure: true
+      tradeable: true
+    targets:
+      - armor_feet
+
+  triggers:
+    sculk_sensor_activated: []
+  levels:
+    1:
+      chance: 30
+      cancel_event: true
+    2:
+      chance: 50
+      cancel_event: true
+    3:
+      chance: 100
+      cancel_event: true
