@@ -1,9 +1,14 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import "../../../styles/custom_enchants/CustomEnchants.css";
 import { command_parameters } from "../../../data/commandParameters";
+import { yamlToJson } from "../../../util/yamlParser";
 
 const TriggerContent = ({ category, triggerName, trigger }) => {
+    const navigate = useNavigate();
+
     const [copySucces, setCopySuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
     const parameters = command_parameters.filter((param) => (param.triggers.includes(trigger.name)))
     const gifUrl = `/triggerExamples/${category}/${trigger.example}.gif`;
     const yamlUrl = `/triggerExamples/${category}/${trigger.example}.yml`;
@@ -21,6 +26,23 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
         setTimeout(() => setCopySuccess(false), 3000);
       } catch (err) {
         console.error(err.message);
+      }
+    }
+
+    const loadYamlOutputInBuilder = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(yamlUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to load YAML file: ${yamlUrl}`);
+        }
+        const text = await response.text();
+        const json = await yamlToJson(text);
+        navigate("/custom_enchants/custom_enchant_builder", { state: { json } });
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -73,6 +95,13 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
             disabled={copySucces}
           >
             {copySucces ? "Output copied to clipboard!" : "Copy Example Enchantment"}
+          </button>
+          <button
+            className="add-btn-text btn-dis"
+            onClick={loadYamlOutputInBuilder}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Load Example in Builder"}
           </button>
         </div>
         )}

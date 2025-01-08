@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useLocation } from "react-router-dom";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import "../../../../styles/custom_enchants/CustomEnchants.css";
@@ -20,6 +21,7 @@ import { defaultFormState, jsonToYaml } from "../../../../util/yamlParser";
 
 
 const CustomEnchantBuilderContent = () => {
+  const location = useLocation();
   const [formState, setFormState] = useState(() => {
     const storedData = localStorage.getItem('formState');
     return storedData ? JSON.parse(storedData) : defaultFormState
@@ -30,7 +32,13 @@ const CustomEnchantBuilderContent = () => {
 
   useEffect(() => {
     localStorage.setItem('formState', JSON.stringify(formState));
-}, [formState]);
+  }, [formState]);
+
+  useEffect(() => {
+    if (location.state?.json) {
+      setFormState(location.state.json);
+    }
+  }, [location.state]);
 
 
   const handleChange = (event) => {    
