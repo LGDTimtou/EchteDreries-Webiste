@@ -7,9 +7,11 @@ const Footer = ({ bgColor, accentColor }) => {
         "--accent-color": accentColor,
     };
 
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className="footer" style={footerStyle}>
-            <p>&copy; 2024 Timon Coucke. All rights reserved.</p>
+            <p>&copy; {currentYear} Timon Coucke. All rights reserved.</p>
         </footer>
     );
 };

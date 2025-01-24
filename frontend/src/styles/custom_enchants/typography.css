@@ -105,3 +105,14 @@
   margin-bottom: 10px;
   text-align: center;
 }
+
+.base-url {
+  color: var(--text-primary); /* Matching highlight color */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.base-url:hover {
+  color: var(--highlight-color); /* A bright yellow color for contrast */
+  text-shadow: 0px 0px 5px rgba(255, 204, 0, 0.8); /* Glow effect */
+}

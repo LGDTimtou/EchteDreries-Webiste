@@ -23,12 +23,11 @@
 }
 
 .project-text {
-    flex: 1;
+    flex: 1.2;
     text-align: left;
 }
 
 .project-text h3 {
-    color: var(--accent-color); /* Use the accent color for headers */
     font-size: 1.8rem;
     margin-bottom: 10px;
 }
@@ -55,10 +54,80 @@
     height: auto;
     border-radius: 10px; /* Add slight rounding for aesthetics */
     transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
-    border: 2px solid var(--hover-color); /* Cyan border to make the image stand out */
 }
 
 .project-image img:hover {
     transform: scale(1.05); /* Gentle zoom effect */
     border-color: var(--accent-color); /* Highlight image border with accent color on hover */
+}
+
+.read-more-button {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 15px;
+    transition: all 0.3s ease;
+    margin-left: 5px;
+    vertical-align: middle;
+    position: relative
+}
+
+/* Move the text inside the button */
+.read-more-button span {
+    position: relative;
+    top: -4px; /* Adjust this value to move the text up or down */
+}
+
+/* Tooltip text */
+.read-more-button::after {
+    content: "Read more";
+    position: absolute;
+    top: -35px; /* Adjusts vertical position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none; /* Prevents tooltip from interfering with hover */
+}
+
+/* Tooltip arrow */
+.read-more-button::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show the tooltip on hover */
+.read-more-button:hover::after,
+.read-more-button:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+.read-more-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Slight hover effect */
+    color: #ffffff;
+    border-color: #ff7a59; /* Optional: Add hover color to match your theme */
 }

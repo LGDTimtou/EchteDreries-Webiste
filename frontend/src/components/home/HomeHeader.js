@@ -7,7 +7,11 @@ const Header = () => {
             <div className="home-header-container">
                 <div className="home-header-left">
                     <h1 className="name">Timon Coucke</h1>
-                    <p className="tagline">Software Engineer | Computer Science @ UGent</p>
+                    <p className="tagline"><strong>Software Engineer | Computer Science @{" "}
+                        <a class="base-url" href="https://www.ugent.be/en" target="_blank" rel="noopener noreferrer">
+                            UGent
+                        </a></strong>
+                    </p>
                 </div>
                 <nav className="home-header-right">
                     <ul className="nav-links">
