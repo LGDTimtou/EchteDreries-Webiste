@@ -53,7 +53,7 @@ export const loadTrigger = async (trigger, version) => {
       conditions = triggerCondition.content
   } else {
       const response = await fetch(
-          `/minecraft-data/data/pc/${version}/${triggerCondition.file}`
+          `/minecraft_data/${version}/${triggerCondition.file}`
       );
       if (!response.ok)
       throw new Error(`Failed to fetch ${triggerCondition.file}`);
