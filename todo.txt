@@ -1,4 +1,2 @@
-bug with trigger select
 antd bekijken
 tailwind bekijken
-cline installeren

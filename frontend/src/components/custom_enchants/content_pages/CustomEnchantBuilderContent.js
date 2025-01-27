@@ -1,21 +1,21 @@
 import React, {useState, useEffect} from "react";
 import { useLocation } from "react-router-dom";
-import InputField from "../InputField";
-import SelectField from "../SelectField";
-import "../../../../styles/custom_enchants/CustomEnchants.css";
-import { versions } from "../../../../data/versions";
-import { enchantment_targets } from "../../../../data/targets"
-import { enchantment_tags } from "../../../../data/tags"
-import { enchantments } from "../../../../data/enchantments";
-import { triggers } from "../../../../data/triggers";
-import { command_parameters } from "../../../../data/commandParameters";
-import AddableSelectField from "../AddableSelectField";
-import CheckboxField from "../CheckboxField";
-import TriggerSelectField from "./TriggerSelectField";
-import LevelCreationField from "./LevelCreationField"
-import YamlPopup from "./YamlPopup";
-import { checkConstraints } from "../../../../util/constraints";
-import { defaultFormState, jsonToYaml } from "../../../../util/yamlParser";
+import InputField from "../custom_components/InputField";
+import SelectField from "../custom_components/SelectField";
+import "../../../styles/custom_enchants/CustomEnchants.css";
+import { versions } from "../../../data/versions";
+import { enchantment_targets } from "../../../data/targets"
+import { enchantment_tags } from "../../../data/tags"
+import { enchantments } from "../../../data/enchantments";
+import { triggers } from "../../../data/triggers";
+import { command_parameters } from "../../../data/commandParameters";
+import AddableSelectField from "../custom_components/AddableSelectField";
+import CheckboxField from "../custom_components/CheckboxField";
+import TriggerSelectField from "../custom_components/builder/TriggerSelectField";
+import LevelCreationField from "../custom_components/builder/LevelCreationField"
+import YamlPopup from "../custom_components/builder/YamlPopup";
+import { checkConstraints } from "../../../util/constraints";
+import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
 
 
 

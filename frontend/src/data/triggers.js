@@ -114,13 +114,43 @@ export const triggers_nested = {
             "trigger_conditions": "empty"
         },
         {
+            "name": "player_health_change_greater_than",
+            "description": "Triggered when a player's health changes and is greater than the specified value",
+            "trigger_conditions": "empty"
+        },
+        {
+            "name": "player_health_change_lesser_than",
+            "description": "Triggered when a player's health changes and is lesser than the specified value",
+            "trigger_conditions": "empty"
+        },
+        {
             "name": "player_health_decrease",
             "description": "Triggered when a player's health decreases",
             "trigger_conditions": "empty"
         },
         {
+            "name": "player_health_decrease_greater_than",
+            "description": "Triggered when a player's health decreases and is greater than the specified value",
+            "trigger_conditions": "empty"
+        },
+        {
+            "name": "player_health_decrease_lesser_than",
+            "description": "Triggered when a player's health decreases and is lesser than the specified value",
+            "trigger_conditions": "empty"
+        },
+        {
             "name": "player_health_increase",
             "description": "Triggered when a player's health increases",
+            "trigger_conditions": "empty"
+        },
+        {
+            "name": "player_health_increase_greater_than",
+            "description": "Triggered when a player's health increases and is greater than the specified value",
+            "trigger_conditions": "empty"
+        },
+        {
+            "name": "player_health_increase_lesser_than",
+            "description": "Triggered when a player's health increases and is lesser than the specified value",
             "trigger_conditions": "empty"
         }
     ],

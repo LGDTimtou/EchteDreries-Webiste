@@ -4,7 +4,7 @@ import { versions } from '../data/versions';
 import { enchantment_targets } from '../data/targets';
 import { enchantment_tags } from '../data/tags';
 import { triggers } from '../data/triggers';
-import { loadTrigger } from '../components/custom_enchants/content_pages/custom_enchant_builder/TriggerSelectField';
+import { loadTrigger } from '../components/custom_enchants/custom_components/builder/TriggerSelectField';
 
 export const defaultFormState = {
   minecraft_version: versions[0],

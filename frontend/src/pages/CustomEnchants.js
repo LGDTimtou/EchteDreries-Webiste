@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import "../styles/custom_enchants/CustomEnchants.css";
 import { triggers_nested } from "../data/triggers";
 import HomeContent from "../components/custom_enchants/content_pages/HomeContent";
-import CustomEnchantBuilderContent from "../components/custom_enchants/content_pages/custom_enchant_builder/CustomEnchantBuilderContent";
+import CustomEnchantBuilderContent from "../components/custom_enchants/content_pages/CustomEnchantBuilderContent";
 import TriggerContent from "../components/custom_enchants/content_pages/TriggerContent";
 
 const CustomEnchants = () => {
