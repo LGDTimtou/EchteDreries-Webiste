@@ -1,280 +1,325 @@
 export const triggers_nested = {
-    "armor": [
+  armor: [
+    {
+      name: "armor_de_equip",
+      description: "Triggered when an armor piece is removed or replaced.",
+      trigger_conditions: [
         {
-            "name": "armor_de_equip",
-            "description": "Triggered when a certain armor piece is taken off",
-            "trigger_conditions": "armor",
+          name: "new_armor",
+          label: "New armor piece",
+          description:
+            "The armor piece that is equipped in place of the old one. This can be 'AIR' if no new armor is equipped. Defaults to all.",
+          value_type: "armor",
         },
         {
-            "name": "armor_equip",
-            "description": "Triggered when a certain armor piece is put on",
-            "trigger_conditions": "armor",
-        }
-    ],
-    "block": [
+          name: "old_armor",
+          label: "Old armor piece",
+          description:
+            "The armor piece that was previously equipped and is now removed. Defaults to all.",
+          value_type: "armor",
+        },
+      ],
+    },
+    {
+      name: "armor_equip",
+      description:
+        "Triggered when an armor piece is equipped, whether replacing another or equipping into an empty slot.",
+      trigger_conditions: [
         {
-            "name": "block_damaged",
-            "description": "Triggered when a certain block is damaged by the player",
-            "trigger_conditions": "block"
+          name: "new_armor",
+          label: "New armor piece",
+          description:
+            "The armor piece that is being equipped. Defaults to all.",
+          value_type: "armor",
         },
         {
-            "name": "block_fertilize",
-            "description": "Triggered when a certain block is fertilized by the player",
-            "trigger_conditions": "block"
+          name: "old_armor",
+          label: "Old armor piece",
+          description:
+            "The armor piece that was replaced. Will be 'AIR' if the slot was previously empty. Defaults to all.",
+          value_type: "armor",
         },
-        {
-            "name": "block_ignite",
-            "description": "Triggered when a certain block is ignited by the player",
-            "trigger_conditions": "block"
-        },
-        {
-            "name": "block_place",
-            "description": "Triggered when a certain block is placed by the player",
-            "trigger_conditions": "block"
-        },
-        {
-            "name": "block_break",
-            "description": "Triggered when a certain block is broken by the player",
-            "trigger_conditions": "block"
-        }
-    ],
-    "block_other": [
-        {
-            "name": "activate_sculk_sensor",
-            "description": "Triggered when a sculk sensor is activated",
-            "trigger_conditions": null
-        },
-        {
-            "name": "bell_rung",
-            "description": "Triggered when a bell is rung",
-            "trigger_conditions": null
-        },
-        {
-            "name": "change_sign",
-            "description": "Triggered when a sign is changed",
-            "trigger_conditions": null
-        },
-        {
-            "name": "prime_tnt",
-            "description": "Triggered when TNT is primed",
-            "trigger_conditions": "prime_cause"
-        }
-    ],
-    "click": [
-        {
-            "name": "left_click_item",
-            "description": "Triggered when a held item is left-clicked",
-            "trigger_conditions": "item"
-        },
-        {
-            "name": "right_click_item",
-            "description": "Triggered when a held item is right-clicked",
-            "trigger_conditions": "item"
-        }
-    ],
-    "damage": [
-        {
-            "name": "damage_animal",
-            "description": "Triggered when an animal is damaged",
-            "trigger_conditions": "animal"
-        },
-        {
-            "name": "damage_entity",
-            "description": "Triggered when an entity is damaged",
-            "trigger_conditions": "entity"
-        },
-        {
-            "name": "damage_mob",
-            "description": "Triggered when a mob is damaged",
-            "trigger_conditions": "mob"
-        },
-        {
-            "name": "damage_player",
-            "description": "Triggered when a player is damaged",
-            "trigger_conditions": "empty"
-        }
-    ],
-    "fishing_rod": [
-        {
-            "name": "fishing_rod_caught",
-            "description": "Triggered when something is caught using a fishing rod",
-            "trigger_conditions": "item",
-            "example": "fishing_rod_caught"
-        },
-        {
-            "name": "fishing_rod_hit_player",
-            "description": "Triggered when a fishing rod hits a player",
-            "trigger_conditions": "empty"
-        }
-    ],
-    "health": [
-        {
-            "name": "player_health_change",
-            "description": "Triggered when a player's health changes",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_change_greater_than",
-            "description": "Triggered when a player's health changes and is greater than the specified value",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_change_lesser_than",
-            "description": "Triggered when a player's health changes and is lesser than the specified value",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_decrease",
-            "description": "Triggered when a player's health decreases",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_decrease_greater_than",
-            "description": "Triggered when a player's health decreases and is greater than the specified value",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_decrease_lesser_than",
-            "description": "Triggered when a player's health decreases and is lesser than the specified value",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_increase",
-            "description": "Triggered when a player's health increases",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_increase_greater_than",
-            "description": "Triggered when a player's health increases and is greater than the specified value",
-            "trigger_conditions": "empty"
-        },
-        {
-            "name": "player_health_increase_lesser_than",
-            "description": "Triggered when a player's health increases and is lesser than the specified value",
-            "trigger_conditions": "empty"
-        }
-    ],
-    "inventory": [
-        {
-            "name": "inventory_close",
-            "description": "Triggered when the inventory is closed",
-            "trigger_conditions": "empty"
-        }
-    ],
-    "kill": [
-        {
-            "name": "kill_animal",
-            "description": "Triggered when an animal is killed",
-            "trigger_conditions": "animal"
-        },
-        {
-            "name": "kill_entity",
-            "description": "Triggered when an entity is killed",
-            "trigger_conditions": "entity"
-        },
-        {
-            "name": "kill_mob",
-            "description": "Triggered when a mob is killed",
-            "trigger_conditions": "mob"
-        },
-        {
-            "name": "kill_player",
-            "description": "Triggered when a player is killed",
-            "trigger_conditions": "empty"
-        }
-    ],
-    "projectiles": [
-        {
-            "name": "arrow_hit_block",
-            "description": "Triggered when an arrow hits a block",
-            "trigger_conditions": "block"
-        },
-        {
-            "name": "arrow_hit_entity",
-            "description": "Triggered when an arrow hits an entity",
-            "trigger_conditions": "entity"
-        },
-        {
-            "name": "arrow_land",
-            "description": "Triggered when an arrow lands",
-            "trigger_conditions": null,
-            "example": "projectile_land"
-        },
-        {
-            "name": "projectile_hit_block",
-            "description": "Triggered when a projectile hits a block",
-            "trigger_conditions": "block"
-        },
-        {
-            "name": "projectile_hit_entity",
-            "description": "Triggered when a projectile hits an entity",
-            "trigger_conditions": "entity"
-        },
-        {
-            "name": "projectile_land",
-            "description": "Triggered when a projectile lands",
-            "trigger_conditions": null,
-            "example": "projectile_land"
-        },
-        {
-            "name": "snowball_hit_block",
-            "description": "Triggered when a snowball hits a block",
-            "trigger_conditions": "block"
-        },
-        {
-            "name": "snowball_hit_entity",
-            "description": "Triggered when a snowball hits an entity",
-            "trigger_conditions": "entity"
-        },
-        {
-            "name": "snowball_land",
-            "description": "Triggered when a snowball lands",
-            "trigger_conditions": null
-        }
-    ],
-    "take_damage": [
-        {
-            "name": "take_damage_from_entity",
-            "description": "Triggered when damage is taken from an entity",
-            "trigger_conditions": "entity"
-        },
-        {
-            "name": "take_damage_from_mob",
-            "description": "Triggered when damage is taken from a mob",
-            "trigger_conditions": "mob"
-        },
-        {
-            "name": "take_damage_from_non_entity",
-            "description": "Triggered when damage is taken from a non-entity",
-            "trigger_conditions": "damage_cause"
-        },
-        {
-            "name": "take_damage_from_player",
-            "description": "Triggered when damage is taken from a player",
-            "trigger_conditions": "empty"
-        }
-    ]
-}
+      ],
+    },
+  ],
+  block: [
+    {
+      name: "block_damaged",
+      description: "Triggered when a certain block is damaged by the player",
+      trigger_conditions: "block",
+    },
+    {
+      name: "block_fertilize",
+      description: "Triggered when a certain block is fertilized by the player",
+      trigger_conditions: "block",
+    },
+    {
+      name: "block_ignite",
+      description: "Triggered when a certain block is ignited by the player",
+      trigger_conditions: "ignite_cause",
+    },
+    {
+      name: "block_place",
+      description: "Triggered when a certain block is placed by the player",
+      trigger_conditions: "block",
+    },
+    {
+      name: "block_break",
+      description: "Triggered when a certain block is broken by the player",
+      trigger_conditions: "block",
+    },
+  ],
+  block_other: [
+    {
+      name: "activate_sculk_sensor",
+      description: "Triggered when a sculk sensor is activated",
+      trigger_conditions: null,
+    },
+    {
+      name: "bell_rung",
+      description: "Triggered when a bell is rung",
+      trigger_conditions: null,
+    },
+    {
+      name: "change_sign",
+      description: "Triggered when a sign is changed",
+      trigger_conditions: null,
+    },
+    {
+      name: "prime_tnt",
+      description: "Triggered when TNT is primed",
+      trigger_conditions: "prime_cause",
+    },
+  ],
+  click: [
+    {
+      name: "left_click_item",
+      description: "Triggered when a held item is left-clicked",
+      trigger_conditions: "item",
+    },
+    {
+      name: "right_click_item",
+      description: "Triggered when a held item is right-clicked",
+      trigger_conditions: "item",
+    },
+  ],
+  damage: [
+    {
+      name: "damage_animal",
+      description: "Triggered when an animal is damaged",
+      trigger_conditions: "animal",
+    },
+    {
+      name: "damage_entity",
+      description: "Triggered when an entity is damaged",
+      trigger_conditions: "entity",
+    },
+    {
+      name: "damage_mob",
+      description: "Triggered when a mob is damaged",
+      trigger_conditions: "mob",
+    },
+    {
+      name: "damage_player",
+      description: "Triggered when a player is damaged",
+      trigger_conditions: "empty",
+    },
+  ],
+  fishing_rod: [
+    {
+      name: "fishing_rod_caught",
+      description: "Triggered when something is caught using a fishing rod",
+      trigger_conditions: "item",
+      example: "fishing_rod_caught",
+    },
+    {
+      name: "fishing_rod_hit_player",
+      description: "Triggered when a fishing rod hits a player",
+      trigger_conditions: "empty",
+    },
+  ],
+  health: [
+    {
+      name: "player_health_change",
+      description: "Triggered when a player's health changes",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_change_greater_than",
+      description:
+        "Triggered when a player's health changes and is greater than the specified value",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_change_lesser_than",
+      description:
+        "Triggered when a player's health changes and is lesser than the specified value",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_decrease",
+      description: "Triggered when a player's health decreases",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_decrease_greater_than",
+      description:
+        "Triggered when a player's health decreases and is greater than the specified value",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_decrease_lesser_than",
+      description:
+        "Triggered when a player's health decreases and is lesser than the specified value",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_increase",
+      description: "Triggered when a player's health increases",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_increase_greater_than",
+      description:
+        "Triggered when a player's health increases and is greater than the specified value",
+      trigger_conditions: "empty",
+    },
+    {
+      name: "player_health_increase_lesser_than",
+      description:
+        "Triggered when a player's health increases and is lesser than the specified value",
+      trigger_conditions: "empty",
+    },
+  ],
+  inventory: [
+    {
+      name: "inventory_close",
+      description:
+        "Triggered when the inventory is closed (condition = inventory title)",
+      trigger_conditions: "empty",
+    },
+  ],
+  kill: [
+    {
+      name: "kill_animal",
+      description: "Triggered when an animal is killed",
+      trigger_conditions: "animal",
+    },
+    {
+      name: "kill_entity",
+      description: "Triggered when an entity is killed",
+      trigger_conditions: "entity",
+    },
+    {
+      name: "kill_mob",
+      description: "Triggered when a mob is killed",
+      trigger_conditions: "mob",
+    },
+    {
+      name: "kill_player",
+      description: "Triggered when a player is killed",
+      trigger_conditions: "empty",
+    },
+  ],
+  projectiles: [
+    {
+      name: "arrow_hit_block",
+      description: "Triggered when an arrow hits a block",
+      trigger_conditions: "block",
+    },
+    {
+      name: "arrow_hit_entity",
+      description: "Triggered when an arrow hits an entity",
+      trigger_conditions: "entity",
+    },
+    {
+      name: "arrow_land",
+      description: "Triggered when an arrow lands",
+      trigger_conditions: null,
+      example: "projectile_land",
+    },
+    {
+      name: "projectile_hit_block",
+      description: "Triggered when a projectile hits a block",
+      trigger_conditions: "block",
+    },
+    {
+      name: "projectile_hit_entity",
+      description: "Triggered when a projectile hits an entity",
+      trigger_conditions: "entity",
+    },
+    {
+      name: "projectile_land",
+      description: "Triggered when a projectile lands",
+      trigger_conditions: null,
+      example: "projectile_land",
+    },
+    {
+      name: "snowball_hit_block",
+      description: "Triggered when a snowball hits a block",
+      trigger_conditions: "block",
+    },
+    {
+      name: "snowball_hit_entity",
+      description: "Triggered when a snowball hits an entity",
+      trigger_conditions: "entity",
+    },
+    {
+      name: "snowball_land",
+      description: "Triggered when a snowball lands",
+      trigger_conditions: null,
+    },
+  ],
+  take_damage: [
+    {
+      name: "take_damage_from_entity",
+      description: "Triggered when damage is taken from an entity",
+      trigger_conditions: "entity",
+    },
+    {
+      name: "take_damage_from_mob",
+      description: "Triggered when damage is taken from a mob",
+      trigger_conditions: "mob",
+    },
+    {
+      name: "take_damage_from_non_entity",
+      description: "Triggered when damage is taken from a non-entity",
+      trigger_conditions: "damage_cause",
+    },
+    {
+      name: "take_damage_from_player",
+      description: "Triggered when damage is taken from a player",
+      trigger_conditions: "empty",
+    },
+  ],
+  movement: [
+    {
+      name: "player_sneak",
+      description: "Triggered when a player toggles sneak",
+      trigger_conditions: "block",
+    },
+  ],
+};
 
 function flattenAndAddLabels(triggersNested) {
-    const titleCase = (str) =>
-      str
-        .replace(/_/g, " ")
-        .toLowerCase()
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-  
-    const flattenedList = [];
-    Object.values(triggersNested).forEach((category) => {
-      category.forEach((item) => {
-        flattenedList.push({
-          ...item,
-          label: titleCase(item.name),
-        });
+  const titleCase = (str) =>
+    str
+      .replace(/_/g, " ")
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+  const flattenedList = [];
+  Object.values(triggersNested).forEach((category) => {
+    category.forEach((item) => {
+      flattenedList.push({
+        ...item,
+        label: titleCase(item.name),
       });
     });
-    return flattenedList;
-  }
-  
+  });
+  return flattenedList;
+}
+
 export const triggers = flattenAndAddLabels(triggers_nested);

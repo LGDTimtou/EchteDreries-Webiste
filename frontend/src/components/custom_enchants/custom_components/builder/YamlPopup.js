@@ -13,28 +13,31 @@ const YamlPopup = ({ isVisible, onClose, onConfirm }) => {
         onConfirm(parsedJson);
         setYamlContent("");
         onClose();
+      } catch (error) {
+        alert("Failed to parse YAML. Please check the syntax.");
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
     } else {
-      alert("Please enter valid YAML content.");
+      alert("Please enter YAML content.");
     }
   };
 
   return (
     isVisible && (
-      <div className="popup-overlay">
-        <div className="popup-container">
-          <h2 className="popup-title">Enter Enchantment in YAML format</h2>
+      <div className="yaml-popup-overlay">
+        <div className="yaml-popup-container">
+          <h2 className="yaml-popup-title">Enter Enchantment in YAML format</h2>
           <textarea
-            className="textarea-field popup-textarea"
+            className="textarea-field yaml-popup-textarea"
             placeholder="Paste your enchantment here..."
             value={yamlContent}
             onChange={(e) => setYamlContent(e.target.value)}
           />
-          <div className="popup-buttons">
-            <button 
-              className="add-btn-text btn-dis" 
+          <div className="yaml-popup-buttons">
+            <button
+              className="add-btn-text btn-dis"
               onClick={handleConfirm}
               disabled={isLoading}
             >
