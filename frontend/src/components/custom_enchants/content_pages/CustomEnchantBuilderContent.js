@@ -109,6 +109,9 @@ const CustomEnchantBuilderContent = () => {
     );
     if (confirmed) {
       setFormState(defaultFormState);
+      const scrollContainer = document.querySelector(".content-container");
+      if (scrollContainer)
+        scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
