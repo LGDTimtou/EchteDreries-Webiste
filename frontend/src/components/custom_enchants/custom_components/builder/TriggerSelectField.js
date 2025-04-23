@@ -12,7 +12,6 @@ const TriggerSelectField = ({
   const [triggerSearchQuery, setTriggerSearchQuery] = useState("");
   const [triggerConditionSearchQuery, setTriggerConditionSearchQuery] =
     useState("");
-  const [loadingConditions, setLoadingConditions] = useState(null);
 
   const toggleTriggerDropdown = () => {
     setOpenDropdown((prev) => (prev === "trigger" ? null : "trigger"));
@@ -72,7 +71,6 @@ const TriggerSelectField = ({
     setTriggerSearchQuery("");
 
     if (trigger.trigger_conditions) {
-      setLoadingConditions(trigger.name);
       try {
         const newTrigger = await loadTrigger(trigger, version);
 
@@ -81,8 +79,6 @@ const TriggerSelectField = ({
         onChange("triggers", newTriggers);
       } catch (err) {
         console.error("Error loading trigger condition:", err);
-      } finally {
-        setLoadingConditions(null);
       }
     } else {
       const newTriggers = [
@@ -266,11 +262,6 @@ const TriggerSelectField = ({
           </div>
         )}
       </div>
-      {loadingConditions && (
-        <div className="loading-message">
-          Loading conditions for {loadingConditions}...
-        </div>
-      )}
     </div>
   );
 };
