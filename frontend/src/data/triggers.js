@@ -574,7 +574,7 @@ export const triggers_nested = {
       description: "Triggered when the player takes damage from an entity",
       trigger_conditions: [
         {
-          name: "entity^damager",
+          name: "entity^entity",
           label: "Damaging Entity",
           description: "The entity that damaged the player. Defaults to any",
           value_type: "entity",

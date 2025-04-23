@@ -16,6 +16,11 @@ export const trigger_condition_parameters = {
     { name: "x", description: "The entity's x coordinate" },
     { name: "y", description: "The entity's y coordinate" },
     { name: "z", description: "The entity's z coordinate" },
+    {
+      name: "tag",
+      description:
+        "A temporary unique scoreboard tag added to the entity, usable in commands",
+    },
   ],
   item: [
     { name: "type", description: "The item type" },
