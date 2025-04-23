@@ -5,23 +5,21 @@
   color: var(--text-secondary);
   text-align: center;
   line-height: 1.6;
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
 }
 
-
 .content-box-title {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1.8rem;
   font-weight: 600;
   color: var(--highlight-color);
   margin-bottom: 10px;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 15px;
-  
 }
 
 .subsection-title {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--highlight-color);
@@ -30,10 +28,19 @@
   padding-bottom: 10px;
 }
 
+.subsubsection-title {
+  font-family: "Minecraft", monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--highlight-color);
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 5px;
+}
 
 .input-label {
   position: relative;
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1rem;
   color: var(--text-primary);
   margin-right: 10px;
@@ -41,11 +48,11 @@
 }
 
 .minecraft {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
 }
 
 .minecraft-gray {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   color: var(--text-secondary);
 }
 
@@ -76,20 +83,20 @@
 }
 
 .parameter-name {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   color: #4caf50; /* Highlight color for the parameter name */
   font-weight: bold;
   font-size: 1rem;
 }
 
 .parameter-description {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
 .commands-title {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1.1rem;
   font-weight: bold;
   color: var(--highlight-color);
@@ -98,7 +105,7 @@
 }
 
 .error-list-title {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1.2rem;
   font-weight: bold;
   color: #ff4d4d; /* Bright red color */

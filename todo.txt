@@ -5,5 +5,5 @@ arrow_land heeft geen project_tag parameter
 
 
 loading trigger mooier maken
-trigger conditions aanvullen
-Alle buttons bovenaan en onderaan
+
+Trigger content pagina fixen

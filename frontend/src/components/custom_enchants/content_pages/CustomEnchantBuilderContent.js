@@ -8,7 +8,10 @@ import { enchantment_targets } from "../../../data/targets";
 import { enchantment_tags } from "../../../data/tags";
 import { enchantments } from "../../../data/enchantments";
 import { triggers } from "../../../data/triggers";
-import { command_parameters } from "../../../data/commandParameters";
+import {
+  trigger_condition_parameters,
+  global_parameters,
+} from "../../../data/trigger_conditions/parameters";
 import AddableSelectField from "../custom_components/AddableSelectField";
 import CheckboxField from "../custom_components/CheckboxField";
 import TriggerSelectField from "../custom_components/builder/TriggerSelectField";
@@ -82,13 +85,22 @@ const CustomEnchantBuilderContent = () => {
   };
 
   const filteredParameters = () => {
-    return command_parameters.filter(
-      (parameter) =>
-        parameter.triggers.includes("global") ||
-        parameter.triggers.some((trigger) =>
-          formState.triggers.map((trigger) => trigger.name).includes(trigger)
-        )
-    );
+    const result = formState.triggers.map((trigger) => {
+      return {
+        name: trigger.name,
+        parameters: trigger.selected_trigger_conditions.flatMap((selected) => {
+          const [trigger_condition = "", prefix = ""] =
+            selected.name.split("^");
+          const parameters =
+            trigger_condition_parameters[trigger_condition] || [];
+          return parameters.map((parameter) => ({
+            ...parameter,
+            name: prefix ? `${prefix}_${parameter.name}` : parameter.name,
+          }));
+        }),
+      };
+    });
+    return [global_parameters, ...result];
   };
 
   const clearAllInput = () => {
@@ -115,9 +127,36 @@ const CustomEnchantBuilderContent = () => {
       <p className="content-intro">
         Use this builder to easily create custom enchantments
       </p>
-      <button className="add-btn-text" onClick={() => setPopupVisible(true)}>
-        Load Enchantment
-      </button>
+      <div className="content-box">
+        <button className="add-btn-text" onClick={() => setPopupVisible(true)}>
+          Load Enchantment YAML
+        </button>
+        <button
+          className={`add-btn-text ${copySucces ? "copy-success" : ""}`}
+          onClick={getYamlOutput}
+          disabled={copySucces}
+        >
+          {copySucces ? "Output copied to clipboard!" : "Get YAML Output"}
+        </button>
+        <button className="add-btn-text red" onClick={clearAllInput}>
+          Clear All Input
+        </button>
+
+        {errors.length > 0 && (
+          <div className="error-list">
+            <h3 className="error-list-title">
+              Please fix the following errors:
+            </h3>
+            <ul>
+              {errors.map((error, index) => (
+                <li key={index} className="error-item">
+                  {error}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
       <YamlPopup
         isVisible={isPopupVisible}
         onClose={() => setPopupVisible(false)}
@@ -271,7 +310,7 @@ const CustomEnchantBuilderContent = () => {
           />
           <LevelCreationField
             levels={formState.levels}
-            parameters={filteredParameters()}
+            parametersPerTrigger={filteredParameters()}
             onChange={(value) =>
               setFormState((prevState) => ({ ...prevState, levels: value }))
             }
@@ -282,11 +321,17 @@ const CustomEnchantBuilderContent = () => {
         <div className="content-box">
           <h2 className="content-box-title">Output</h2>
           <button
+            className="add-btn-text"
+            onClick={() => setPopupVisible(true)}
+          >
+            Load Enchantment YAML
+          </button>
+          <button
             className={`add-btn-text ${copySucces ? "copy-success" : ""}`}
             onClick={getYamlOutput}
             disabled={copySucces}
           >
-            {copySucces ? "Output copied to clipboard!" : "Get Yaml Output"}
+            {copySucces ? "Output copied to clipboard!" : "Get YAML Output"}
           </button>
           <button className="add-btn-text red" onClick={clearAllInput}>
             Clear All Input
