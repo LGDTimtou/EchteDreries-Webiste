@@ -9,6 +9,7 @@ const TriggerSelectField = ({
   onChange,
 }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [triggerLoading, setTriggerLoading] = useState(false);
   const [triggerSearchQuery, setTriggerSearchQuery] = useState("");
   const [triggerConditionSearchQuery, setTriggerConditionSearchQuery] =
     useState("");
@@ -69,6 +70,7 @@ const TriggerSelectField = ({
   const handleSelectTrigger = async (trigger) => {
     setOpenDropdown(null);
     setTriggerSearchQuery("");
+    setTriggerLoading(true);
 
     if (trigger.trigger_conditions) {
       try {
@@ -79,6 +81,8 @@ const TriggerSelectField = ({
         onChange("triggers", newTriggers);
       } catch (err) {
         console.error("Error loading trigger condition:", err);
+      } finally {
+        setTriggerLoading(false);
       }
     } else {
       const newTriggers = [
@@ -229,7 +233,7 @@ const TriggerSelectField = ({
       })}
 
       <div className="add-trigger-section">
-        <button className="add-btn-text" onClick={toggleTriggerDropdown}>
+        <button className="add-btn-text btn-dis" onClick={toggleTriggerDropdown} disabled={triggerLoading}>
           + Add Trigger
         </button>
         {openDropdown === "trigger" && (
