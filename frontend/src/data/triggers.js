@@ -636,6 +636,74 @@ export const triggers_nested = {
       ],
     },
   ],
+  chat: [
+    {
+      name: "player_chat",
+      description: "Triggered when the player sends a chat message",
+      trigger_conditions: [
+        {
+          name: "string^message",
+          label: "Message",
+          description: "The message that the player sent",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^length",
+          label: "Length Equals",
+          description:
+            "Checks if the message length exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^length",
+          label: "Length Greater Than",
+          description:
+            "Checks if the message length is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^length",
+          label: "Length Less Than",
+          description:
+            "Checks if the message length is less than the specified value",
+          value_type: "empty",
+        },
+      ],
+    },
+    {
+      name: "player_receive_chat",
+      description: "Triggered when the player receives a chat message",
+      trigger_conditions: [
+        {
+          name: "string^message",
+          label: "Message",
+          description: "The message that the player received",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^length",
+          label: "Length Equals",
+          description:
+            "Checks if the message length exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^length",
+          label: "Length Greater Than",
+          description:
+            "Checks if the message length is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^length",
+          label: "Length Less Than",
+          description:
+            "Checks if the message length is less than the specified value",
+          value_type: "empty",
+        },
+      ],
+    },
+  ],
 };
 
 function flattenAndAddLabels(triggersNested) {

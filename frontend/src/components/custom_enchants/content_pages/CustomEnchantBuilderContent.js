@@ -8,6 +8,7 @@ import { enchantment_targets } from "../../../data/targets";
 import { enchantment_tags } from "../../../data/tags";
 import { enchantments } from "../../../data/enchantments";
 import { triggers } from "../../../data/triggers";
+import { enchanted_item_custom_locations } from "../../../data/enchanted_item_custom_locations";
 import {
   trigger_condition_parameters,
   global_parameters,
@@ -296,6 +297,28 @@ const CustomEnchantBuilderContent = () => {
             </div>
           </div>
         )}
+
+        <div className="content-box">
+          <h2 className="content-box-title">Enchantment Location</h2>
+          <CheckboxField
+            label="Use Default Item Locations"
+            description="Enable this to use default item locations to search for the enchanted item (e.g., damage_player = main hand, armor_equip = armor slots, etc.)"
+            name="default_enchantment_location"
+            checked={formState.default_enchantment_location}
+            onChange={handleCheckboxChange}
+          />
+          {!formState.default_enchantment_location && (
+            <AddableSelectField
+              name="custom_enchantment_locations"
+              label="Custom Item Locations"
+              description="Select custom item locations to search for the enchanted item"
+              options={enchanted_item_custom_locations}
+              values={formState.custom_enchantment_locations}
+              onChange={handleAddableSelectboxChange}
+            />
+          )}
+        </div>
+
         <div className="content-box">
           <h2 className="content-box-title">Triggers</h2>
           <TriggerSelectField

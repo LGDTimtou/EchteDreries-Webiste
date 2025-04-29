@@ -5,6 +5,7 @@ import { enchantment_targets } from "../data/targets";
 import { enchantment_tags } from "../data/tags";
 import { triggers } from "../data/triggers";
 import { loadTrigger } from "../data/trigger_conditions/loadTrigger";
+import { enchanted_item_custom_locations } from "../data/enchanted_item_custom_locations";
 
 export const defaultFormState = {
   minecraft_version: versions[0],
@@ -19,6 +20,8 @@ export const defaultFormState = {
   min_cost_incr: 1,
   max_cost_base: 5,
   max_cost_incr: 1,
+  default_enchantment_location: true,
+  custom_enchantment_locations: [],
   cooldown_message:
     "&7You, &6%player%&7, have to wait %time_left% or %time_left_full_out% before you can use %enchantment% again!",
   levels: [
@@ -52,6 +55,11 @@ export const jsonToYaml = (formState) => {
           ...formState.tags.map((tag) => ({ [tag.name.toLowerCase()]: true }))
         ),
       },
+      custom_locations:
+        formState.default_enchantment_location ||
+        formState.custom_enchantment_locations.length === 0
+          ? []
+          : formState.custom_enchantment_locations.map((loc) => loc.name),
       triggers: Object.assign(
         {},
         ...formState.triggers.map((trigger) => ({
@@ -129,6 +137,12 @@ export const yamlToJson = async (yaml) => {
   formState.tags = enchantment_tags.filter((tag) =>
     filteredTags.includes(tag.name.toLowerCase())
   );
+  formState.default_enchantment_location =
+    enchantmentData.custom_locations.length === 0;
+  formState.custom_enchantment_locations =
+    enchanted_item_custom_locations.filter((item) =>
+      enchantmentData.custom_locations.includes(item.name)
+    );
   formState.cooldown_message =
     enchantmentData.cooldown_message ?? formState.cooldown_message;
   formState.in_enchanting_table =

@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/custom_enchants/CustomEnchants.css";
 import { yamlToJson } from "../../../util/yamlParser";
+import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
 
 const TriggerContent = ({ category, triggerName, trigger }) => {
   const navigate = useNavigate();
 
   const [copySucces, setCopySuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  //const parameters = command_parameters.filter((param) =>
-  //  param.triggers.includes(trigger.name)
-  //);
   const gifUrl = `/triggerExamples/${category}/${trigger.example}.gif`;
   const yamlUrl = `/triggerExamples/${category}/${trigger.example}.yml`;
 
@@ -56,33 +54,39 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
       </div>
 
       <div className="parameters-section">
-        <p className="subsection-title">‎ Description</p>
-        <p className="minecraft">‎ {trigger.description}</p>
+        <p className="subsection-title offset">Description</p>
+        <p className="minecraft offset"> {trigger.description}</p>
       </div>
 
-      {/*<div className="parameters-section">
-        {parameters.length > 0 ? (
-          <div>
-            <p className="subsection-title">‎ Extra Command Parameters:</p>
-            <div className="parameters-list">
-              {parameters.map((parameter) => (
-                <div key={parameter.name} className="parameter-item">
-                  <span className="parameter-name">%{parameter.name}%</span>
-                  <span className="parameter-description">
-                    {parameter.description}
-                  </span>
-                </div>
-              ))}
+      {trigger.trigger_conditions.length > 0 && (
+        <div className="parameters-section">
+          <p className="subsection-title offset">Trigger Specific Conditions</p>
+          {trigger.trigger_conditions?.map((condition, index) => (
+            <div key={index} className="parameter-item">
+              <span className="parameter-name">{condition.label}:</span>
+              <span className="parameter-description">
+                {condition.description}
+              </span>
             </div>
+          ))}
+        </div>
+      )}
+
+      <div className="parameters-section">
+        <p className="subsection-title offset">Global Trigger Conditions</p>
+        {global_trigger_conditions?.map((condition, index) => (
+          <div key={index} className="parameter-item">
+            <span className="parameter-name">{condition.label}:</span>
+            <span className="parameter-description">
+              {condition.description}
+            </span>
           </div>
-        ) : (
-          <p className="minecraft">‎ No Extra Command Parameters</p>
-        )}
-      </div>*/}
+        ))}
+      </div>
 
       {trigger.example && (
         <div className="parameters-section">
-          <p className="subsection-title">‎ Example</p>
+          <p className="subsection-title offset">Example</p>
           <div>
             <img
               src={gifUrl}
