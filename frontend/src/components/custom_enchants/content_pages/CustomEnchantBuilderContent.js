@@ -93,9 +93,14 @@ const CustomEnchantBuilderContent = () => {
             selected.name.split("^");
           const parameters =
             trigger_condition_parameters[trigger_condition] || [];
+
           return parameters.map((parameter) => ({
             ...parameter,
-            name: prefix ? `${prefix}_${parameter.name}` : parameter.name,
+            name: prefix
+              ? parameter.name
+                ? `${prefix}_${parameter.name}`
+                : prefix
+              : parameter.name,
           }));
         }),
       };
