@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import InputField from "../custom_components/InputField";
 import SelectField from "../custom_components/SelectField";
@@ -13,17 +13,14 @@ import {
   trigger_condition_parameters,
   global_parameters,
 } from "../../../data/trigger_conditions/parameters";
+import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
 import AddableSelectField from "../custom_components/AddableSelectField";
 import CheckboxField from "../custom_components/CheckboxField";
 import TriggerSelectField from "../custom_components/builder/TriggerSelectField";
 import LevelCreationField from "../custom_components/builder/LevelCreationField";
 import YamlPopup from "../custom_components/builder/YamlPopup";
 import { checkConstraints } from "../../../util/constraints";
-import {
-  defaultFormState,
-  jsonToYaml,
-  yamlToJson,
-} from "../../../util/yamlParser";
+import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
@@ -34,22 +31,6 @@ const CustomEnchantBuilderContent = () => {
   const [errors, setErrors] = useState([]);
   const [copySucces, setCopySuccess] = useState(false);
   const [isPopupVisible, setPopupVisible] = useState(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const encodedYaml = params.get("data");
-
-    if (encodedYaml) {
-      try {
-        const decodedYaml = atob(encodedYaml);
-        console.log(decodedYaml);
-        const json = yamlToJson(decodedYaml);
-        setFormState(json);
-      } catch (error) {
-        console.error("Failed to load YAML from URL:", error);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("formState", JSON.stringify(formState));
@@ -85,15 +66,20 @@ const CustomEnchantBuilderContent = () => {
     }));
   };
 
-  const filteredParameters = () => {
+  const filteredParameters = useMemo(() => {
     const result = formState.triggers.map((trigger) => {
       return {
         name: trigger.name,
         parameters: trigger.selected_trigger_conditions.flatMap((selected) => {
-          const [trigger_condition = "", prefix = ""] =
-            selected.name.split("^");
+          let [trigger_condition = "", prefix = ""] = selected.name.split("^");
           const parameters =
             trigger_condition_parameters[trigger_condition] || [];
+
+          const global_value_prefix = global_trigger_conditions.filter(
+            (gl) => gl.name === trigger_condition
+          )[0]?.global_value_prefix;
+
+          if (global_value_prefix) prefix = global_value_prefix;
 
           return parameters.map((parameter) => ({
             ...parameter,
@@ -107,7 +93,7 @@ const CustomEnchantBuilderContent = () => {
       };
     });
     return [global_parameters, ...result];
-  };
+  }, [formState.triggers]);
 
   const clearAllInput = () => {
     const confirmed = window.confirm(
@@ -341,7 +327,7 @@ const CustomEnchantBuilderContent = () => {
           />
           <LevelCreationField
             levels={formState.levels}
-            parametersPerTrigger={filteredParameters()}
+            parametersPerTrigger={filteredParameters}
             onChange={(value) =>
               setFormState((prevState) => ({ ...prevState, levels: value }))
             }

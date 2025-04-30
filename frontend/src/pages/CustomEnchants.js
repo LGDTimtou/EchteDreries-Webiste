@@ -39,15 +39,19 @@ const CustomEnchants = () => {
     {
       title: "Triggers",
       subsections: Object.keys(triggers_nested).map((category) => ({
-        title: category.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase()),
+        title: category
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase()),
         subsections: triggers_nested[category].map((trigger) => {
-          const triggerName = trigger.name.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+          const triggerName = trigger.name
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (char) => char.toUpperCase());
           return {
             title: triggerName,
             link: `triggers/${category}/${trigger.name}`,
             component: TriggerContent,
             props: { category, triggerName: triggerName, trigger },
-          }
+          };
         }),
       })),
     },
@@ -84,16 +88,13 @@ const CustomEnchants = () => {
         </div>
         <div className="content-container">
           <div className="content-page">
-            <Routes>
-              {renderRoutes(sections)}
-            </Routes>
+            <Routes>{renderRoutes(sections)}</Routes>
           </div>
-          <div className="empty-div"/>
+          <div className="empty-div" />
 
           <Footer bgColor="#0d1117" accentColor="#30363d" />
         </div>
       </div>
-      
     </div>
   );
 };

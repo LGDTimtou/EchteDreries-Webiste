@@ -174,12 +174,20 @@ export const yamlToJson = async (yaml) => {
 
       return {
         ...loadedTrigger,
-        selected_trigger_conditions: Object.entries(
-          enchantmentData.triggers[trigger.name] ?? {}
-        ).map(([conditionName, fields]) => {
+        selected_trigger_conditions: (Array.isArray(
+          enchantmentData.triggers[trigger.name]
+        )
+          ? enchantmentData.triggers[trigger.name]
+          : Object.entries(enchantmentData.triggers[trigger.name] ?? {}).map(
+              ([conditionName, fields]) => ({ [conditionName]: fields })
+            )
+        ).map((conditionObj) => {
+          const [conditionName, fields] = Object.entries(conditionObj)[0];
+
           const match = loadedTrigger.possible_trigger_conditions.find(
             (c) => c.name === conditionName
           );
+
           if (!match) return null;
           return {
             ...match,
@@ -191,8 +199,6 @@ export const yamlToJson = async (yaml) => {
       };
     })
   );
-
-  console.log(formState.triggers);
 
   if (enchantmentData.levels) {
     formState.levels = Object.values(enchantmentData.levels).map((level) => ({
