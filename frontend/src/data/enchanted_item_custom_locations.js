@@ -20,7 +20,7 @@ export const enchanted_item_custom_locations = [
     label: "Inventory",
   },
   {
-    name: "enderchest",
+    name: "ender_chest",
     label: "Ender Chest",
   },
 ];
