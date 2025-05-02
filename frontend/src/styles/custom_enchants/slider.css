@@ -1,0 +1,54 @@
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adds space between the input and slider */
+  width: 100%;
+  max-width: 600px;
+}
+
+.slider-input {
+  -webkit-appearance: none;
+  width: 100%; /* Let it fill remaining space */
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 6px;
+  outline: none;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--highlight-color);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 4px rgba(88, 166, 255, 0.6);
+  transition: transform 0.2s;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider-input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--highlight-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 4px rgba(88, 166, 255, 0.6);
+  transition: transform 0.2s;
+}
+
+.slider-input::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider-value {
+  margin-left: 6px;
+  font-size: 0.9rem;
+}

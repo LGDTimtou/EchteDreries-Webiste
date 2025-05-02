@@ -1,15 +1,15 @@
 @font-face {
-    font-family: 'Minecraft';
-    src: url('../../assets/fonts/minecraft.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: "Minecraft";
+  src: url("../../assets/fonts/minecraft.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 
-@import './base.css';
-@import './containers.css';
-@import './typography.css';
-@import './forms.css';
-@import './buttons.css';
-@import './animations.css';
-@import './popup.css';
-
+@import "./base.css";
+@import "./containers.css";
+@import "./typography.css";
+@import "./forms.css";
+@import "./buttons.css";
+@import "./animations.css";
+@import "./popup.css";
+@import "./slider.css";

@@ -22,6 +22,8 @@ export const defaultFormState = {
   max_cost_incr: 1,
   default_enchantment_location: true,
   custom_enchantment_locations: [],
+  destroy_item_chance: 0,
+  remove_enchantment_chance: 0,
   cooldown_message:
     "&7You, &6%player%&7, have to wait %time_left% or %time_left_full_out% before you can use %enchantment% again!",
   levels: [
@@ -60,6 +62,9 @@ export const jsonToYaml = (formState) => {
         formState.custom_enchantment_locations.length === 0
           ? []
           : formState.custom_enchantment_locations.map((loc) => loc.name),
+      destroy_item_chance: parseFloat(formState.destroy_item_chance) || 0,
+      remove_enchantment_chance:
+        parseFloat(formState.remove_enchantment_chance) || 0,
       triggers: Object.assign(
         {},
         ...formState.triggers.map((trigger) => ({
@@ -143,8 +148,11 @@ export const yamlToJson = async (yaml) => {
     enchanted_item_custom_locations.filter((item) =>
       enchantmentData.custom_locations.includes(item.name)
     );
-  formState.cooldown_message =
-    enchantmentData.cooldown_message ?? formState.cooldown_message;
+  formState.destroy_item_chance =
+    parseFloat(enchantmentData.destroy_item_chance) ?? 0;
+  formState.remove_enchantment_chance =
+    parseFloat(enchantmentData.remove_enchantment_chance) ?? 0;
+  formState.cooldown_message = enchantmentData.cooldown_message ?? "";
   formState.in_enchanting_table =
     (definition.tags ?? {}).in_enchanting_table ??
     formState.in_enchanting_table;

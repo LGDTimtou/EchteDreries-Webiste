@@ -13,6 +13,12 @@
   overflow: hidden; /* Prevent scrolling on the main container */
 }
 
+.input-field-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
 /* Sidebar with independent scrolling */
 .sidebar-container {
   width: 250px;
@@ -40,7 +46,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--header-height) - var(--footer-height)); /* Full height minus header/footer */
+  height: calc(
+    100vh - var(--header-height) - var(--footer-height)
+  ); /* Full height minus header/footer */
   overflow-y: auto;
   background-color: #0d1117;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
@@ -89,108 +97,110 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
-  .field-container {
-    display: flex;
-    gap: 20px; 
-    align-items: center; 
-    flex-wrap: wrap;
-    width: 100%
-  }
+.field-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
-  .tag {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    font-family: 'Minecraft', monospace;
-    padding: 6px 12px;
-    border-radius: 12px; /* More rounded corners */
-    font-size: 0.9rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    transition: transform 0.2s, box-shadow 0.2s; /* Add hover animation */
-  }
+.tag {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: "Minecraft", monospace;
+  padding: 6px 12px;
+  border-radius: 12px; /* More rounded corners */
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: transform 0.2s, box-shadow 0.2s; /* Add hover animation */
+}
 
-  .tag:hover {
-    transform: translateY(-1px); /* Slight lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
-  }
+.tag:hover {
+  transform: translateY(-1px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+}
 
-  .tag:hover .tooltip-bubble {
-    opacity: 1; /* Make tooltip visible */
-    visibility: visible;
-  }
+.tag:hover .tooltip-bubble {
+  opacity: 1; /* Make tooltip visible */
+  visibility: visible;
+}
 
-  .tooltip-bubble {
-    position: absolute;
-    bottom: 180%; /* Position the tooltip slightly higher */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8); /* Dark background */
-    color: #fff; /* White text */
-    padding: 8px 12px; /* Add padding inside the bubble */
-    border-radius: 10px; /* Rounded corners */
-    font-size: 0.8rem; /* Small font size */
-    max-width: 400px; /* Tooltip should never exceed 400px */
-    width: max-content; /* Automatically fit content width, up to max-width */
-    white-space: pre-wrap; /* Preserve spaces and wrap text when necessary */
-    word-break: break-word; /* Break long words onto the next line if needed */
-    text-align: center; /* Center the text */
-    z-index: 1000; /* Ensure it appears above other elements */
-    pointer-events: none; /* Prevent interfering with hover */
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out; /* Smooth appearance */
-    display: block; /* Ensure block-level behavior for proper wrapping */
-  }
-  
-  /* Tooltip arrow */
-  .tooltip-bubble::after {
-    content: '';
-    position: absolute;
-    top: 100%; /* Place the arrow at the bottom of the bubble */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent; /* Dark arrow */
-  }
-  
-  /* Show tooltip when hovering */
-  .input-label:hover .tooltip-bubble {
-    opacity: 1; /* Make tooltip visible */
-    visibility: visible;
-  }
+.tooltip-bubble {
+  position: absolute;
+  bottom: 180%; /* Position the tooltip slightly higher */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+  color: #fff; /* White text */
+  padding: 8px 12px; /* Add padding inside the bubble */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 0.8rem; /* Small font size */
+  max-width: 400px; /* Tooltip should never exceed 400px */
+  width: max-content; /* Automatically fit content width, up to max-width */
+  white-space: pre-wrap; /* Preserve spaces and wrap text when necessary */
+  word-break: break-word; /* Break long words onto the next line if needed */
+  text-align: center; /* Center the text */
+  z-index: 1000; /* Ensure it appears above other elements */
+  pointer-events: none; /* Prevent interfering with hover */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out; /* Smooth appearance */
+  display: block; /* Ensure block-level behavior for proper wrapping */
+}
 
-  .trigger-card {
-    background-color: var(--bg-secondary); /* Match app theme */
-    border-radius: 8px; /* Slightly smaller radius for distinction */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtler shadow for differentiation */
-    padding: 16px; /* Padding for the content */
-    margin-bottom: 20px; /* Spacing between cards */
-    max-width: calc(100% - 40px); /* Ensure it doesn't overflow the content page */
-    width: 100%; /* Flexibility for responsiveness */
-    animation: fadeIn 0.3s ease-in-out;
-    border: 1px solid var(--border-color); /* Thin border for clarity */
-    position: relative; /* Required for the absolutely positioned button */
-  }
+/* Tooltip arrow */
+.tooltip-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Place the arrow at the bottom of the bubble */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent; /* Dark arrow */
+}
 
-  .add-trigger-section {
-    position: relative; /* Add this to make the dropdown align correctly */
-  }
+/* Show tooltip when hovering */
+.input-label:hover .tooltip-bubble {
+  opacity: 1; /* Make tooltip visible */
+  visibility: visible;
+}
 
-  .command-card {
-    position: relative;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    column-gap: 15px;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 15px;
-    background-color: var(--bg-light);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.trigger-card {
+  background-color: var(--bg-secondary); /* Match app theme */
+  border-radius: 8px; /* Slightly smaller radius for distinction */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtler shadow for differentiation */
+  padding: 16px; /* Padding for the content */
+  margin-bottom: 20px; /* Spacing between cards */
+  max-width: calc(
+    100% - 40px
+  ); /* Ensure it doesn't overflow the content page */
+  width: 100%; /* Flexibility for responsiveness */
+  animation: fadeIn 0.3s ease-in-out;
+  border: 1px solid var(--border-color); /* Thin border for clarity */
+  position: relative; /* Required for the absolutely positioned button */
+}
+
+.add-trigger-section {
+  position: relative; /* Add this to make the dropdown align correctly */
+}
+
+.command-card {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  column-gap: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 15px;
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .command-card-column {
@@ -218,7 +228,7 @@
 }
 
 .error-item {
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1rem;
   color: #b30000; /* Darker red for text */
   margin-bottom: 8px;

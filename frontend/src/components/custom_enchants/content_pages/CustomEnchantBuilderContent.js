@@ -21,6 +21,7 @@ import LevelCreationField from "../custom_components/builder/LevelCreationField"
 import YamlPopup from "../custom_components/builder/YamlPopup";
 import { checkConstraints } from "../../../util/constraints";
 import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
+import SliderField from "../custom_components/SliderField";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
@@ -218,7 +219,7 @@ const CustomEnchantBuilderContent = () => {
         <div className="field-container">
           <CheckboxField
             label="Enabled"
-            description="Wether this enchant should appear in enchanting tables"
+            description="Whether this enchant should appear in enchanting tables"
             name="in_enchanting_table"
             checked={formState.in_enchanting_table}
             onChange={handleCheckboxChange}
@@ -285,7 +286,7 @@ const CustomEnchantBuilderContent = () => {
         )}
 
         <div className="content-box">
-          <h2 className="content-box-title">Enchantment Location</h2>
+          <h2 className="content-box-title">Extra settings</h2>
           <CheckboxField
             label="Use Default Item Locations"
             description="Enable this to use default item locations to search for the enchanted item (e.g., damage_player = main hand, armor_equip = armor slots, etc.)"
@@ -303,6 +304,26 @@ const CustomEnchantBuilderContent = () => {
               onChange={handleAddableSelectboxChange}
             />
           )}
+          <SliderField
+            label="Destroy Item Chance"
+            description="The chance that the item will be destroyed after the enchantment triggers"
+            name="destroy_item_chance"
+            value={formState.destroy_item_chance}
+            onChange={handleChange}
+            min={0}
+            max={100}
+            step={0.1}
+          />
+          <SliderField
+            label="Remove Enchantment Chance"
+            description="The chance that the enchantment will be removed from the item after it triggers"
+            name="remove_enchantment_chance"
+            value={formState.remove_enchantment_chance}
+            onChange={handleChange}
+            min={0}
+            max={100}
+            step={0.1}
+          />
         </div>
 
         <div className="content-box">
