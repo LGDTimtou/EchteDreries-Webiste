@@ -83,10 +83,7 @@ export const jsonToYaml = (formState) => {
             cancel_event: level.cancel_event,
             cooldown: level.cooldown,
             chance: level.chance,
-            commands: level.commands.map(
-              (command) =>
-                `${command.type === "delay" ? "delay " : ""}${command.value}`
-            ),
+            commands: transformInstructionsToYamlList(level.commands),
           },
         }))
       ),
@@ -213,13 +210,59 @@ export const yamlToJson = async (yaml) => {
       cooldown: level.cooldown,
       chance: level.chance,
       cancel_event: level.cancel_event,
-      commands: level.commands.map((cmd) =>
-        cmd.startsWith("delay ")
-          ? { type: "delay", value: cmd.split(" ")[1] }
-          : { type: "command", value: cmd }
-      ),
+      commands: parseYamlInstructions(level.commands),
     }));
   }
 
   return formState;
 };
+
+function transformInstructionsToYamlList(instructions) {
+  return instructions.map((inst) => {
+    if (inst.type === "command") {
+      return inst.value;
+    } else if (inst.type === "delay") {
+      return `delay ${inst.value}`;
+    } else if (inst.type === "repeat") {
+      return {
+        [`repeat_${inst.value.amount}`]: transformInstructionsToYamlList(
+          inst.value.instructions
+        ),
+      };
+    } else {
+      throw new Error(`Unknown instruction type: ${inst.type}`);
+    }
+  });
+}
+
+function parseYamlInstructions(commands) {
+  return commands.map((cmd) => {
+    if (typeof cmd === "string") {
+      if (cmd.startsWith("delay ")) {
+        const value = Number(cmd.split(" ")[1]);
+        return { type: "delay", value };
+      } else {
+        return { type: "command", value: cmd };
+      }
+    }
+
+    if (typeof cmd === "object" && cmd !== null) {
+      const key = Object.keys(cmd)[0];
+
+      if (key.startsWith("repeat_")) {
+        const amount = Number(key.split("_")[1]);
+        const subInstructions = cmd[key];
+
+        return {
+          type: "repeat",
+          value: {
+            amount,
+            instructions: parseYamlInstructions(subInstructions),
+          },
+        };
+      }
+    }
+
+    throw new Error("Unknown instruction format: " + JSON.stringify(cmd));
+  });
+}

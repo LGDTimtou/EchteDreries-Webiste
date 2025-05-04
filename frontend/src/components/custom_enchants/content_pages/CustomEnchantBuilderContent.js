@@ -25,7 +25,10 @@ import SliderField from "../custom_components/SliderField";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const shouldClear = query.get("clear") === "true";
   const [formState, setFormState] = useState(() => {
+    if (shouldClear) return defaultFormState;
     const storedData = localStorage.getItem("formState");
     return storedData ? JSON.parse(storedData) : defaultFormState;
   });

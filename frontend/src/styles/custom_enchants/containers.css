@@ -201,10 +201,29 @@
   border-radius: 8px;
   border: 1px solid var(--border-color);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
 }
 
-.command-card-column {
-  flex-direction: column;
+.command-card > * {
+  width: 100%;
+}
+
+.command-card-repeat {
+  margin-bottom: 20px;
+}
+
+.command-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.command-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .textarea-container {
