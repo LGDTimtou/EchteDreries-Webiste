@@ -139,16 +139,27 @@ export const yamlToJson = async (yaml) => {
   formState.tags = enchantment_tags.filter((tag) =>
     filteredTags.includes(tag.name.toLowerCase())
   );
-  formState.default_enchantment_location =
-    enchantmentData.custom_locations.length === 0;
-  formState.custom_enchantment_locations =
-    enchanted_item_custom_locations.filter((item) =>
-      enchantmentData.custom_locations.includes(item.name)
-    );
-  formState.destroy_item_chance =
-    parseFloat(enchantmentData.destroy_item_chance) ?? 0;
-  formState.remove_enchantment_chance =
-    parseFloat(enchantmentData.remove_enchantment_chance) ?? 0;
+
+  if (
+    Array.isArray(enchantmentData.custom_locations) &&
+    enchantmentData.custom_locations.length > 0
+  ) {
+    formState.default_enchantment_location = false;
+    formState.custom_enchantment_locations =
+      enchanted_item_custom_locations.filter((item) =>
+        enchantmentData.custom_locations.includes(item.name)
+      );
+  } else {
+    formState.default_enchantment_location = true;
+    formState.custom_enchantment_locations = [];
+  }
+
+  formState.destroy_item_chance = parseFloat(
+    enchantmentData.destroy_item_chance ?? 0
+  );
+  formState.remove_enchantment_chance = parseFloat(
+    enchantmentData.remove_enchantment_chance ?? 0
+  );
   formState.cooldown_message = enchantmentData.cooldown_message ?? "";
   formState.in_enchanting_table =
     (definition.tags ?? {}).in_enchanting_table ??

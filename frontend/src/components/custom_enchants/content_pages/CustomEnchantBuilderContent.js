@@ -16,12 +16,17 @@ import {
 import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
 import AddableSelectField from "../custom_components/AddableSelectField";
 import CheckboxField from "../custom_components/CheckboxField";
+import SliderField from "../custom_components/SliderField";
 import TriggerSelectField from "../custom_components/builder/TriggerSelectField";
 import LevelCreationField from "../custom_components/builder/LevelCreationField";
+import YamlActionButtonsField from "../custom_components/builder/YamlActionButtonsField";
 import YamlPopup from "../custom_components/builder/YamlPopup";
+import LoadingDots from "../custom_components/builder/LoadingDots";
 import { checkConstraints } from "../../../util/constraints";
 import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
-import SliderField from "../custom_components/SliderField";
+import { yamlToJson } from "../../../util/yamlParser";
+
+const BACKEND_URL = "http://localhost:8000/api";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
@@ -33,8 +38,10 @@ const CustomEnchantBuilderContent = () => {
     const storedData = localStorage.getItem("formState");
     return storedData ? JSON.parse(storedData) : defaultFormState;
   });
+  const [secret, setSecret] = useState(undefined);
+  const [isLoadingYaml, setLoadingYaml] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [copySucces, setCopySuccess] = useState(false);
+  const [buttonState, setButtonState] = useState("");
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
@@ -49,10 +56,41 @@ const CustomEnchantBuilderContent = () => {
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
+    const secret = query.get("secret");
     if (query.get("load_yaml") === "true") {
       setPopupVisible(true);
       query.delete("load_yaml");
       navigate({ search: query.toString() }, { replace: true });
+    } else if (secret !== null && secret !== undefined) {
+      setSecret(secret);
+
+      let didFinish = false;
+      const delay = setTimeout(() => {
+        if (!didFinish) {
+          setLoadingYaml(true);
+        }
+      }, 1000);
+
+      (async () => {
+        try {
+          const res = await fetch(`${BACKEND_URL}/load?secret=${secret}`);
+          const data = await res.json();
+          const parsed = await yamlToJson(data.yaml);
+          setFormState(parsed);
+        } catch (err) {
+          alert(
+            "Failed to load YAML, Please copy the YAML manually from the enchantments.yml file"
+          );
+          setSecret(undefined);
+          setPopupVisible(true);
+          query.delete("secret");
+          navigate({ search: query.toString() }, { replace: true });
+        } finally {
+          didFinish = true;
+          clearTimeout(delay);
+          setLoadingYaml(false);
+        }
+      })();
     }
   }, [location.search, navigate]);
 
@@ -127,45 +165,55 @@ const CustomEnchantBuilderContent = () => {
     if (errors.length > 0) return;
 
     navigator.clipboard.writeText(jsonToYaml(formState));
-    setCopySuccess(true);
-    setTimeout(() => setCopySuccess(false), 3000);
+    setButtonState("success");
+    setTimeout(() => setButtonState(""), 3000);
   };
 
-  return (
+  const sendInputToBackend = () => {
+    const errors = checkConstraints(formState);
+    setErrors(errors);
+    if (errors.length > 0) return;
+
+    setButtonState("loading");
+    fetch(`${BACKEND_URL}/update?secret=${secret}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ yaml: jsonToYaml(formState) }),
+    })
+      .then(() => {
+        const query = new URLSearchParams(location.search);
+        query.delete("secret");
+        navigate({ search: query.toString() }, { replace: true });
+
+        setButtonState("success");
+        setTimeout(() => {
+          setButtonState("");
+          setSecret("");
+        }, 3000);
+      })
+      .catch(() => {
+        setButtonState("error");
+        setTimeout(() => setButtonState(""), 10000);
+        navigator.clipboard.writeText(jsonToYaml(formState));
+      });
+  };
+
+  return isLoadingYaml ? (
+    <LoadingDots />
+  ) : (
     <div>
       <p className="content-intro">
         Use this builder to easily create custom enchantments
       </p>
-      <div className="content-box">
-        <button className="add-btn-text" onClick={() => setPopupVisible(true)}>
-          Load Enchantment YAML
-        </button>
-        <button
-          className={`add-btn-text ${copySucces ? "copy-success" : ""}`}
-          onClick={getYamlOutput}
-          disabled={copySucces}
-        >
-          {copySucces ? "Output copied to clipboard!" : "Get YAML Output"}
-        </button>
-        <button className="add-btn-text red" onClick={clearAllInput}>
-          Clear All Input
-        </button>
-
-        {errors.length > 0 && (
-          <div className="error-list">
-            <h3 className="error-list-title">
-              Please fix the following errors:
-            </h3>
-            <ul>
-              {errors.map((error, index) => (
-                <li key={index} className="error-item">
-                  {error}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
+      <YamlActionButtonsField
+        secret={secret}
+        onLoadClick={() => setPopupVisible(true)}
+        onCopyClick={getYamlOutput}
+        onClearClick={clearAllInput}
+        onSendClick={sendInputToBackend}
+        buttonState={buttonState}
+        errors={errors}
+      />
       <YamlPopup
         isVisible={isPopupVisible}
         onClose={() => setPopupVisible(false)}
@@ -367,40 +415,15 @@ const CustomEnchantBuilderContent = () => {
         </div>
         <br />
         <br />
-        <div className="content-box">
-          <h2 className="content-box-title">Output</h2>
-          <button
-            className="add-btn-text"
-            onClick={() => setPopupVisible(true)}
-          >
-            Load Enchantment YAML
-          </button>
-          <button
-            className={`add-btn-text ${copySucces ? "copy-success" : ""}`}
-            onClick={getYamlOutput}
-            disabled={copySucces}
-          >
-            {copySucces ? "Output copied to clipboard!" : "Get YAML Output"}
-          </button>
-          <button className="add-btn-text red" onClick={clearAllInput}>
-            Clear All Input
-          </button>
-
-          {errors.length > 0 && (
-            <div className="error-list">
-              <h3 className="error-list-title">
-                Please fix the following errors:
-              </h3>
-              <ul>
-                {errors.map((error, index) => (
-                  <li key={index} className="error-item">
-                    {error}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+        <YamlActionButtonsField
+          secret={secret}
+          onLoadClick={() => setPopupVisible(true)}
+          onCopyClick={getYamlOutput}
+          onClearClick={clearAllInput}
+          onSendClick={sendInputToBackend}
+          buttonState={buttonState}
+          errors={errors}
+        />
       </div>
     </div>
   );

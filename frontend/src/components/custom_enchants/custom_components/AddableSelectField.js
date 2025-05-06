@@ -27,7 +27,7 @@ const AddableSelectField = React.memo(
     const handleOptionClick = (option) => {
       let newSelectedItems = undefined;
       const isOverridden = values.some((item) =>
-        item.overrides.includes(option.name)
+        item.overrides?.includes(option.name)
       );
       if (isOverridden) newSelectedItems = values;
       else {
