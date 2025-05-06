@@ -112,7 +112,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
                 instructions: [],
               },
             }
-          : { ...cmd, type: type };
+          : { type: type, value: "" };
       }),
     });
   };
@@ -141,7 +141,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
       <div className="field-container">
         <InputField
           label="Cooldown"
-          description="The cooldown in seconds before this enchantment can trigger again at this level [0:oo["
+          description="Cooldown time in seconds before the enchantment can trigger again at this level"
           placeholder=""
           type="number"
           name="cooldown"
@@ -150,7 +150,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
         />
         <InputField
           label="Chance"
-          description="The chance of the commands being executed every time the enchantment is triggered ]0:100]"
+          description="The chance (in %) that the commands will be executed when the enchantment is triggered"
           placeholder=""
           type="number"
           name="chance"
@@ -159,7 +159,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
         />
         <CheckboxField
           label="Cancel Event"
-          description="Wether this enchantment level should cancel the event that triggered it"
+          description="If enabled, this level of the enchantment will cancel the triggering event"
           name="cancel_event"
           checked={level.cancel_event}
           onChange={handleCheckboxChange}

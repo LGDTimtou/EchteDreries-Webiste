@@ -92,7 +92,7 @@ const InstructionListField = ({
             instruction.type === "command" && (
               <ResizableTextArea
                 label="Command"
-                description="The Minecraft command to be executed by the console (new lines will be replaced with spaces)"
+                description="The Minecraft command to be executed by the console"
                 name="value"
                 value={instruction.value}
                 onChange={(e) =>
