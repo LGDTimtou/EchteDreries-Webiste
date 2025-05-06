@@ -5,6 +5,7 @@ import { ignite_causes } from "./values/causes/igniteCauses";
 import { damage_causes } from "./values/causes/damageCauses";
 import { global_trigger_conditions } from "./global_trigger_conditions";
 import { inventory_types } from "./values/inventory_type";
+import { versions } from "../versions";
 
 export const loadTrigger = async (trigger, version) => {
   const triggerConditionTypes = [...(trigger.trigger_conditions ?? [])];
@@ -19,20 +20,25 @@ export const loadTrigger = async (trigger, version) => {
     if (triggerCondition.content) {
       possibleValues = triggerCondition.content;
     } else {
-      const path = `/minecraft_data/${version}/${triggerCondition.file}`;
-      const response = await fetch(path);
-
-      if (!response.ok) throw new Error(`Failed to fetch ${path}`);
-      try {
-        const jsonData = await response.json();
-        possibleValues = jsonData
-          .filter(triggerCondition.filter)
-          .map((item) => ({
-            name: item.name,
-            label: item.displayName,
-          }));
-      } catch (err) {
-        throw new Error(`${path} does not exist!`);
+      let versionIndex = versions.indexOf(version);
+      while (possibleValues === undefined) {
+        const path = `/minecraft_data/${versions[versionIndex]}/${triggerCondition.file}`;
+        const response = await fetch(path);
+        try {
+          const jsonData = await response.json();
+          possibleValues = jsonData
+            .filter(triggerCondition.filter)
+            .map((item) => ({
+              name: item.name,
+              label: item.displayName,
+            }));
+        } catch (err) {
+          console.warn(`${path} does not exist!`);
+          versionIndex = (versionIndex + 1) % versions.length;
+          if (versionIndex === versions.indexOf(version)) {
+            throw new Error(`${triggerCondition.file} does not exist!`);
+          }
+        }
       }
     }
 
