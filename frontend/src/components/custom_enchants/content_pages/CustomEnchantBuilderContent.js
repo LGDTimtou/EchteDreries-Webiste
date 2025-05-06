@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputField from "../custom_components/InputField";
 import SelectField from "../custom_components/SelectField";
 import "../../../styles/custom_enchants/CustomEnchants.css";
@@ -25,6 +25,7 @@ import SliderField from "../custom_components/SliderField";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const query = new URLSearchParams(location.search);
   const shouldClear = query.get("clear") === "true";
   const [formState, setFormState] = useState(() => {
@@ -45,6 +46,15 @@ const CustomEnchantBuilderContent = () => {
       setFormState(location.state.json);
     }
   }, [location.state]);
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    if (query.get("load_yaml") === "true") {
+      setPopupVisible(true);
+      query.delete("load_yaml");
+      navigate({ search: query.toString() }, { replace: true });
+    }
+  }, [location.search, navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -165,7 +175,7 @@ const CustomEnchantBuilderContent = () => {
         <h2 className="content-box-title">General Information</h2>
         <SelectField
           label="Minecraft Version"
-          description="The Minecraft version you will use this enchantment on"
+          description="The Minecraft version this enchantment is intended for"
           options={versions.map((item) => ({ value: item, label: item }))}
           name="minecraft_version"
           value={formState.minecraft_version}
@@ -193,7 +203,7 @@ const CustomEnchantBuilderContent = () => {
         <AddableSelectField
           name="tags"
           label="Tags"
-          description="Modifiers to customize your enchantment's vanilla behaviour"
+          description="Modifiers to alter your enchantment's vanilla behaviour"
           options={enchantment_tags}
           values={formState.tags}
           onChange={handleAddableSelectboxChange}
@@ -209,7 +219,7 @@ const CustomEnchantBuilderContent = () => {
         />
         <InputField
           label="Anvil Cost"
-          description="The amount of levels this enchanment costs to apply in an anvil"
+          description="The base cost when applying this enchantment to another item using an anvil. Halved when adding using a book, multiplied by the level of the enchantment."
           placeholder=""
           type="number"
           name="anvil_cost"
@@ -222,17 +232,15 @@ const CustomEnchantBuilderContent = () => {
         <div className="field-container">
           <CheckboxField
             label="Enabled"
-            description="Whether this enchant should appear in enchanting tables"
+            description="Determines if this enchantment can appear in enchanting tables"
             name="in_enchanting_table"
             checked={formState.in_enchanting_table}
             onChange={handleCheckboxChange}
           />
           {formState.in_enchanting_table && (
-            <InputField
+            <SliderField
               label="Weight"
-              description="The likeliness of this enchantment appearing in enchanting tables [1:1024]"
-              placeholder=""
-              type="number"
+              description="Value between 1 and 1024 (inclusive) — Controls the probability of this enchantment when enchanting. The probability is determined weight/total weight * 100%, where total_weight is the sum of the weights of all available enchantments."
               name="weight"
               value={formState.weight}
               onChange={handleChange}
@@ -247,7 +255,7 @@ const CustomEnchantBuilderContent = () => {
             <div className="field-container">
               <InputField
                 label="Minimum Cost Base"
-                description="The minimum possible cost for this enchantment at level I"
+                description="The minimum cost for a level I enchantment"
                 placeholder=""
                 type="number"
                 name="min_cost_base"
@@ -268,7 +276,7 @@ const CustomEnchantBuilderContent = () => {
             <div className="field-container">
               <InputField
                 label="Maximum Cost Base"
-                description="The maximum possible cost for this enchantment at level I"
+                description="The maximum cost for a level I enchantment"
                 placeholder=""
                 type="number"
                 name="max_cost_base"
@@ -292,7 +300,7 @@ const CustomEnchantBuilderContent = () => {
           <h2 className="content-box-title">Extra settings</h2>
           <CheckboxField
             label="Use Default Item Locations"
-            description="Enable this to use default item locations to search for the enchanted item (e.g., damage_player = main hand, armor_equip = armor slots, etc.)"
+            description="Use default item locations when checking where the enchanted item is equipped (e.g., damage_player → main hand, armor_equip → armor slot)"
             name="default_enchantment_location"
             checked={formState.default_enchantment_location}
             onChange={handleCheckboxChange}
@@ -301,7 +309,7 @@ const CustomEnchantBuilderContent = () => {
             <AddableSelectField
               name="custom_enchantment_locations"
               label="Custom Item Locations"
-              description="Select custom item locations to search for the enchanted item"
+              description="Specify custom inventory locations to search for the enchanted item"
               options={enchanted_item_custom_locations}
               values={formState.custom_enchantment_locations}
               onChange={handleAddableSelectboxChange}
@@ -309,7 +317,7 @@ const CustomEnchantBuilderContent = () => {
           )}
           <SliderField
             label="Destroy Item Chance"
-            description="The chance that the item will be destroyed after the enchantment triggers"
+            description="Chance that the item will be destroyed when the enchantment activates"
             name="destroy_item_chance"
             value={formState.destroy_item_chance}
             onChange={handleChange}
@@ -319,7 +327,7 @@ const CustomEnchantBuilderContent = () => {
           />
           <SliderField
             label="Remove Enchantment Chance"
-            description="The chance that the enchantment will be removed from the item after it triggers"
+            description="Chance that the enchantment will be removed from the item when it activates"
             name="remove_enchantment_chance"
             value={formState.remove_enchantment_chance}
             onChange={handleChange}
@@ -343,7 +351,7 @@ const CustomEnchantBuilderContent = () => {
           <h2 className="content-box-title">Levels</h2>
           <InputField
             label="Cooldown Message"
-            description="The message to be sent to the player when the enchantment is on cooldown from triggering again (leave empty if you dont want any message to be shown)"
+            description="Message shown to the player when the enchantment is on cooldown (leave empty to show nothing)"
             placeholder=""
             name="cooldown_message"
             value={formState.cooldown_message}
