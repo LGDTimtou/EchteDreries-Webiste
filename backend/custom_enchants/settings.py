@@ -58,6 +58,8 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://www.timonc.be"]
 
 ROOT_URLCONF = "custom_enchants.urls"
 
+STATIC_URL = "/static/"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
