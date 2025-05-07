@@ -13,7 +13,7 @@ export const defaultFormState = {
   targets: [],
   tags: [],
   conflicts_with: [],
-  anvil_cost: 2,
+  anvil_cost: 10,
   in_enchanting_table: true,
   weight: 50,
   min_cost_base: 2,

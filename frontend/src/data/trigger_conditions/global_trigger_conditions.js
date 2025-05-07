@@ -93,4 +93,28 @@ export const global_trigger_conditions = [
     value_type: "item",
     global_value_prefix: "off_hand",
   },
+  {
+    name: "player_health_equals",
+    label: "Player Health Equals",
+    description:
+      "Checks if the player's health exactly equals the specified value",
+    value_type: "empty",
+    global_value_prefix: "player_health",
+  },
+  {
+    name: "player_health_greater_than",
+    label: "Player Health Greater Than",
+    description:
+      "Checks if the player's health is greater than the specified value",
+    value_type: "empty",
+    global_value_prefix: "player_health",
+  },
+  {
+    name: "player_health_less_than",
+    label: "Player Health Less Than",
+    description:
+      "Checks if the player's health is less than the specified value",
+    value_type: "empty",
+    global_value_prefix: "player_health",
+  },
 ];

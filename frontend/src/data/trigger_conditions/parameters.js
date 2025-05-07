@@ -4,6 +4,7 @@ export const trigger_condition_parameters = {
     { name: "x", description: "The player's x coordinate" },
     { name: "y", description: "The player's x coordinate" },
     { name: "z", description: "The player's z coordinate" },
+    { name: "health", description: "The player's health" },
   ],
   block: [
     { name: "block", description: "The type of the block" },
@@ -16,6 +17,7 @@ export const trigger_condition_parameters = {
     { name: "x", description: "The entity's x coordinate" },
     { name: "y", description: "The entity's y coordinate" },
     { name: "z", description: "The entity's z coordinate" },
+    { name: "health", description: "The entity's health" },
     {
       name: "tag",
       description:
@@ -183,6 +185,10 @@ export const global_parameters = {
       name: "player_z",
       description:
         "The z coordinate of the player that triggered the enchantment",
+    },
+    {
+      name: "player_health",
+      description: "The health of the player that triggered the enchantment",
     },
   ],
 };

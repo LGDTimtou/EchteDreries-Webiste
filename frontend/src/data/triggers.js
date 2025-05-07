@@ -308,6 +308,48 @@ export const triggers_nested = {
           description: "The animal that was damaged. Defaults to any",
           value_type: "animal",
         },
+        {
+          name: "double_equals^animal_health",
+          label: "Animal Health Equals",
+          description:
+            "Checks if the animal's health exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^animal_health",
+          label: "Animal Health Greater Than",
+          description:
+            "Checks if the animal's health is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^animal_health",
+          label: "Animal Health Less Than",
+          description:
+            "Checks if the animal's health is less than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^damage",
+          label: "Damage Equals",
+          description:
+            "Checks if the damage done exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^damage",
+          label: "Damage Greater Than",
+          description:
+            "Checks if the damage done is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^damage",
+          label: "Damage Less Than",
+          description:
+            "Checks if the damage done is less than the specified value",
+          value_type: "empty",
+        },
       ],
     },
     {
@@ -319,6 +361,48 @@ export const triggers_nested = {
           label: "Damaged Entity",
           description: "The entity that was damaged. Defaults to any",
           value_type: "entity",
+        },
+        {
+          name: "double_equals^entity_health",
+          label: "Entity Health Equals",
+          description:
+            "Checks if the animal's health exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^entity_health",
+          label: "Entity Health Greater Than",
+          description:
+            "Checks if the entity's health is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^entity_health",
+          label: "Entity Health Less Than",
+          description:
+            "Checks if the entity's health is less than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^damage",
+          label: "Damage Equals",
+          description:
+            "Checks if the damage done exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^damage",
+          label: "Damage Greater Than",
+          description:
+            "Checks if the damage done is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^damage",
+          label: "Damage Less Than",
+          description:
+            "Checks if the damage done is less than the specified value",
+          value_type: "empty",
         },
       ],
     },
@@ -332,6 +416,48 @@ export const triggers_nested = {
           description: "The mob that was damaged. Defaults to any",
           value_type: "mob",
         },
+        {
+          name: "double_equals^mob_health",
+          label: "Mob Health Equals",
+          description:
+            "Checks if the mob's health exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^mob_health",
+          label: "Mob Health Greater Than",
+          description:
+            "Checks if the mob's health is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^mob_health",
+          label: "Mob Health Less Than",
+          description:
+            "Checks if the mob's health is less than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^damage",
+          label: "Damage Equals",
+          description:
+            "Checks if the damage done exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^damage",
+          label: "Damage Greater Than",
+          description:
+            "Checks if the damage done is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^damage",
+          label: "Damage Less Than",
+          description:
+            "Checks if the damage done is less than the specified value",
+          value_type: "empty",
+        },
       ],
     },
     {
@@ -342,6 +468,48 @@ export const triggers_nested = {
           name: "player^damaged",
           label: "Damaged Player",
           description: "The player that was damaged. Defaults to any",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^damaged_health",
+          label: "Damaged Health Equals",
+          description:
+            "Checks if the damaged player's health exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^damaged_health",
+          label: "Damaged Health Greater Than",
+          description:
+            "Checks if the damaged player's health is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^damaged_health",
+          label: "Damaged Health Less Than",
+          description:
+            "Checks if the damaged player's health is less than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_equals^damage",
+          label: "Damage Equals",
+          description:
+            "Checks if the damage done exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^damage",
+          label: "Damage Greater Than",
+          description:
+            "Checks if the damage done is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^damage",
+          label: "Damage Less Than",
+          description:
+            "Checks if the damage done is less than the specified value",
           value_type: "empty",
         },
       ],
