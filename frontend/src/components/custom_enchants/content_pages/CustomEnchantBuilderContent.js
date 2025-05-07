@@ -26,7 +26,7 @@ import { checkConstraints } from "../../../util/constraints";
 import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
 import { yamlToJson } from "../../../util/yamlParser";
 
-const BACKEND_URL = "http://localhost:8000/api";
+const BACKEND_URL = "https://timonc-backend.onrender.com/api";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
