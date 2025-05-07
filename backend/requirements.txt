@@ -3,3 +3,4 @@ djangorestframework
 channels
 daphne
 django-cors-headers
+whitenoise[brotli]
