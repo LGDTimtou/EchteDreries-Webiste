@@ -75,8 +75,10 @@ const CustomEnchantBuilderContent = () => {
         try {
           const res = await fetch(`${BACKEND_URL}/load?secret=${secret}`);
           const data = await res.json();
-          const parsed = await yamlToJson(data.yaml);
-          setFormState(parsed);
+          if (data.yaml !== "") {
+            const parsed = await yamlToJson(data.yaml);
+            setFormState(parsed);
+          } else setFormState(defaultFormState);
         } catch (err) {
           alert(
             "Failed to load YAML, Please copy the YAML manually from the enchantments.yml file"

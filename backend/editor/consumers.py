@@ -42,7 +42,7 @@ class PluginConsumer(JsonWebsocketConsumer):
 
         if action == "start_session":
             yaml_data = content.get("yaml")
-            if not yaml_data:
+            if yaml_data is None:
                 return
             EditSession.objects.create(secret=self.secret, yaml_data=yaml_data)
             self.send_json(
