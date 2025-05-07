@@ -12,5 +12,8 @@ class EditorConfig(AppConfig):
     def cleanup_sessions():
         from editor.models import EditSession
 
-        print("Cleaning up EditSession entries on shutdown...")
-        EditSession.objects.all().delete()
+        try:
+            print("Cleaning up EditSession entries on shutdown...")
+            EditSession.objects.all().delete()
+        except:
+            print("EditSession table does not exist, skipping cleanup.")
