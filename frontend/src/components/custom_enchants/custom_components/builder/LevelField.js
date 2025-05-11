@@ -1,6 +1,6 @@
 import React from "react";
 import InputField from "../InputField";
-import CheckboxField from "../CheckboxField";
+import ToggleSwitchField from "../ToggleSwitchField";
 import InstructionListField from "./InstructionListField";
 
 const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
@@ -157,7 +157,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
           value={level.chance}
           onChange={handleInputChange}
         />
-        <CheckboxField
+        <ToggleSwitchField
           label="Cancel Event"
           description="If enabled, this level of the enchantment will cancel the triggering event"
           name="cancel_event"

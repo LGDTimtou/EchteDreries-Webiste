@@ -10,6 +10,7 @@ import { enchanted_item_custom_locations } from "../data/enchanted_item_custom_l
 export const defaultFormState = {
   minecraft_version: versions[0],
   enchantment_name: "",
+  needs_permission: false,
   targets: [],
   tags: [],
   conflicts_with: [],
@@ -45,6 +46,7 @@ export const jsonToYaml = (formState) => {
     [enchantment_name]: {
       version: formState.minecraft_version,
       enabled: true,
+      needs_permission: formState.needs_permission,
       definition: {
         max_level: formState.levels.length,
         anvil_cost: formState.anvil_cost,
@@ -128,6 +130,7 @@ export const yamlToJson = async (yaml) => {
   formState.minecraft_version = versions.includes(enchantmentData.version)
     ? enchantmentData.version
     : formState.minecraft_version;
+  formState.needs_permission = enchantmentData.needs_permission ?? false;
   formState.anvil_cost = definition.anvil_cost ?? formState.anvil_cost;
   formState.conflicts_with = (definition.conflicts_with ?? []).map((name) => ({
     name: name,

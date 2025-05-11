@@ -15,7 +15,6 @@ import {
 } from "../../../data/trigger_conditions/parameters";
 import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
 import AddableSelectField from "../custom_components/AddableSelectField";
-import CheckboxField from "../custom_components/CheckboxField";
 import SliderField from "../custom_components/SliderField";
 import TriggerSelectField from "../custom_components/builder/TriggerSelectField";
 import LevelCreationField from "../custom_components/builder/LevelCreationField";
@@ -25,6 +24,7 @@ import LoadingDots from "../custom_components/builder/LoadingDots";
 import { checkConstraints } from "../../../util/constraints";
 import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
 import { yamlToJson } from "../../../util/yamlParser";
+import ToggleSwitchField from "../custom_components/ToggleSwitchField";
 
 const BACKEND_URL = "https://timonc-backend.onrender.com/api";
 
@@ -239,6 +239,17 @@ const CustomEnchantBuilderContent = () => {
           value={formState.enchantment_name}
           onChange={handleChange}
         />
+        <ToggleSwitchField
+          label="Needs Permission"
+          description={`Determines if the player needs permission (customenchantments.enchantment.${
+            formState.enchantment_name
+              ? formState.enchantment_name.toLowerCase()
+              : "<name>"
+          }) to trigger this enchantment`}
+          name="needs_permission"
+          checked={formState.needs_permission}
+          onChange={handleCheckboxChange}
+        />
       </div>
       <div className="content-box">
         <h2 className="content-box-title">Enchantment Definition</h2>
@@ -280,7 +291,7 @@ const CustomEnchantBuilderContent = () => {
       <div className="content-box">
         <h2 className="content-box-title">Enchanting Table</h2>
         <div className="field-container">
-          <CheckboxField
+          <ToggleSwitchField
             label="Enabled"
             description="Determines if this enchantment can appear in enchanting tables"
             name="in_enchanting_table"
@@ -348,7 +359,7 @@ const CustomEnchantBuilderContent = () => {
 
         <div className="content-box">
           <h2 className="content-box-title">Extra settings</h2>
-          <CheckboxField
+          <ToggleSwitchField
             label="Use Default Item Locations"
             description="Use default item locations when checking where the enchanted item is equipped (e.g., damage_player → main hand, armor_equip → armor slot)"
             name="default_enchantment_location"
