@@ -83,6 +83,19 @@
   color: #ff4d4d; /* Highlight color on hover */
 }
 
+.condition-remove-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem; /* Slightly larger for visibility */
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.condition-remove-btn:hover {
+  color: #ff4d4d; /* Highlight color on hover */
+}
+
 .batch-add-btn-inline {
   position: absolute;
   top: 10%; /* Center vertically */

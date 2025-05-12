@@ -6,6 +6,7 @@ import { damage_causes } from "./values/causes/damageCauses";
 import { global_trigger_conditions } from "./global_trigger_conditions";
 import { inventory_types } from "./values/inventory_type";
 import { versions } from "../versions";
+import { defaultLevel } from "../../util/yamlParser";
 
 export const loadTrigger = async (trigger, version) => {
   const triggerConditionTypes = [...(trigger.trigger_conditions ?? [])];
@@ -58,6 +59,7 @@ export const loadTrigger = async (trigger, version) => {
     description: trigger.description,
     possible_trigger_conditions: triggerConditions,
     selected_trigger_conditions: [],
+    levels: [defaultLevel],
   };
 };
 

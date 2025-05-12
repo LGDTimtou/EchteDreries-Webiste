@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InputField from "../custom_components/InputField";
 import SelectField from "../custom_components/SelectField";
@@ -9,15 +9,9 @@ import { enchantment_tags } from "../../../data/tags";
 import { enchantments } from "../../../data/enchantments";
 import { triggers } from "../../../data/triggers";
 import { enchanted_item_custom_locations } from "../../../data/enchanted_item_custom_locations";
-import {
-  trigger_condition_parameters,
-  global_parameters,
-} from "../../../data/trigger_conditions/parameters";
-import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
 import AddableSelectField from "../custom_components/AddableSelectField";
 import SliderField from "../custom_components/SliderField";
 import TriggerSelectField from "../custom_components/builder/TriggerSelectField";
-import LevelCreationField from "../custom_components/builder/LevelCreationField";
 import YamlActionButtonsField from "../custom_components/builder/YamlActionButtonsField";
 import YamlPopup from "../custom_components/builder/YamlPopup";
 import LoadingDots from "../custom_components/builder/LoadingDots";
@@ -120,34 +114,34 @@ const CustomEnchantBuilderContent = () => {
     }));
   };
 
-  const filteredParameters = useMemo(() => {
-    const result = formState.triggers.map((trigger) => {
-      return {
-        name: trigger.name,
-        parameters: trigger.selected_trigger_conditions.flatMap((selected) => {
-          let [trigger_condition = "", prefix = ""] = selected.name.split("^");
-          const parameters =
-            trigger_condition_parameters[trigger_condition] || [];
-
-          const global_value_prefix = global_trigger_conditions.filter(
-            (gl) => gl.name === trigger_condition
-          )[0]?.global_value_prefix;
-
-          if (global_value_prefix) prefix = global_value_prefix;
-
-          return parameters.map((parameter) => ({
-            ...parameter,
-            name: prefix
-              ? parameter.name
-                ? `${prefix}_${parameter.name}`
-                : prefix
-              : parameter.name,
-          }));
-        }),
-      };
-    });
-    return [global_parameters, ...result];
-  }, [formState.triggers]);
+  //const filteredParameters = useMemo(() => {
+  //  const result = formState.triggers.map((trigger) => {
+  //    return {
+  //      name: trigger.name,
+  //      parameters: trigger.selected_trigger_conditions.flatMap((selected) => {
+  //        let [trigger_condition = "", prefix = ""] = selected.name.split("^");
+  //        const parameters =
+  //          trigger_condition_parameters[trigger_condition] || [];
+  //
+  //        const global_value_prefix = global_trigger_conditions.filter(
+  //          (gl) => gl.name === trigger_condition
+  //        )[0]?.global_value_prefix;
+  //
+  //        if (global_value_prefix) prefix = global_value_prefix;
+  //
+  //        return parameters.map((parameter) => ({
+  //          ...parameter,
+  //          name: prefix
+  //            ? parameter.name
+  //              ? `${prefix}_${parameter.name}`
+  //              : prefix
+  //            : parameter.name,
+  //        }));
+  //      }),
+  //    };
+  //  });
+  //  return [global_parameters, ...result];
+  //}, [formState.triggers]);
 
   const clearAllInput = () => {
     const confirmed = window.confirm(
@@ -405,25 +399,6 @@ const CustomEnchantBuilderContent = () => {
             triggerOptions={triggers}
             version={formState.minecraft_version}
             onChange={handleAddableSelectboxChange}
-          />
-        </div>
-
-        <div className="content-box">
-          <h2 className="content-box-title">Levels</h2>
-          <InputField
-            label="Cooldown Message"
-            description="Message shown to the player when the enchantment is on cooldown (leave empty to show nothing)"
-            placeholder=""
-            name="cooldown_message"
-            value={formState.cooldown_message}
-            onChange={handleChange}
-          />
-          <LevelCreationField
-            levels={formState.levels}
-            parametersPerTrigger={filteredParameters}
-            onChange={(value) =>
-              setFormState((prevState) => ({ ...prevState, levels: value }))
-            }
           />
         </div>
         <br />

@@ -8,6 +8,7 @@ const InputField = ({
   value,
   onChange,
   description,
+  maxWidth = 400,
 }) => {
   return (
     <div className="input-field-container">
@@ -23,6 +24,7 @@ const InputField = ({
         name={name}
         value={value}
         onChange={onChange}
+        style={{ maxWidth: `${maxWidth}px` }}
       />
     </div>
   );

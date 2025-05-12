@@ -10,6 +10,7 @@ const AddableSelectField = React.memo(
     values = [],
     onChange,
     customOptionsAllowed,
+    style,
   }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -119,6 +120,7 @@ const AddableSelectField = React.memo(
           alignItems: "center",
           marginBottom: "20px",
           position: "relative",
+          ...style,
         }}
       >
         <label className="input-label">

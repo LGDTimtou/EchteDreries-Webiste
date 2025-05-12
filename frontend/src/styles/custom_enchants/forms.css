@@ -31,12 +31,12 @@
 }
 
 .input-field-text {
-  width: 70%
+  width: 70%;
 }
 
 .input-field-number {
   appearance: none;
-  width: 30px
+  width: 30px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -91,7 +91,7 @@ input[type="number"] {
   color: var(--text-primary);
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
 }
 
 .dropdown-option:hover {
@@ -132,7 +132,7 @@ input[type="number"] {
   color: var(--text-primary);
   cursor: text; /* Ensure text cursor for input */
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   background-color: transparent; /* Match dropdown-option background */
   border: 1px solid var(--border-color); /* Add a subtle border */
   border-radius: 4px; /* Optional: Add rounded edges for consistency */
@@ -161,7 +161,7 @@ input[type="number"] {
 }
 
 .checkbox:checked::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 35%;
   left: 50%;
@@ -176,7 +176,6 @@ input[type="number"] {
   border-color: var(--text-secondary);
 }
 
-
 .textarea-field {
   padding: 10px 14px;
   font-size: 0.9rem;
@@ -189,7 +188,7 @@ input[type="number"] {
   min-height: 20px; /* Minimum height */
   height: 20px;
   resize: vertical; /* Allow horizontal and vertical resizing */
-  font-family: 'Minecraft', monospace;
+  font-family: "Minecraft", monospace;
   margin-bottom: 10px;
 }
 

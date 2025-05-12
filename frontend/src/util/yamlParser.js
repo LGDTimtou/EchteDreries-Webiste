@@ -25,17 +25,16 @@ export const defaultFormState = {
   custom_enchantment_locations: [],
   destroy_item_chance: 0,
   remove_enchantment_chance: 0,
+  triggers: [],
+};
+
+export const defaultLevel = {
+  cooldown: 60,
+  chance: 100,
+  cancel_event: false,
   cooldown_message:
     "&7You, &6%player%&7, have to wait %time_left% or %time_left_full_out% before you can use %enchantment% again!",
-  levels: [
-    {
-      cooldown: 60,
-      chance: 100,
-      cancel_event: false,
-      commands: [],
-    },
-  ],
-  triggers: [],
+  instructions: [],
 };
 
 export const jsonToYaml = (formState) => {
@@ -46,9 +45,11 @@ export const jsonToYaml = (formState) => {
     [enchantment_name]: {
       version: formState.minecraft_version,
       enabled: true,
-      needs_permission: formState.needs_permission,
       definition: {
-        max_level: formState.levels.length,
+        needs_permission: formState.needs_permission,
+        max_level: Math.max(
+          formState.triggers.map((trigger) => trigger.levels.length)
+        ),
         anvil_cost: formState.anvil_cost,
         conflicts_with: formState.conflicts_with.map(
           (enchantment) => enchantment.name
@@ -58,34 +59,37 @@ export const jsonToYaml = (formState) => {
           {},
           ...formState.tags.map((tag) => ({ [tag.name.toLowerCase()]: true }))
         ),
+        destroy_item_chance: parseFloat(formState.destroy_item_chance) || 0,
+        remove_enchantment_chance:
+          parseFloat(formState.remove_enchantment_chance) || 0,
       },
       custom_locations:
         formState.default_enchantment_location ||
         formState.custom_enchantment_locations.length === 0
           ? []
           : formState.custom_enchantment_locations.map((loc) => loc.name),
-      destroy_item_chance: parseFloat(formState.destroy_item_chance) || 0,
-      remove_enchantment_chance:
-        parseFloat(formState.remove_enchantment_chance) || 0,
       triggers: Object.assign(
         {},
         ...formState.triggers.map((trigger) => ({
-          [trigger.name]: Object.assign(
-            {},
-            ...trigger.selected_trigger_conditions.map((condition) => ({
-              [condition.name]: condition.fields.map((field) => field.name),
-            }))
-          ),
-        }))
-      ),
-      levels: Object.assign(
-        {},
-        ...formState.levels.map((level, index) => ({
-          [index + 1]: {
-            cancel_event: level.cancel_event,
-            cooldown: level.cooldown,
-            chance: level.chance,
-            commands: transformInstructionsToYamlList(level.commands),
+          [trigger.name]: {
+            conditions: Object.assign(
+              {},
+              ...trigger.selected_trigger_conditions.map((condition) => ({
+                [condition.name]: condition.fields.map((field) => field.name),
+              }))
+            ),
+            levels: Object.assign(
+              {},
+              ...trigger.levels.map((level, index) => ({
+                [index + 1]: {
+                  cancel_event: level.cancel_event,
+                  cooldown: level.cooldown,
+                  cooldown_message: level.cooldown_message.trim(),
+                  chance: level.chance,
+                  instructions: formatInstructions(level.instructions),
+                },
+              }))
+            ),
           },
         }))
       ),
@@ -104,10 +108,6 @@ export const jsonToYaml = (formState) => {
       max_cost_incr: formState.max_cost_incr,
     };
   }
-
-  if (formState.cooldown_message.trim() !== "")
-    jsonEnchantment[enchantment_name]["cooldown_message"] =
-      formState.cooldown_message;
 
   const doc = new YAML.Document();
   doc.contents = jsonEnchantment;
@@ -130,7 +130,7 @@ export const yamlToJson = async (yaml) => {
   formState.minecraft_version = versions.includes(enchantmentData.version)
     ? enchantmentData.version
     : formState.minecraft_version;
-  formState.needs_permission = enchantmentData.needs_permission ?? false;
+  formState.needs_permission = definition.needs_permission ?? false;
   formState.anvil_cost = definition.anvil_cost ?? formState.anvil_cost;
   formState.conflicts_with = (definition.conflicts_with ?? []).map((name) => ({
     name: name,
@@ -157,13 +157,12 @@ export const yamlToJson = async (yaml) => {
     formState.custom_enchantment_locations = [];
   }
 
-  formState.destroy_item_chance = parseFloat(
+  definition.destroy_item_chance = parseFloat(
     enchantmentData.destroy_item_chance ?? 0
   );
-  formState.remove_enchantment_chance = parseFloat(
+  definition.remove_enchantment_chance = parseFloat(
     enchantmentData.remove_enchantment_chance ?? 0
   );
-  formState.cooldown_message = enchantmentData.cooldown_message ?? "";
   formState.in_enchanting_table =
     (definition.tags ?? {}).in_enchanting_table ??
     formState.in_enchanting_table;
@@ -193,90 +192,125 @@ export const yamlToJson = async (yaml) => {
 
       return {
         ...loadedTrigger,
-        selected_trigger_conditions: (Array.isArray(
-          enchantmentData.triggers[trigger.name]
+        selected_trigger_conditions: Object.entries(
+          enchantmentData.triggers[trigger.name].conditions ?? {}
         )
-          ? enchantmentData.triggers[trigger.name]
-          : Object.entries(enchantmentData.triggers[trigger.name] ?? {}).map(
-              ([conditionName, fields]) => ({ [conditionName]: fields })
-            )
-        ).map((conditionObj) => {
-          const [conditionName, fields] = Object.entries(conditionObj)[0];
+          .map(([conditionName, fields]) => ({ [conditionName]: fields }))
+          .map((conditionObj) => {
+            const [conditionName, fields] = Object.entries(conditionObj)[0];
 
-          const match = loadedTrigger.possible_trigger_conditions.find(
-            (c) => c.name === conditionName
-          );
+            const match = loadedTrigger.possible_trigger_conditions.find(
+              (c) => c.name === conditionName
+            );
+            console.log(match.possible_values);
 
-          if (!match) return null;
-          return {
-            ...match,
-            fields: match.possible_values.filter((value) =>
-              fields.includes(value.name.toLowerCase())
-            ),
-          };
-        }),
+            if (!match) return null;
+            console.log(fields);
+
+            return {
+              ...match,
+              fields: fields.map(
+                (field) =>
+                  match.possible_values.find(
+                    (value) => value.name === field.toLowerCase()
+                  ) ?? {
+                    name: field.toString().toLowerCase(),
+                    label: toTitleCase(field.toString()),
+                  }
+              ),
+            };
+          }),
+        levels: Object.values(
+          enchantmentData.triggers[trigger.name].levels ?? {}
+        ).map((level) => ({
+          cooldown: level.cooldown,
+          cooldown_message: level.cooldown_message ?? "",
+          chance: level.chance,
+          cancel_event: level.cancel_event,
+          instructions: parseYamlInstructions(level.instructions),
+        })),
       };
     })
   );
 
-  if (enchantmentData.levels) {
-    formState.levels = Object.values(enchantmentData.levels).map((level) => ({
-      cooldown: level.cooldown,
-      chance: level.chance,
-      cancel_event: level.cancel_event,
-      commands: parseYamlInstructions(level.commands),
-    }));
-  }
-
   return formState;
 };
 
-function transformInstructionsToYamlList(instructions) {
-  return instructions.map((inst) => {
-    if (inst.type === "command") {
-      return inst.value;
-    } else if (inst.type === "delay") {
-      return `delay ${inst.value}`;
-    } else if (inst.type === "repeat") {
-      return {
-        [`repeat_${inst.value.amount}`]: transformInstructionsToYamlList(
-          inst.value.instructions
-        ),
+function formatInstructions(instructions) {
+  const formattedInstructions = [];
+  for (const instruction of instructions) {
+    const formatted = {};
+
+    if (instruction.type === "repeat") {
+      formatted[instruction.type] = {
+        amount: instruction.value.amount,
+        loop_parameter: instruction.value.loop_parameter,
+        instructions: formatInstructions(instruction.value.instructions),
       };
     } else {
-      throw new Error(`Unknown instruction type: ${inst.type}`);
+      formatted[instruction.type] = instruction.value;
     }
-  });
+    formattedInstructions.push(formatted);
+  }
+
+  return formattedInstructions;
 }
 
-function parseYamlInstructions(commands) {
-  return commands.map((cmd) => {
-    if (typeof cmd === "string") {
-      if (cmd.startsWith("delay ")) {
-        const value = Number(cmd.split(" ")[1]);
-        return { type: "delay", value };
-      } else {
-        return { type: "command", value: cmd };
+function parseYamlInstructions(instructions) {
+  return instructions.map((instruction) => {
+    if (typeof instruction === "object" && instruction !== null) {
+      // Handle Command Instruction
+      if (instruction.command !== undefined) {
+        return {
+          type: "command",
+          value: instruction.command,
+        };
       }
-    }
 
-    if (typeof cmd === "object" && cmd !== null) {
-      const key = Object.keys(cmd)[0];
+      // Handle Delay Instruction
+      if (instruction.delay !== undefined) {
+        return {
+          type: "delay",
+          value: instruction.delay,
+        };
+      }
 
-      if (key.startsWith("repeat_")) {
-        const amount = Number(key.split("_")[1]);
-        const subInstructions = cmd[key];
+      // Handle Save Instruction
+      if (instruction.save !== undefined) {
+        return {
+          type: "save",
+          value: instruction.save,
+        };
+      }
+
+      // Handle Load Instruction
+      if (instruction.load !== undefined) {
+        return {
+          type: "load",
+          value: instruction.load,
+        };
+      }
+
+      // Handle Repeat Instruction
+      if (instruction.repeat !== undefined) {
+        console.log(instruction.repeat);
 
         return {
           type: "repeat",
           value: {
-            amount,
-            instructions: parseYamlInstructions(subInstructions),
+            amount: instruction.repeat.amount,
+            loop_parameter: instruction.repeat.loop_parameter,
+            instructions: parseYamlInstructions(
+              instruction.repeat.instructions
+            ),
           },
         };
       }
     }
 
-    throw new Error("Unknown instruction format: " + JSON.stringify(cmd));
+    // If the instruction does not match any expected type
+    throw new Error(
+      "Unknown instruction format: " + JSON.stringify(instruction)
+    );
   });
 }

@@ -3,6 +3,24 @@ import InputField from "../InputField";
 import ToggleSwitchField from "../ToggleSwitchField";
 import InstructionListField from "./InstructionListField";
 
+const instructionsDefaultValues = {
+  repeat: {
+    amount: 5,
+    loop_parameter: "k",
+    instructions: [],
+  },
+  save: {
+    context: "player",
+    identifier: "",
+    value: "",
+  },
+  load: {
+    context: "player",
+    identifier: "",
+    default_value: "",
+  },
+};
+
 const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,23 +41,23 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
     onChange(id, updatedLevel);
   };
 
-  const updateNestedInstruction = (commands, path, updater) => {
-    if (path.length === 0) return commands;
+  const updateNestedInstruction = (instructions, path, updater) => {
+    if (path.length === 0) return instructions;
 
     const [currentIndex, ...restPath] = path;
 
-    return commands.map((cmd, i) => {
-      if (i !== currentIndex) return cmd;
+    return instructions.map((instruction, i) => {
+      if (i !== currentIndex) return instruction;
 
-      if (restPath.length === 0) return updater(cmd);
+      if (restPath.length === 0) return updater(instruction);
 
-      if (cmd.type === "repeat" && cmd.value?.instructions) {
+      if (instruction.type === "repeat" && instruction.value?.instructions) {
         return {
-          ...cmd,
+          ...instruction,
           value: {
-            ...cmd.value,
+            ...instruction.value,
             instructions: updateNestedInstruction(
-              cmd.value.instructions,
+              instruction.value.instructions,
               restPath,
               updater
             ),
@@ -48,18 +66,18 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
       }
 
       console.error("error in nested instructions updating");
-      return cmd;
+      return instruction;
     });
   };
 
   const handleAddInstruction = (path) => {
-    let updatedCommands;
+    let updatedInstructions;
     const newInstruction = { type: "command", value: "" };
     if (path.length === 0) {
-      updatedCommands = [...level.commands, newInstruction];
+      updatedInstructions = [...level.instructions, newInstruction];
     } else {
-      updatedCommands = updateNestedInstruction(
-        level.commands,
+      updatedInstructions = updateNestedInstruction(
+        level.instructions,
         path,
         (cmd) => ({
           ...cmd,
@@ -71,20 +89,20 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
       );
     }
 
-    onChange(id, { ...level, commands: updatedCommands });
+    onChange(id, { ...level, instructions: updatedInstructions });
   };
 
   const handleRemoveInstruction = (path) => {
-    let updatedCommands;
+    let updatedInstructions;
     if (path.length === 1) {
       const index = path[0];
-      updatedCommands = level.commands.filter((_, i) => i !== index);
+      updatedInstructions = level.instructions.filter((_, i) => i !== index);
     } else {
       const parentPath = path.slice(0, -1);
       const indexToRemove = path[path.length - 1];
 
-      updatedCommands = updateNestedInstruction(
-        level.commands,
+      updatedInstructions = updateNestedInstruction(
+        level.instructions,
         parentPath,
         (cmd) => ({
           ...cmd,
@@ -97,22 +115,17 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
         })
       );
     }
-    onChange(id, { ...level, commands: updatedCommands });
+    onChange(id, { ...level, instructions: updatedInstructions });
   };
 
   const handleChangeInstructionType = (path, type) => {
     onChange(id, {
       ...level,
-      commands: updateNestedInstruction(level.commands, path, (cmd) => {
-        return type === "repeat"
-          ? {
-              type: type,
-              value: {
-                amount: 5,
-                instructions: [],
-              },
-            }
-          : { type: type, value: "" };
+      instructions: updateNestedInstruction(level.instructions, path, (cmd) => {
+        return {
+          type: type,
+          value: instructionsDefaultValues[type] ?? "",
+        };
       }),
     });
   };
@@ -120,7 +133,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
   const handleChangeInstructionValue = (path, value) => {
     onChange(id, {
       ...level,
-      commands: updateNestedInstruction(level.commands, path, (cmd) => {
+      instructions: updateNestedInstruction(level.instructions, path, (cmd) => {
         return {
           ...cmd,
           value: value,
@@ -131,7 +144,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
 
   return (
     <div className="trigger-card">
-      <h3 className="subsection-title">‎ Level {id + 1}</h3>
+      <h3 className="subsubsection-title offset"> Level {id + 1}</h3>
 
       {id !== 0 && (
         <button className="trigger-remove-btn" onClick={() => onRemove(id)}>
@@ -165,9 +178,17 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
           onChange={handleCheckboxChange}
         />
       </div>
+      <InputField
+        label="Cooldown Message"
+        description="Message shown to the player when the enchantment is on cooldown (leave empty to show nothing)"
+        placeholder=""
+        name="cooldown_message"
+        value={level.cooldown_message}
+        onChange={handleInputChange}
+      />
       <InstructionListField
         parentIndices={[]}
-        instructions={level.commands}
+        instructions={level.instructions}
         onChangeInstructionType={handleChangeInstructionType}
         onChangeInstructionValue={handleChangeInstructionValue}
         onRemoveInstruction={handleRemoveInstruction}
