@@ -9,6 +9,7 @@ import HomeContent from "../components/custom_enchants/content_pages/HomeContent
 import CustomEnchantBuilderContent from "../components/custom_enchants/content_pages/CustomEnchantBuilderContent";
 import TriggerContent from "../components/custom_enchants/content_pages/TriggerContent";
 import ParameterContent from "../components/custom_enchants/content_pages/ParameterContent";
+import CommandContent from "../components/custom_enchants/content_pages/CommandContent";
 
 const CustomEnchants = () => {
   const navigate = useNavigate();
@@ -21,6 +22,11 @@ const CustomEnchants = () => {
       title: "Home",
       link: "home",
       component: HomeContent,
+    },
+    {
+      title: "Commands",
+      link: "commands",
+      component: CommandContent,
     },
     {
       title: "Custom Enchant Builder",
