@@ -13,7 +13,7 @@ const CommandContent = ({ subcommand }) => {
           </TipBox>
           <TipBox type="important">
             <p className="minecraft-gray">
-              customenchantments.command.{command.permission}
+              customenchantments.command.customenchant.{command.permission}
             </p>
           </TipBox>
         </div>
