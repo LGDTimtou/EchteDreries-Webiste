@@ -1,11 +1,12 @@
 // TipBox.js
 import React from "react";
 
-const TipBox = ({ children, type = "tip" }) => {
+const TipBox = ({ children, type = "tip", style }) => {
   return (
     <div
       className="tip-box"
       style={{
+        ...style,
         "--tip-accent-color": type === "tip" ? "#3b82f6" : "#ef4444",
       }}
     >

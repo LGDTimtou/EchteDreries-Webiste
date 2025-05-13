@@ -8,8 +8,6 @@ import { toTitleCase } from "../../../util/util";
 import TipBox from "../custom_components/builder/TipBox";
 
 const ParameterContent = () => {
-  console.log(Object.keys(trigger_condition_parameters));
-
   return (
     <div>
       <p className="content-intro">
@@ -57,6 +55,12 @@ const ParameterContent = () => {
           </div>
         ))}
       </div>
+      <TipBox>
+        <p className="minecraft">
+          Have an idea for a new parameter? Feel free to open an issue on GitHub
+          or reach out to me on Discord!
+        </p>
+      </TipBox>
     </div>
   );
 };

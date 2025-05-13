@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../styles/custom_enchants/CustomEnchants.css";
 import { yamlToJson } from "../../../util/yamlParser";
 import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
+import TipBox from "../custom_components/builder/TipBox";
 
 const TriggerContent = ({ category, triggerName, trigger }) => {
   const navigate = useNavigate();
@@ -112,6 +113,12 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
           </button>
         </div>
       )}
+      <TipBox>
+        <p className="minecraft">
+          Have an idea for a new trigger or trigger condition? Feel free to open
+          an issue on GitHub or reach out to me on Discord!
+        </p>
+      </TipBox>
     </div>
   );
 };

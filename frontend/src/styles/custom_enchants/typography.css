@@ -66,6 +66,17 @@
   color: var(--text-secondary);
 }
 
+.minecraft-link {
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.minecraft-link:hover {
+  color: #2563eb;
+}
+
 .parameters-section {
   margin-bottom: 20px;
   padding: 10px;

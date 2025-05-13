@@ -25,15 +25,34 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
     <div>
       <TipBox>
         <p>
-          You can use parameters like <code>%player%</code> to reference the
-          player name or functions like <code>$[add(x1, x2, ...)]</code> to sum
-          values.
-        </p>
-      </TipBox>
-      <TipBox>
-        <p>
+          You can use{" "}
+          <a
+            href="https://timonc.be/custom_enchants/parameters"
+            className="minecraft-link"
+          >
+            parameters
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://timonc.be/custom_enchants/functions"
+            className="minecraft-link"
+          >
+            functions
+          </a>{" "}
+          in your instructions. <br />
           Start typing <strong>%</strong> or <strong>$</strong> for autocomplete
           suggestions.
+        </p>
+      </TipBox>
+      <TipBox style={{ marginBottom: "20px" }}>
+        <p>
+          <a
+            href="https://wiki.placeholderapi.com/users/placeholder-list/"
+            className="minecraft-link"
+          >
+            PlaceholderAPI
+          </a>{" "}
+          placeholders are also supported!
         </p>
       </TipBox>
       {levels.map((level, index) => (

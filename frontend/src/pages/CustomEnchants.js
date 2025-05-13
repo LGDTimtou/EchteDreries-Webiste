@@ -10,6 +10,7 @@ import CustomEnchantBuilderContent from "../components/custom_enchants/content_p
 import TriggerContent from "../components/custom_enchants/content_pages/TriggerContent";
 import ParameterContent from "../components/custom_enchants/content_pages/ParameterContent";
 import CommandContent from "../components/custom_enchants/content_pages/CommandContent";
+import CommandFunctionContent from "../components/custom_enchants/content_pages/CommandFunctionContent";
 
 const CustomEnchants = () => {
   const navigate = useNavigate();
@@ -34,20 +35,15 @@ const CustomEnchants = () => {
       component: CustomEnchantBuilderContent,
     },
     {
-      title: "Parameters",
+      title: "Instruction Parameters",
       link: "parameters",
       component: ParameterContent,
     },
-    //{
-    //  title: "Built-in Custom Enchants",
-    //  link: "built_in",
-    //  component: null,
-    //},
-    //{
-    //  title: "Commands",
-    //  link: "commands",
-    //  component: null,
-    //},
+    {
+      title: "Instruction Functions",
+      link: "functions",
+      component: CommandFunctionContent,
+    },
     {
       title: "Triggers",
       subsections: Object.keys(triggers_nested).map((category) => ({
