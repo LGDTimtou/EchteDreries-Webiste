@@ -54,6 +54,7 @@ const InstructionListField = ({
                       e.target.value
                     )
                   }
+                  autoCompleteOptions={parameters}
                 />
               ) : instruction.type === "save" || instruction.type === "load" ? (
                 <SelectField
@@ -86,7 +87,8 @@ const InstructionListField = ({
                         amount: e.target.value,
                       })
                     }
-                    maxWidth={40}
+                    autoCompleteOptions={parameters}
+                    maxWidth={150}
                   />
                   <InputField
                     label="Loop Parameter"
@@ -139,6 +141,7 @@ const InstructionListField = ({
                 onChangeInstructionValue={onChangeInstructionValue}
                 onRemoveInstruction={onRemoveInstruction}
                 onAddInstruction={onAddInstruction}
+                onMoveInstruction={onMoveInstruction}
               />
             </div>
           ) : instruction.type === "command" ? (
@@ -199,7 +202,7 @@ const InstructionListField = ({
                       }
                   )
                 }
-                maxWidth={150}
+                autoCompleteOptions={parameters}
               />
             </div>
           ) : null}

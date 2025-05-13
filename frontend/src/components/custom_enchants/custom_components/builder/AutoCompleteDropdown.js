@@ -3,10 +3,9 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 
 const AutoCompleteDropdown = ({
   options,
-  currentText,
-  onChange,
   calculateDropdownPosition,
   textareaRef,
+  onChange
 }) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -15,7 +14,6 @@ const AutoCompleteDropdown = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [charWidth, setCharWidth] = useState(0);
   const canvasRef = useRef(null);
-  const dropdownRef = useRef(null);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -26,6 +24,7 @@ const AutoCompleteDropdown = ({
       context.font = fontStyle;
 
       const width = context.measureText(" ").width;
+
       setCharWidth(width);
     }
   }, [textareaRef]);
@@ -35,7 +34,7 @@ const AutoCompleteDropdown = ({
       if (autocompleteValue.startsWith(key)) {
 
         const filtered = options[key].filter((param) =>
-          param.toLowerCase().startsWith(autocompleteValue.toLowerCase())
+          param.toLowerCase().includes(autocompleteValue.substring(1).toLowerCase())
         );
         setFilteredOptions(filtered);
         setShowAutocomplete(filtered.length > 0);
@@ -58,8 +57,8 @@ const AutoCompleteDropdown = ({
   const handleAutocompleteSelect = useCallback((option) => {
     if (!textareaRef.current) return;
     const cursorPos = textareaRef.current.selectionStart;
-    const textBeforeCursor = currentText.slice(0, cursorPos);
-    const textAfterCursor = currentText.slice(cursorPos);
+    const textBeforeCursor = textareaRef.current.value.slice(0, cursorPos);
+    const textAfterCursor = textareaRef.current.value.slice(cursorPos);
 
     const lastPercentIndex = textBeforeCursor.lastIndexOf(option[0]);
     const newText =
@@ -73,16 +72,14 @@ const AutoCompleteDropdown = ({
     }, 0);
 
     onChange(newText);
+
     setShowAutocomplete(false);
     setAutocompleteValue("");
-  }, [currentText, onChange, textareaRef]);
+  }, [textareaRef, onChange]);
 
   const handleTextChange = useCallback((e) => {
-    const cleanedValue = e.target.value.replace(/[\r\n]+/g, " ");
-    onChange(cleanedValue);
-
     const cursorPos = e.target.selectionStart;
-    const textBeforeCursor = cleanedValue.slice(0, cursorPos);
+    const textBeforeCursor = e.target.value.slice(0, cursorPos);
 
     for (const key of Object.keys(options)) {
       const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -106,7 +103,7 @@ const AutoCompleteDropdown = ({
     setAutocompleteValue("");
     setShowAutocomplete(false);
 
-  }, [onChange, calculateDropdownPosition, charWidth, options]);
+  }, [calculateDropdownPosition, charWidth, options]);
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -122,14 +119,28 @@ const AutoCompleteDropdown = ({
         e.preventDefault();
         setSelectedIndex((prevIndex) => {
           const newIndex = prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : 0;
-          scrollToOption(newIndex);
+          setTimeout(() => {
+            document
+              .querySelector(`.autocomplete-option[data-index="${newIndex}"]`)
+              ?.scrollIntoView({
+                block: "nearest",
+                behavior: "smooth"
+              });
+          }, 0);
           return newIndex;
         });
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
         setSelectedIndex((prevIndex) => {
           const newIndex = prevIndex > 0 ? prevIndex - 1 : filteredOptions.length - 1;
-          scrollToOption(newIndex);
+          setTimeout(() => {
+            document
+              .querySelector(`.autocomplete-option[data-index="${newIndex}"]`)
+              ?.scrollIntoView({
+                block: "nearest",
+                behavior: "smooth"
+              });
+          }, 0);
           return newIndex;
         });
       } else if ((e.key === "Enter" || e.key === "Tab") && showAutocomplete) {
@@ -141,14 +152,6 @@ const AutoCompleteDropdown = ({
     },
     [showAutocomplete, filteredOptions, selectedIndex, handleAutocompleteSelect]
   );
-
-  const scrollToOption = (index) => {
-    if (!dropdownRef.current) return;
-    const option = dropdownRef.current.children[index];
-    if (option) {
-      dropdownRef.current.scrollTop = option.offsetTop - dropdownRef.current.offsetTop;
-    }
-  };
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -170,11 +173,10 @@ const AutoCompleteDropdown = ({
       {showAutocomplete && (
         <div
           className="autocomplete-dropdown"
-          ref={dropdownRef}
           style={{
             position: "absolute",
             top: position.top + "px",
-            left: position.left + "px",
+            left: position.left + "px"
           }}
         >
           {filteredOptions.map((option, index) => (
@@ -182,6 +184,7 @@ const AutoCompleteDropdown = ({
               key={index}
               className={`autocomplete-option ${index === selectedIndex ? "selected" : ""
                 }`}
+              data-index={index}
               onMouseDown={() => handleAutocompleteSelect(option)}
             >
               {option}

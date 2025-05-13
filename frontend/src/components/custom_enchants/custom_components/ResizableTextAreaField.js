@@ -83,10 +83,6 @@ const ResizableTextArea = ({
     };
   };
 
-  const onChangeText = (cleanedValue) => {
-    onChange({ target: { name, value: cleanedValue } });
-  };
-
   return (
     <div className="textarea-container" style={{ position: "relative" }}>
       <label className="input-label">
@@ -98,13 +94,14 @@ const ResizableTextArea = ({
         placeholder={placeholder}
         name={name}
         value={value}
+        onChange={(e) => onChange({ target: { name, value: e.target.value } })}
         ref={textareaRef}
         rows={rows}
       />
       <AutoCompleteDropdown
         options={autoCompleteOptions}
         currentText={value}
-        onChange={onChangeText}
+        onChange={(newValue) => onChange({ target: { name, value: newValue } })}
         calculateDropdownPosition={calculateDropdownPosition}
         textareaRef={textareaRef}
       />

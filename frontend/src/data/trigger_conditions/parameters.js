@@ -189,3 +189,23 @@ export const global_parameters = [
     description: "The health of the player that triggered the enchantment",
   },
 ];
+
+
+export const cooldown_message_parameters = [
+  {
+    name: "player",
+    description: "The display name of the player that triggered the enchantment"
+  },
+  {
+    name: "time_left",
+    description: "The time left on the cooldown in seconds"
+  },
+  {
+    name: "time_left_full_out",
+    description: "The time left on the cooldown in full output format (e.g., 1 minute, 30 seconds)"
+  },
+  {
+    name: "enchantment",
+    description: "The name of the enchantment that is on cooldown"
+  }
+]
