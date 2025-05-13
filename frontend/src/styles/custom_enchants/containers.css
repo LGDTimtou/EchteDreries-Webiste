@@ -212,6 +212,36 @@
   margin-bottom: 20px;
 }
 
+.command-move-buttons {
+  position: absolute;
+  right: 40px;
+  top: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.move-btn-command {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.move-btn-command:hover {
+  color: #58a6ff; /* Light blue on hover */
+  transform: scale(1.1);
+}
+
+.move-btn-command:disabled {
+  color: #484f58;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .command-header {
   display: flex;
   justify-content: space-between;

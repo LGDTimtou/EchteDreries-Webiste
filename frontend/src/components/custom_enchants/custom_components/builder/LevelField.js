@@ -70,6 +70,43 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
     });
   };
 
+  const handleMoveInstruction = (path, direction) => {
+    let updatedInstructions;
+
+    if (path.length === 1) {
+      const index = path[0];
+      const newIndex = index + direction;
+      updatedInstructions = [...level.instructions];
+      const [movedInstruction] = updatedInstructions.splice(index, 1);
+      updatedInstructions.splice(newIndex, 0, movedInstruction);
+    } else {
+      const parentPath = path.slice(0, -1);
+      const indexToMove = path[path.length - 1];
+      const newIndex = indexToMove + direction;
+
+      updatedInstructions = updateNestedInstruction(
+        level.instructions,
+        parentPath,
+        (cmd) => {
+          const nestedInstructions = [...cmd.value.instructions];
+
+          const [movedInstruction] = nestedInstructions.splice(indexToMove, 1);
+          nestedInstructions.splice(newIndex, 0, movedInstruction);
+
+          return {
+            ...cmd,
+            value: {
+              ...cmd.value,
+              instructions: nestedInstructions,
+            },
+          };
+        }
+      );
+    }
+
+    onChange(id, { ...level, instructions: updatedInstructions });
+  };
+
   const handleAddInstruction = (path) => {
     let updatedInstructions;
     const newInstruction = { type: "command", value: "" };
@@ -193,6 +230,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
         onChangeInstructionValue={handleChangeInstructionValue}
         onRemoveInstruction={handleRemoveInstruction}
         onAddInstruction={handleAddInstruction}
+        onMoveInstruction={handleMoveInstruction}
       />
     </div>
   );

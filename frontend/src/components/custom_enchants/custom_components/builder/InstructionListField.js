@@ -1,9 +1,9 @@
-import React from "react";
 import InputField from "../InputField";
 import SelectField from "../SelectField";
 import ResizableTextArea from "../ResizableTextAreaField";
 import { saveContexts } from "../../../../data/saveContexts";
 import { toTitleCase } from "../../../../util/util";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const InstructionListField = ({
   parentIndices,
@@ -12,6 +12,7 @@ const InstructionListField = ({
   onChangeInstructionValue,
   onRemoveInstruction,
   onAddInstruction,
+  onMoveInstruction,
 }) => {
   return (
     <div>
@@ -109,6 +110,22 @@ const InstructionListField = ({
             >
               ×
             </button>
+            <div className="command-move-buttons">
+              <button
+                className="move-btn-command"
+                onClick={() => onMoveInstruction([...parentIndices, index], -1)}
+                disabled={index === 0}
+              >
+                <FaChevronUp />
+              </button>
+              <button
+                className="move-btn-command"
+                onClick={() => onMoveInstruction([...parentIndices, index], 1)}
+                disabled={index === instructions.length - 1}
+              >
+                <FaChevronDown />
+              </button>
+            </div>
           </div>
 
           {instruction.type === "repeat" ? (
