@@ -3,7 +3,10 @@ import AddableSelectField from "../AddableSelectField";
 import { loadTrigger } from "../../../../data/trigger_conditions/loadTrigger";
 import { defaultLevel } from "../../../../util/yamlParser";
 import LevelCreationField from "./LevelCreationField";
-import { global_parameters, trigger_condition_parameters } from "../../../../data/trigger_conditions/parameters";
+import {
+  global_parameters,
+  trigger_condition_parameters,
+} from "../../../../data/trigger_conditions/parameters";
 import { global_trigger_conditions } from "../../../../data/trigger_conditions/global_trigger_conditions";
 import { command_functions } from "../../../../data/commandFunctions";
 
@@ -184,31 +187,39 @@ const TriggerSelectField = ({
                 .includes(triggerConditionSearchQuery.toLowerCase())
           );
 
-        const mappedParameters = [...global_parameters, ...trigger.possible_trigger_conditions.flatMap((selected) => {
-          let [trigger_condition = "", prefix = ""] = selected.name.split("^");
-          const parameters =
-            trigger_condition_parameters[trigger_condition] || [];
+        const mappedParameters = [
+          ...global_parameters,
+          ...trigger.possible_trigger_conditions.flatMap((selected) => {
+            let [trigger_condition = "", prefix = ""] =
+              selected.name.split("^");
+            const parameters =
+              trigger_condition_parameters[trigger_condition] || [];
 
-          const global_value_prefix = global_trigger_conditions.filter(
-            (gl) => gl.name === trigger_condition
-          )[0]?.global_value_prefix;
+            const global_value_prefix = global_trigger_conditions.filter(
+              (gl) => gl.name === trigger_condition
+            )[0]?.global_value_prefix;
 
-          if (global_value_prefix) prefix = global_value_prefix;
+            if (global_value_prefix) prefix = global_value_prefix;
 
-          return parameters.map((parameter) => ({
-            ...parameter,
-            name: prefix
-              ? parameter.name
-                ? `${prefix}_${parameter.name}`
-                : prefix
-              : parameter.name,
-          }))
-        })].map(parameter => `%${parameter.name}%`)
+            return parameters.map((parameter) => ({
+              ...parameter,
+              name: prefix
+                ? parameter.name
+                  ? `${prefix}_${parameter.name}`
+                  : prefix
+                : parameter.name,
+            }));
+          }),
+        ].map((parameter) => `%${parameter.name}%`);
 
-        const mappedFunctions = command_functions.map(f => f.autocomplete)
+        const mappedFunctions = command_functions.map((f) => f.autocomplete);
 
         return (
-          <div key={trigger.name} className="trigger-card">
+          <div
+            key={trigger.name}
+            className="trigger-card"
+            style={{ paddingBottom: "20px" }}
+          >
             <h3 className="content-box-title">{trigger.label}</h3>
 
             <button
@@ -312,7 +323,7 @@ const TriggerSelectField = ({
               <h2 className="subsection-title">Levels</h2>
               <LevelCreationField
                 levels={trigger.levels}
-                parameters={{ "%": mappedParameters, "$": mappedFunctions }}
+                parameters={{ "%": mappedParameters, $: mappedFunctions }}
                 onChange={(value) =>
                   handleTriggerLevelChange(trigger.name, value)
                 }

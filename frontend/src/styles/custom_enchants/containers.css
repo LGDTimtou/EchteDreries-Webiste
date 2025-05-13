@@ -172,7 +172,8 @@
   background-color: var(--bg-secondary); /* Match app theme */
   border-radius: 8px; /* Slightly smaller radius for distinction */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtler shadow for differentiation */
-  padding: 16px; /* Padding for the content */
+  padding-left: 16px; /* Padding for the content */
+  padding-right: 16px;
   margin-bottom: 20px; /* Spacing between cards */
   max-width: calc(
     100% - 40px

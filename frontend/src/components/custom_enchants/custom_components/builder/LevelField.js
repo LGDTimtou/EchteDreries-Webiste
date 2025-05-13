@@ -193,7 +193,7 @@ const LevelField = React.memo(
     };
 
     return (
-      <div className="trigger-card">
+      <div className="trigger-card" style={{ paddingBottom: "20px" }}>
         <h3 className="subsubsection-title offset"> Level {id + 1}</h3>
 
         {id !== 0 && (

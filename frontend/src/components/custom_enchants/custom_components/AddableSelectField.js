@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../../../styles/custom_enchants/CustomEnchants.css";
 
 const AddableSelectField = React.memo(
   ({
