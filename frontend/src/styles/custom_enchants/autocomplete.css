@@ -1,0 +1,44 @@
+.autocomplete-dropdown {
+  position: absolute;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  max-width: 300px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 4px 0;
+  font-family: "Minecraft", monospace;
+  scrollbar-width: thin;
+  scrollbar-color: #30363d #161b22;
+}
+
+.autocomplete-option {
+  padding: 8px;
+  cursor: pointer;
+  color: #c9d1d9;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  /* Prevent text wrap */
+  text-overflow: ellipsis;
+  /* Overflow text with dots */
+  overflow: hidden;
+}
+
+.autocomplete-option.selected {
+  background-color: #30363d;
+  color: #58a6ff;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-thumb {
+  background-color: #30363d;
+  border-radius: 4px;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-track {
+  background-color: #161b22;
+}

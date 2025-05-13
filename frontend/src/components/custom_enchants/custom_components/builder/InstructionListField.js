@@ -8,6 +8,7 @@ import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 const InstructionListField = ({
   parentIndices,
   instructions,
+  parameters,
   onChangeInstructionType,
   onChangeInstructionValue,
   onRemoveInstruction,
@@ -16,7 +17,7 @@ const InstructionListField = ({
 }) => {
   return (
     <div>
-      <h4 className="commands-title">‎ Instructions:</h4>
+      <h4 className="commands-title offset">Instructions:</h4>
       {instructions.map((instruction, index) => (
         <div className={"command-card"} key={index}>
           <div className="command-header">
@@ -133,6 +134,7 @@ const InstructionListField = ({
               <InstructionListField
                 parentIndices={[...parentIndices, index]}
                 instructions={instruction.value.instructions}
+                parameters={parameters}
                 onChangeInstructionType={onChangeInstructionType}
                 onChangeInstructionValue={onChangeInstructionValue}
                 onRemoveInstruction={onRemoveInstruction}
@@ -144,6 +146,7 @@ const InstructionListField = ({
               label="Command"
               description="The Minecraft command to be executed by the console (parameters and functions can be used)"
               name="value"
+              autoCompleteOptions={parameters}
               value={instruction.value}
               onChange={(e) =>
                 onChangeInstructionValue(
@@ -187,13 +190,13 @@ const InstructionListField = ({
                     [...parentIndices, index],
                     instruction.type === "save"
                       ? {
-                          ...instruction.value,
-                          value: e.target.value,
-                        }
+                        ...instruction.value,
+                        value: e.target.value,
+                      }
                       : {
-                          ...instruction.value,
-                          default_value: e.target.value,
-                        }
+                        ...instruction.value,
+                        default_value: e.target.value,
+                      }
                   )
                 }
                 maxWidth={150}

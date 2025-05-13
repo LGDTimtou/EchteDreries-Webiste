@@ -21,7 +21,8 @@ const instructionsDefaultValues = {
   },
 };
 
-const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
+const LevelField = React.memo(({ id, level, parameters, onChange, onRemove }) => {
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -226,6 +227,7 @@ const LevelField = React.memo(({ id, level, onChange, onRemove }) => {
       <InstructionListField
         parentIndices={[]}
         instructions={level.instructions}
+        parameters={parameters}
         onChangeInstructionType={handleChangeInstructionType}
         onChangeInstructionValue={handleChangeInstructionValue}
         onRemoveInstruction={handleRemoveInstruction}

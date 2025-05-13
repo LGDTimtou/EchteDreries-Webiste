@@ -188,7 +188,6 @@ input[type="number"] {
   min-height: 20px; /* Minimum height */
   height: 20px;
   resize: vertical; /* Allow horizontal and vertical resizing */
-  font-family: "Minecraft", monospace;
   margin-bottom: 10px;
 }
 

@@ -163,32 +163,29 @@ export const trigger_condition_parameters = {
   ],
 };
 
-export const global_parameters = {
-  name: "global_parameters",
-  parameters: [
-    {
-      name: "player",
-      description:
-        "The display name of the player that triggered the enchantment",
-    },
-    {
-      name: "player_x",
-      description:
-        "The x coordinate of the player that triggered the enchantment",
-    },
-    {
-      name: "player_y",
-      description:
-        "The y coordinate of the player that triggered the enchantment",
-    },
-    {
-      name: "player_z",
-      description:
-        "The z coordinate of the player that triggered the enchantment",
-    },
-    {
-      name: "player_health",
-      description: "The health of the player that triggered the enchantment",
-    },
-  ],
-};
+export const global_parameters = [
+  {
+    name: "player",
+    description:
+      "The display name of the player that triggered the enchantment",
+  },
+  {
+    name: "player_x",
+    description:
+      "The x coordinate of the player that triggered the enchantment",
+  },
+  {
+    name: "player_y",
+    description:
+      "The y coordinate of the player that triggered the enchantment",
+  },
+  {
+    name: "player_z",
+    description:
+      "The z coordinate of the player that triggered the enchantment",
+  },
+  {
+    name: "player_health",
+    description: "The health of the player that triggered the enchantment",
+  },
+];

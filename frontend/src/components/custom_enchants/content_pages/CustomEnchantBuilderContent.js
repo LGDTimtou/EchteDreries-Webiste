@@ -114,35 +114,6 @@ const CustomEnchantBuilderContent = () => {
     }));
   };
 
-  //const filteredParameters = useMemo(() => {
-  //  const result = formState.triggers.map((trigger) => {
-  //    return {
-  //      name: trigger.name,
-  //      parameters: trigger.selected_trigger_conditions.flatMap((selected) => {
-  //        let [trigger_condition = "", prefix = ""] = selected.name.split("^");
-  //        const parameters =
-  //          trigger_condition_parameters[trigger_condition] || [];
-  //
-  //        const global_value_prefix = global_trigger_conditions.filter(
-  //          (gl) => gl.name === trigger_condition
-  //        )[0]?.global_value_prefix;
-  //
-  //        if (global_value_prefix) prefix = global_value_prefix;
-  //
-  //        return parameters.map((parameter) => ({
-  //          ...parameter,
-  //          name: prefix
-  //            ? parameter.name
-  //              ? `${prefix}_${parameter.name}`
-  //              : prefix
-  //            : parameter.name,
-  //        }));
-  //      }),
-  //    };
-  //  });
-  //  return [global_parameters, ...result];
-  //}, [formState.triggers]);
-
   const clearAllInput = () => {
     const confirmed = window.confirm(
       "Are you sure you want to clear all inputs?"
@@ -235,11 +206,10 @@ const CustomEnchantBuilderContent = () => {
         />
         <ToggleSwitchField
           label="Needs Permission"
-          description={`Determines if the player needs permission (customenchantments.enchantment.${
-            formState.enchantment_name
+          description={`Determines if the player needs permission (customenchantments.enchantment.${formState.enchantment_name
               ? formState.enchantment_name.toLowerCase()
               : "<name>"
-          }) to trigger this enchantment`}
+            }) to trigger this enchantment`}
           name="needs_permission"
           checked={formState.needs_permission}
           onChange={handleCheckboxChange}
