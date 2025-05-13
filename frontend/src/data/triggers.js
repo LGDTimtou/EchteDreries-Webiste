@@ -201,7 +201,7 @@ export const triggers_nested = {
     },
     {
       name: "block_ignite",
-      description: "Triggered the player ignites a block",
+      description: "Triggered when the player ignites a block",
       trigger_conditions: [
         {
           name: "block",

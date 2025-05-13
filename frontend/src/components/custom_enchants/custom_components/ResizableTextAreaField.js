@@ -9,7 +9,7 @@ const ResizableTextArea = ({
   onChange,
   description,
   rows = 3,
-  autoCompleteOptions = []
+  autoCompleteOptions = [],
 }) => {
   const textareaRef = useRef(null);
 

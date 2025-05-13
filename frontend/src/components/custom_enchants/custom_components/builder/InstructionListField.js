@@ -59,7 +59,7 @@ const InstructionListField = ({
               ) : instruction.type === "save" || instruction.type === "load" ? (
                 <SelectField
                   label="Context"
-                  description="Specify the context for storing this value (e.g., 'player' for player-specific values)."
+                  description="Specify the context for loading/storing this value (e.g., 'player' for player-specific values)."
                   options={saveContexts.map((item) => ({
                     name: item,
                     label: toTitleCase(item),
@@ -193,13 +193,13 @@ const InstructionListField = ({
                     [...parentIndices, index],
                     instruction.type === "save"
                       ? {
-                        ...instruction.value,
-                        value: e.target.value,
-                      }
+                          ...instruction.value,
+                          value: e.target.value,
+                        }
                       : {
-                        ...instruction.value,
-                        default_value: e.target.value,
-                      }
+                          ...instruction.value,
+                          default_value: e.target.value,
+                        }
                   )
                 }
                 autoCompleteOptions={parameters}

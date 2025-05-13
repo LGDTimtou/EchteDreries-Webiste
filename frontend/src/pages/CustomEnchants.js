@@ -8,6 +8,7 @@ import { triggers_nested } from "../data/triggers";
 import HomeContent from "../components/custom_enchants/content_pages/HomeContent";
 import CustomEnchantBuilderContent from "../components/custom_enchants/content_pages/CustomEnchantBuilderContent";
 import TriggerContent from "../components/custom_enchants/content_pages/TriggerContent";
+import ParameterContent from "../components/custom_enchants/content_pages/ParameterContent";
 
 const CustomEnchants = () => {
   const navigate = useNavigate();
@@ -25,6 +26,11 @@ const CustomEnchants = () => {
       title: "Custom Enchant Builder",
       link: "custom_enchant_builder",
       component: CustomEnchantBuilderContent,
+    },
+    {
+      title: "Parameters",
+      link: "parameters",
+      component: ParameterContent,
     },
     //{
     //  title: "Built-in Custom Enchants",
