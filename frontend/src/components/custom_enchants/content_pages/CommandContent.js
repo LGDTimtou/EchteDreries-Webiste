@@ -6,10 +6,10 @@ const CommandContent = ({ subcommand }) => {
     <div>
       <p className="content-intro">Available Commands for the Plugin</p>
       {built_in_commands.map((command, index) => (
-        <div className="parameters-section">
+        <div key={index} className="parameters-section">
           <p className="subsection-title offset">{command.name}</p>
           <TipBox>
-            <p className="minecraft">{command.description}</p>
+            <p>{command.description}</p>
           </TipBox>
           <TipBox type="important">
             <p className="minecraft-gray">

@@ -12,7 +12,7 @@ const TipBox = ({ children, type = "tip", style }) => {
     >
       <div className="tip-icon">{type === "tip" ? "💡" : "❗"}</div>
       <div className="tip-content">
-        <p className="minecraft">{children}</p>
+        <div className="minecraft">{children}</div>
       </div>
     </div>
   );

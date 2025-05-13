@@ -42,7 +42,7 @@ const ParameterContent = () => {
           <p>These are the suffixes of the actual parameter names</p>
         </TipBox>
         {Object.keys(trigger_condition_parameters).map((section, index) => (
-          <div>
+          <div key={`${section}-${index}`}>
             <p className="subsubsection-title offset">{toTitleCase(section)}</p>
             {trigger_condition_parameters[section].map((parameter, index) => (
               <div key={index} className="parameter-item">
@@ -56,9 +56,10 @@ const ParameterContent = () => {
         ))}
       </div>
       <TipBox>
-        <p className="minecraft">
-          Have an idea for a new parameter? Feel free to open an issue on GitHub
-          or reach out to me on Discord!
+        <p>
+          Have an idea for a new parameter?
+          <br /> Feel free to open an issue on GitHub or reach out to me on
+          Discord!
         </p>
       </TipBox>
     </div>

@@ -1,5 +1,11 @@
 import React from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Sidebar from "../components/custom_enchants/SideBar";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -96,7 +102,13 @@ const CustomEnchants = () => {
         </div>
         <div className="content-container">
           <div className="content-page">
-            <Routes>{renderRoutes(sections)}</Routes>
+            <Routes>
+              {renderRoutes(sections)}
+              <Route
+                path="*"
+                element={<Navigate to="/custom_enchants/home" />}
+              />
+            </Routes>
           </div>
           <div className="empty-div" />
 

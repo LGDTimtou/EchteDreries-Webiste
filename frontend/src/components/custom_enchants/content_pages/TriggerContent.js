@@ -114,9 +114,10 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
         </div>
       )}
       <TipBox>
-        <p className="minecraft">
-          Have an idea for a new trigger or trigger condition? Feel free to open
-          an issue on GitHub or reach out to me on Discord!
+        <p>
+          Have an idea for a new trigger or trigger condition?
+          <br /> Feel free to open an issue on GitHub or reach out to me on
+          Discord!
         </p>
       </TipBox>
     </div>
