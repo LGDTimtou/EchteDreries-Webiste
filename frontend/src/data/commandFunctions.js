@@ -30,4 +30,14 @@ export const command_functions = [
     description:
       "Rounds the value x to the specified number of decimal places d",
   },
+  {
+    name: "$[sin(x)]",
+    autocomplete: "$[sin()]",
+    description: "Computes the sin of the given value x",
+  },
+  {
+    name: "$[cos(x)]",
+    autocomplete: "$[cos()]",
+    description: "Computes the cos of the given value x",
+  },
 ];
