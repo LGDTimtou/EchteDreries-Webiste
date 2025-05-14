@@ -2,7 +2,10 @@ import React from "react";
 import InputField from "../InputField";
 import ToggleSwitchField from "../ToggleSwitchField";
 import InstructionListField from "./InstructionListField";
-import { cooldown_message_parameters } from "../../../../data/trigger_conditions/parameters";
+import {
+  cooldown_message_parameters,
+  global_parameters,
+} from "../../../../data/trigger_conditions/parameters";
 
 const instructionsDefaultValues = {
   repeat: {
@@ -235,7 +238,9 @@ const LevelField = React.memo(
           name="cooldown_message"
           value={level.cooldown_message}
           autoCompleteOptions={{
-            "%": cooldown_message_parameters.map((param) => `%${param.name}%`),
+            "%": [...cooldown_message_parameters, ...global_parameters].map(
+              (param) => `%${param.name}%`
+            ),
           }}
           onChange={handleInputChange}
         />

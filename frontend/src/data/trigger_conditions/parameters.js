@@ -188,24 +188,32 @@ export const global_parameters = [
     name: "player_health",
     description: "The health of the player that triggered the enchantment",
   },
+  {
+    name: "enchantment",
+    description: "The namespaced name of the enchantment",
+  },
+  {
+    name: "enchantment_lore",
+    description: "The lore name of the enchantment",
+  },
+  {
+    name: "enchantment_level",
+    description: "The level of the enchantment",
+  },
+  {
+    name: "enchantment_level_roman",
+    description: "The level of the enchantment in roman numerals",
+  },
 ];
-
 
 export const cooldown_message_parameters = [
   {
-    name: "player",
-    description: "The display name of the player that triggered the enchantment"
-  },
-  {
     name: "time_left",
-    description: "The time left on the cooldown in seconds"
+    description: "The time left on the cooldown in seconds",
   },
   {
     name: "time_left_full_out",
-    description: "The time left on the cooldown in full output format (e.g., 1 minute, 30 seconds)"
+    description:
+      "The time left on the cooldown in full output format (e.g., 1 minute, 30 seconds)",
   },
-  {
-    name: "enchantment",
-    description: "The name of the enchantment that is on cooldown"
-  }
-]
+];
