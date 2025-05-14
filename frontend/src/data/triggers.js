@@ -292,9 +292,55 @@ export const triggers_nested = {
       trigger_conditions: [],
     },
     {
+      name: "left_click_air",
+      description: "Triggered when the player left-clicks in the air",
+      trigger_conditions: [],
+    },
+    {
+      name: "left_click_block",
+      description: "Triggered when the player left-clicks a block",
+      trigger_conditions: [
+        {
+          name: "block",
+          label: "Clicked Block",
+          description: "The block that was clicked. Defaults to any",
+          value_type: "block",
+        },
+      ],
+    },
+    {
       name: "right_click",
       description: "Triggered when the player right-clicks",
       trigger_conditions: [],
+    },
+    {
+      name: "right_click_air",
+      description: "Triggered when the player right-clicks in the air",
+      trigger_conditions: [],
+    },
+    {
+      name: "right_click_block",
+      description: "Triggered when the player right-clicks a block",
+      trigger_conditions: [
+        {
+          name: "block",
+          label: "Clicked Block",
+          description: "The block that was clicked. Defaults to any",
+          value_type: "block",
+        },
+      ],
+    },
+    {
+      name: "right_click_entity",
+      description: "Triggered when the player right-clicks an entity",
+      trigger_conditions: [
+        {
+          name: "entity^clicked",
+          label: "Clicked Entity",
+          description: "The entity that was clicked. Defaults to any",
+          value_type: "entity",
+        },
+      ],
     },
   ],
   damage: [
