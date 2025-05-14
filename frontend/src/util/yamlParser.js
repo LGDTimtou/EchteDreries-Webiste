@@ -50,7 +50,9 @@ export const jsonToYaml = (formState) => {
       definition: {
         needs_permission: formState.needs_permission,
         max_level: Math.max(
-          formState.triggers.map((trigger) => trigger.levels.length)
+          ...formState.triggers.map((trigger) => {
+            return trigger.levels.length;
+          })
         ),
         anvil_cost: formState.anvil_cost,
         conflicts_with: formState.conflicts_with.map(
@@ -235,6 +237,8 @@ export const yamlToJson = async (yaml) => {
       };
     })
   );
+
+  console.log(formState);
 
   return formState;
 };
