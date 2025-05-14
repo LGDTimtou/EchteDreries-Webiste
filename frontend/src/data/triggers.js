@@ -695,6 +695,12 @@ export const triggers_nested = {
   ],
   movement: [
     {
+      name: "player_idle",
+      description:
+        "Triggered when the player stands still for more than 10 seconds",
+      trigger_conditions: [],
+    },
+    {
       name: "player_move",
       description: "Triggered when the player moves",
       trigger_conditions: movement_trigger_conditions,
