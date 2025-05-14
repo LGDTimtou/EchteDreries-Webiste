@@ -4,4 +4,5 @@ chadcn
 
 https://www.youtube.com/watch?v=WAV66F-Zbio
 
-parameters en functies op een manier tonen
+
+add contact pagina en vul home pagina

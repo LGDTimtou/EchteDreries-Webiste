@@ -11,6 +11,7 @@ export const defaultFormState = {
   minecraft_version: versions[0],
   enchantment_name: "",
   needs_permission: false,
+  depends: [],
   targets: [],
   tags: [],
   conflicts_with: [],
@@ -45,6 +46,7 @@ export const jsonToYaml = (formState) => {
     [enchantment_name]: {
       version: formState.minecraft_version,
       enabled: true,
+      depends: formState.depends,
       definition: {
         needs_permission: formState.needs_permission,
         max_level: Math.max(
@@ -130,6 +132,7 @@ export const yamlToJson = async (yaml) => {
   formState.minecraft_version = versions.includes(enchantmentData.version)
     ? enchantmentData.version
     : formState.minecraft_version;
+  formState.depends = enchantmentData.depends ?? [];
   formState.needs_permission = definition.needs_permission ?? false;
   formState.anvil_cost = definition.anvil_cost ?? formState.anvil_cost;
   formState.conflicts_with = (definition.conflicts_with ?? []).map((name) => ({

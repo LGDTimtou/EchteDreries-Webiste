@@ -204,12 +204,22 @@ const CustomEnchantBuilderContent = () => {
           value={formState.enchantment_name}
           onChange={handleChange}
         />
+        <AddableSelectField
+          name="depends"
+          label="Dependencies"
+          description="List of plugins that this enchantment requires to function properly."
+          options={[]}
+          values={formState.depends}
+          onChange={handleAddableSelectboxChange}
+          customOptionsAllowed={true}
+        />
         <ToggleSwitchField
           label="Needs Permission"
-          description={`Determines if the player needs permission (customenchantments.enchantment.${formState.enchantment_name
+          description={`Determines if the player needs permission (customenchantments.enchantment.${
+            formState.enchantment_name
               ? formState.enchantment_name.toLowerCase()
               : "<name>"
-            }) to trigger this enchantment`}
+          }) to trigger this enchantment`}
           name="needs_permission"
           checked={formState.needs_permission}
           onChange={handleCheckboxChange}
