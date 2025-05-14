@@ -33,8 +33,7 @@ export const defaultLevel = {
   cooldown: 60,
   chance: 100,
   cancel_event: false,
-  cooldown_message:
-    "&7You, &6%player%&7, have to wait %time_left% or %time_left_full_out% before you can use %enchantment% again!",
+  cooldown_message: "",
   instructions: [],
 };
 
