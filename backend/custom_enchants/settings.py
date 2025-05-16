@@ -29,6 +29,9 @@ DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = ["localhost", "timonc-backend.onrender.com"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://timonc-backend.onrender.com",
+]
 
 # Application definition
 
