@@ -40,7 +40,6 @@ class PluginConsumer(JsonWebsocketConsumer):
         )
 
     def receive_json(self, content):
-        print(content)
         action = content.get("action")
 
         if action == "save_enchantment":
@@ -50,7 +49,11 @@ class PluginConsumer(JsonWebsocketConsumer):
                 return
 
             EditSession.objects.update_or_create(
-                server_id=self.server_id, secret=secret, yaml_data=yaml_data
+                secret=secret,
+                defaults={
+                    "server_id": self.server_id,
+                    "yaml_data": yaml_data,
+                },
             )
 
     def send_updated_yaml(self, event):
