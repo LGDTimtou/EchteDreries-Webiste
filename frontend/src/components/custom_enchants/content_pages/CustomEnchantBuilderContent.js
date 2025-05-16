@@ -21,6 +21,7 @@ import { yamlToJson } from "../../../util/yamlParser";
 import ToggleSwitchField from "../custom_components/ToggleSwitchField";
 
 const BACKEND_URL = "https://timonc-backend.onrender.com/api";
+//const BACKEND_URL = "http://localhost:8000/api";
 
 const CustomEnchantBuilderContent = () => {
   const location = useLocation();
@@ -148,14 +149,9 @@ const CustomEnchantBuilderContent = () => {
       body: JSON.stringify({ yaml: jsonToYaml(formState) }),
     })
       .then(() => {
-        const query = new URLSearchParams(location.search);
-        query.delete("secret");
-        navigate({ search: query.toString() }, { replace: true });
-
         setButtonState("success");
         setTimeout(() => {
           setButtonState("");
-          setSecret("");
         }, 3000);
       })
       .catch(() => {

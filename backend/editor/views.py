@@ -4,7 +4,7 @@ from .models import EditSession
 from django.shortcuts import get_object_or_404
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from editor.util import group_name_from_secret
+from editor.util import group_name_from_server_id
 from editor.session_timeout import reset_session_timer
 from rest_framework import status
 import uuid
@@ -37,9 +37,10 @@ def update_enchant(request):
 
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
-        group_name_from_secret(secret),
+        group_name_from_server_id(session.server_id),
         {
             "type": "send_updated_yaml",
+            "secret": secret,
             "yaml": yaml_data,
         },
     )
