@@ -143,17 +143,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-
-User = get_user_model()
-username = os.environ.get("DJANGO_SUPERUSER_USERNAME")
-email = os.environ.get("DJANGO_SUPERUSER_EMAIL")
-password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
-
-if (
-    username
-    and email
-    and password
-    and not User.objects.filter(username=username).exists()
-):
-    User.objects.create_superuser(username=username, email=email, password=password)
