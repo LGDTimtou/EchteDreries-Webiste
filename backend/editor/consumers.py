@@ -45,7 +45,7 @@ class PluginConsumer(JsonWebsocketConsumer):
         if action == "save_enchantment":
             secret = content.get("secret")
             yaml_data = content.get("yaml")
-            if not yaml_data or not secret:
+            if not secret or yaml_data is None:
                 return
 
             EditSession.objects.update_or_create(
