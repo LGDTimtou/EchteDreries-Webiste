@@ -8,7 +8,6 @@ import {
   trigger_condition_parameters,
 } from "../../../../data/trigger_conditions/parameters";
 import { global_trigger_conditions } from "../../../../data/trigger_conditions/global_trigger_conditions";
-import { command_functions } from "../../../../data/commandFunctions";
 
 const TriggerSelectField = ({
   selectedTriggers,
@@ -212,8 +211,6 @@ const TriggerSelectField = ({
           }),
         ].map((parameter) => `%${parameter.name}%`);
 
-        const mappedFunctions = command_functions.map((f) => f.autocomplete);
-
         return (
           <div
             key={trigger.name}
@@ -323,7 +320,7 @@ const TriggerSelectField = ({
               <h2 className="subsection-title">Levels</h2>
               <LevelCreationField
                 levels={trigger.levels}
-                parameters={{ "%": mappedParameters, $: mappedFunctions }}
+                parameters={{ "%": mappedParameters }}
                 onChange={(value) =>
                   handleTriggerLevelChange(trigger.name, value)
                 }

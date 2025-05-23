@@ -97,6 +97,21 @@ const constraints = [
         trigger.levels.some((level) =>
           checkInstructionsRecursively(
             level.instructions,
+            (instruction) => {
+              const parsedFloat = parseFloat(instruction.value);
+              return instruction.type === "delay" && !isNaN(parsedFloat) && parsedFloat < 0.05
+            }
+          )
+        )
+      ),
+    message: "Delay Instruction value cannot be lower than 0.05s (1 tick)",
+  },
+  {
+    check: (formState) =>
+      formState.triggers.some((trigger) =>
+        trigger.levels.some((level) =>
+          checkInstructionsRecursively(
+            level.instructions,
             (instruction) =>
               (instruction.type === "save" || instruction.type === "load") &&
               isEmpty(instruction.value.identifier)

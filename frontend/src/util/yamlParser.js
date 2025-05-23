@@ -68,7 +68,7 @@ export const jsonToYaml = (formState) => {
       },
       custom_locations:
         formState.default_enchantment_location ||
-        formState.custom_enchantment_locations.length === 0
+          formState.custom_enchantment_locations.length === 0
           ? []
           : formState.custom_enchantment_locations.map((loc) => loc.name),
       triggers: Object.assign(
@@ -249,23 +249,23 @@ export const yamlToJson = async (yaml) => {
 
 function formatInstructions(instructions) {
   const formattedInstructions = [];
+
   for (const instruction of instructions) {
     const formatted = {};
+    const result = {};
 
-    if (instruction.type === "repeat") {
-      formatted[instruction.type] = {
-        amount: instruction.value.amount,
-        loop_parameter: instruction.value.loop_parameter,
-        instructions: formatInstructions(instruction.value.instructions),
-      };
-    } else {
-      formatted[instruction.type] = instruction.value;
-    }
+    if (typeof instruction.value === "object" && instruction.value !== null)
+      for (const [key, val] of Object.entries(instruction.value))
+        result[key] = Array.isArray(val) ? formatInstructions(val) : val;
+    else Object.assign(result, { value: instruction.value });
+
+    formatted[instruction.type] = result;
     formattedInstructions.push(formatted);
   }
 
   return formattedInstructions;
 }
+
 
 function parseYamlInstructions(instructions) {
   return instructions.map((instruction) => {
@@ -274,7 +274,7 @@ function parseYamlInstructions(instructions) {
       if (instruction.command !== undefined) {
         return {
           type: "command",
-          value: instruction.command,
+          value: instruction.command.value,
         };
       }
 
@@ -282,7 +282,7 @@ function parseYamlInstructions(instructions) {
       if (instruction.delay !== undefined) {
         return {
           type: "delay",
-          value: instruction.delay,
+          value: instruction.delay.value,
         };
       }
 
@@ -304,8 +304,6 @@ function parseYamlInstructions(instructions) {
 
       // Handle Repeat Instruction
       if (instruction.repeat !== undefined) {
-        console.log(instruction.repeat);
-
         return {
           type: "repeat",
           value: {
@@ -317,6 +315,35 @@ function parseYamlInstructions(instructions) {
           },
         };
       }
+
+      if (instruction.while !== undefined) {
+        return {
+          type: "while",
+          value: {
+            condition: instruction.while.condition,
+            loop_parameter: instruction.while.loop_parameter,
+            instructions: parseYamlInstructions(
+              instruction.while.instructions
+            ),
+          },
+        };
+      }
+
+      if (instruction.conditional !== undefined) {
+        return {
+          type: "conditional",
+          value: {
+            condition: instruction.conditional.condition,
+            if: parseYamlInstructions(
+              instruction.conditional.if
+            ),
+            else: parseYamlInstructions(
+              instruction.conditional.else
+            ),
+          },
+        };
+      }
+
     }
 
     // If the instruction does not match any expected type

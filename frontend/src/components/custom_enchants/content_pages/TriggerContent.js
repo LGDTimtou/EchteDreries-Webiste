@@ -4,6 +4,7 @@ import "../../../styles/custom_enchants/CustomEnchants.css";
 import { yamlToJson } from "../../../util/yamlParser";
 import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
 import TipBox from "../custom_components/builder/TipBox";
+import { trigger_condition_parameters } from "../../../data/trigger_conditions/parameters";
 
 const TriggerContent = ({ category, triggerName, trigger }) => {
   const navigate = useNavigate();
@@ -45,6 +46,38 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
     }
   };
 
+
+  const mappedParameters = trigger.trigger_conditions.flatMap((trigger_condition) => {
+    let [trigger_condition_type = "", prefix = ""] =
+      trigger_condition.name.split("^");
+    const parameters =
+      trigger_condition_parameters[trigger_condition_type] || [];
+
+    return parameters.map((parameter) => ({
+      ...parameter,
+      name: prefix
+        ? parameter.name
+          ? `${prefix}_${parameter.name}`
+          : prefix
+        : parameter.name,
+    }));
+  });
+
+  const mappedGlobalParameters = global_trigger_conditions.flatMap((global_trigger_condition) => {
+    const parameters = trigger_condition_parameters[global_trigger_condition.value_type] || [];
+
+    const prefix = global_trigger_condition.global_value_prefix;
+
+    return parameters.map((parameter) => ({
+      ...parameter,
+      name: prefix
+        ? parameter.name
+          ? `${prefix}_${parameter.name}`
+          : prefix
+        : parameter.name,
+    }));
+  })
+
   return (
     <div>
       <p className="content-intro">Trigger Specifications</p>
@@ -58,23 +91,53 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
         <p className="subsection-title offset">Description</p>
         <p className="minecraft offset"> {trigger.description}</p>
       </div>
-
-      {trigger.trigger_conditions.length > 0 && (
-        <div className="parameters-section">
-          <p className="subsection-title offset">Trigger Specific Conditions</p>
-          {trigger.trigger_conditions?.map((condition, index) => (
+      <div className="parameters-section">
+        <p className="subsection-title offset">Trigger Parameters</p>
+        {mappedParameters.length > 0 && (
+          <div>
+            <p className="subsubsection-title offset">Trigger Specific Parameters</p>
+            {mappedParameters?.map((parameter, index) => (
+              <div key={index} className="parameter-item">
+                <span className="parameter-name">{parameter.name}:</span>
+                <span className="parameter-description">
+                  {parameter.description}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div>
+          <p className="subsubsection-title offset">Global Trigger Parameters</p>
+          {mappedGlobalParameters?.map((parameter, index) => (
             <div key={index} className="parameter-item">
-              <span className="parameter-name">{condition.label}:</span>
+              <span className="parameter-name">{parameter.name}:</span>
               <span className="parameter-description">
-                {condition.description}
+                {parameter.description}
               </span>
             </div>
           ))}
         </div>
-      )}
+
+
+      </div>
 
       <div className="parameters-section">
-        <p className="subsection-title offset">Global Trigger Conditions</p>
+        <p className="subsection-title offset">Trigger Conditions</p>
+        {trigger.trigger_conditions.length > 0 && (
+          <div>
+            <p className="subsubsection-title offset">Trigger Specific Conditions</p>
+            {trigger.trigger_conditions?.map((condition, index) => (
+              <div key={index} className="parameter-item">
+                <span className="parameter-name">{condition.label}:</span>
+                <span className="parameter-description">
+                  {condition.description}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p className="subsubsection-title offset">Global Trigger Conditions</p>
         {global_trigger_conditions?.map((condition, index) => (
           <div key={index} className="parameter-item">
             <span className="parameter-name">{condition.label}:</span>

@@ -14,9 +14,9 @@ import { triggers_nested } from "../data/triggers";
 import HomeContent from "../components/custom_enchants/content_pages/HomeContent";
 import CustomEnchantBuilderContent from "../components/custom_enchants/content_pages/CustomEnchantBuilderContent";
 import TriggerContent from "../components/custom_enchants/content_pages/TriggerContent";
-import ParameterContent from "../components/custom_enchants/content_pages/ParameterContent";
 import CommandContent from "../components/custom_enchants/content_pages/CommandContent";
-import CommandFunctionContent from "../components/custom_enchants/content_pages/CommandFunctionContent";
+import InstructionExpressionContent from "../components/custom_enchants/content_pages/InstructionExpressionContent";
+import InstructionParameterContent from "../components/custom_enchants/content_pages/InstructionParameterContent";
 
 const CustomEnchants = () => {
   const navigate = useNavigate();
@@ -43,12 +43,12 @@ const CustomEnchants = () => {
     {
       title: "Instruction Parameters",
       link: "parameters",
-      component: ParameterContent,
+      component: InstructionParameterContent,
     },
     {
-      title: "Instruction Functions",
-      link: "functions",
-      component: CommandFunctionContent,
+      title: "Instruction Expressions",
+      link: "expressions",
+      component: InstructionExpressionContent,
     },
     {
       title: "Triggers",

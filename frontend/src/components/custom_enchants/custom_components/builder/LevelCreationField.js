@@ -34,10 +34,10 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
           </a>{" "}
           and{" "}
           <a
-            href="https://timonc.be/custom_enchants/functions"
+            href="https://timonc.be/custom_enchants/expressions"
             className="minecraft-link"
           >
-            functions
+            expressions
           </a>{" "}
           in your instructions. <br />
           Start typing <strong>%</strong> or <strong>$</strong> for autocomplete

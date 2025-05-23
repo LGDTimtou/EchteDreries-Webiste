@@ -1,13 +1,11 @@
 import "../../../styles/custom_enchants/CustomEnchants.css";
 import {
   global_parameters,
-  trigger_condition_parameters,
   cooldown_message_parameters,
 } from "../../../data/trigger_conditions/parameters";
-import { toTitleCase } from "../../../util/util";
 import TipBox from "../custom_components/builder/TipBox";
 
-const ParameterContent = () => {
+const InstructionParameterContent = () => {
   return (
     <div>
       <p className="content-intro">
@@ -37,24 +35,38 @@ const ParameterContent = () => {
         ))}
       </div>
       <div className="parameters-section">
-        <p className="subsection-title offset">Trigger Condition Parameters</p>
-        <TipBox>
-          <p>These are the suffixes of the actual parameter names</p>
-        </TipBox>
-        {Object.keys(trigger_condition_parameters).map((section, index) => (
-          <div key={`${section}-${index}`}>
-            <p className="subsubsection-title offset">{toTitleCase(section)}</p>
-            {trigger_condition_parameters[section].map((parameter, index) => (
-              <div key={index} className="parameter-item">
-                <span className="parameter-name">{parameter.name}:</span>
-                <span className="parameter-description">
-                  {parameter.description}
-                </span>
-              </div>
-            ))}
-          </div>
-        ))}
+        <p className="subsection-title offset">Trigger Parameters</p>
+        <p className="minecraft offset">
+          Each trigger has its own unique set of parameters!
+          <br />
+          These can be found on their respective pages.
+        </p>
       </div>
+      <div className="parameters-section">
+        <p className="subsection-title offset">PlaceholderAPI Parameters</p>
+        <p className="minecraft offset">
+          <a href="https://www.spigotmc.org/resources/placeholderapi.6245/"
+            className="minecraft-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PlacheolderAPI
+          </a>
+          {" "}parameters are also supported!
+          <br />
+          You find a list of all usable parameters{" "}
+          <a
+            href="https://wiki.placeholderapi.com/users/placeholder-list/"
+            className="minecraft-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here
+          </a>
+        </p>
+
+      </div>
+
       <TipBox>
         <p>
           Have an idea for a new parameter?
@@ -66,4 +78,4 @@ const ParameterContent = () => {
   );
 };
 
-export default ParameterContent;
+export default InstructionParameterContent;

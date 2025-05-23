@@ -6,10 +6,3 @@ https://www.youtube.com/watch?v=WAV66F-Zbio
 
 
 add contact pagina en vul home pagina
-
-aanpassing parameter pagina, niet alle trigger condition parameters tonen, maar dat gwn doen op de trigger pagina zelf
-
-
-loop parameter toevoegen als parameter
-
-minder dan 0.05 werkt delay niet hint

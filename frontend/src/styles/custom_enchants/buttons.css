@@ -138,7 +138,6 @@
 .add-btn-text {
   font-family: "Minecraft", monospace;
   display: inline-block;
-  margin-top: 15px;
   padding: 5px 8px;
   font-size: 0.9rem;
   color: #000000;
@@ -148,6 +147,10 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-right: 15px;
+}
+
+.instruction-box-fields .add-btn-text {
+  margin-bottom: 15px;
 }
 
 .btn-dis:disabled {
@@ -177,14 +180,17 @@
 }
 
 .remove-btn-command {
+  position: absolute;
+  right: 8px;
+  top: 17px;
+  z-index: 1;
   background: none;
   border: none;
   color: var(--text-secondary);
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 4px;
   margin-left: 10px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .remove-btn-command:hover {

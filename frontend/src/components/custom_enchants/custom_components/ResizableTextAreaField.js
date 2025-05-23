@@ -9,6 +9,7 @@ const ResizableTextArea = ({
   onChange,
   description,
   rows = 3,
+  maxWidth = "100%",
   autoCompleteOptions = [],
 }) => {
   const textareaRef = useRef(null);
@@ -97,6 +98,7 @@ const ResizableTextArea = ({
         onChange={(e) => onChange({ target: { name, value: e.target.value } })}
         ref={textareaRef}
         rows={rows}
+        style={{ width: { maxWidth } }}
       />
       <AutoCompleteDropdown
         options={autoCompleteOptions}

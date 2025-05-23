@@ -29,4 +29,10 @@ export const built_in_commands = [
     description:
       "Get an overview of your available default and custom enchantments.",
   },
+  {
+    name: "/ce reload",
+    permission: "reload",
+    description:
+      "Reloads the plugin configuration files.",
+  },
 ];

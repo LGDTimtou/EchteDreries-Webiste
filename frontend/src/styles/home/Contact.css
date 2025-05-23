@@ -1,48 +1,48 @@
 .contact {
-    background: var(--bg-color);
-    padding: 60px 20px;
-    text-align: center;
+  background: var(--bg-color);
+  padding: 60px 20px;
+  text-align: center;
 }
 
 .contact .container {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .contact h2 {
-    color: var(--text-color);
-    font-size: 2.5rem;
-    margin-bottom: 30px;
+  color: var(--text-color);
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
 .contact-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    color: var(--text-color);
-    font-size: 1.2rem;
-    text-decoration: none;
-    transition: background 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    max-width: 400px;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
 }
 
 .contact-item:hover {
-    background: var(--accent-color);
-    transform: translateY(-3px);
+  background: var(--accent-color);
+  transform: translateY(-3px);
 }
 
 .contact-icon {
-    font-size: 2rem;
+  font-size: 2rem;
 }

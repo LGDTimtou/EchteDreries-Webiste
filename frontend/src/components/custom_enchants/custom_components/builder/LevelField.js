@@ -23,6 +23,16 @@ const instructionsDefaultValues = {
     identifier: "",
     default_value: "",
   },
+  conditional: {
+    condition: "",
+    if: [],
+    else: [],
+  },
+  while: {
+    condition: "",
+    loop_parameter: "k",
+    instructions: [],
+  },
 };
 
 const LevelField = React.memo(
@@ -56,26 +66,24 @@ const LevelField = React.memo(
 
         if (restPath.length === 0) return updater(instruction);
 
-        if (instruction.type === "repeat" && instruction.value?.instructions) {
-          return {
-            ...instruction,
-            value: {
-              ...instruction.value,
-              instructions: updateNestedInstruction(
-                instruction.value.instructions,
-                restPath,
-                updater
-              ),
-            },
-          };
-        }
+        if (typeof instruction.value !== 'object' || instruction.value == null)
+          return instruction;
 
-        console.error("error in nested instructions updating");
-        return instruction;
+
+        const updatedValue = { ...instruction.value };
+
+        for (const [key, val] of Object.entries(instruction.value))
+          if (Array.isArray(val))
+            updatedValue[key] = updateNestedInstruction(val, restPath, updater);
+
+        return {
+          ...instruction,
+          value: updatedValue,
+        };
       });
     };
 
-    const handleMoveInstruction = (path, direction) => {
+    const handleMoveInstruction = (path, direction, targetKey = "instructions") => {
       let updatedInstructions;
 
       if (path.length === 1) {
@@ -93,19 +101,16 @@ const LevelField = React.memo(
           level.instructions,
           parentPath,
           (cmd) => {
-            const nestedInstructions = [...cmd.value.instructions];
+            const nested = [...(cmd.value?.[targetKey] ?? [])];
 
-            const [movedInstruction] = nestedInstructions.splice(
-              indexToMove,
-              1
-            );
-            nestedInstructions.splice(newIndex, 0, movedInstruction);
+            const [movedInstruction] = nested.splice(indexToMove, 1);
+            nested.splice(newIndex, 0, movedInstruction);
 
             return {
               ...cmd,
               value: {
                 ...cmd.value,
-                instructions: nestedInstructions,
+                [targetKey]: nested,
               },
             };
           }
@@ -115,9 +120,11 @@ const LevelField = React.memo(
       onChange(id, { ...level, instructions: updatedInstructions });
     };
 
-    const handleAddInstruction = (path) => {
-      let updatedInstructions;
+
+    const handleAddInstruction = (path, targetKey = "instructions") => {
       const newInstruction = { type: "command", value: "" };
+
+      let updatedInstructions;
       if (path.length === 0) {
         updatedInstructions = [...level.instructions, newInstruction];
       } else {
@@ -128,7 +135,7 @@ const LevelField = React.memo(
             ...cmd,
             value: {
               ...cmd.value,
-              instructions: [...cmd.value.instructions, newInstruction],
+              [targetKey]: [...(cmd.value?.[targetKey] ?? []), newInstruction],
             },
           })
         );
@@ -137,8 +144,9 @@ const LevelField = React.memo(
       onChange(id, { ...level, instructions: updatedInstructions });
     };
 
-    const handleRemoveInstruction = (path) => {
+    const handleRemoveInstruction = (path, targetKey = "instructions") => {
       let updatedInstructions;
+
       if (path.length === 1) {
         const index = path[0];
         updatedInstructions = level.instructions.filter((_, i) => i !== index);
@@ -153,15 +161,17 @@ const LevelField = React.memo(
             ...cmd,
             value: {
               ...cmd.value,
-              instructions: cmd.value.instructions.filter(
+              [targetKey]: (cmd.value?.[targetKey] ?? []).filter(
                 (_, i) => i !== indexToRemove
               ),
             },
           })
         );
       }
+
       onChange(id, { ...level, instructions: updatedInstructions });
     };
+
 
     const handleChangeInstructionType = (path, type) => {
       onChange(id, {
@@ -174,7 +184,7 @@ const LevelField = React.memo(
               type: type,
               value: instructionsDefaultValues[type] ?? "",
             };
-          }
+          },
         ),
       });
     };
@@ -190,7 +200,7 @@ const LevelField = React.memo(
               ...cmd,
               value: value,
             };
-          }
+          },
         ),
       });
     };
@@ -239,7 +249,7 @@ const LevelField = React.memo(
           value={level.cooldown_message}
           autoCompleteOptions={{
             "%": [...cooldown_message_parameters, ...global_parameters].map(
-              (param) => `%${param.name}%`
+              (param) => `%${param.name}%`,
             ),
           }}
           onChange={handleInputChange}
@@ -256,7 +266,7 @@ const LevelField = React.memo(
         />
       </div>
     );
-  }
+  },
 );
 
 export default LevelField;
