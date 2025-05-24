@@ -252,12 +252,12 @@ function formatInstructions(instructions) {
 
   for (const instruction of instructions) {
     const formatted = {};
-    const result = {};
+    let result = {};
 
     if (typeof instruction.value === "object" && instruction.value !== null)
       for (const [key, val] of Object.entries(instruction.value))
         result[key] = Array.isArray(val) ? formatInstructions(val) : val;
-    else Object.assign(result, { value: instruction.value });
+    else result = instruction.value;
 
     formatted[instruction.type] = result;
     formattedInstructions.push(formatted);
@@ -274,7 +274,7 @@ function parseYamlInstructions(instructions) {
       if (instruction.command !== undefined) {
         return {
           type: "command",
-          value: instruction.command.value,
+          value: instruction.command,
         };
       }
 
@@ -282,7 +282,7 @@ function parseYamlInstructions(instructions) {
       if (instruction.delay !== undefined) {
         return {
           type: "delay",
-          value: instruction.delay.value,
+          value: instruction.delay,
         };
       }
 
