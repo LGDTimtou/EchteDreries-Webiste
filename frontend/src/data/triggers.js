@@ -697,8 +697,30 @@ export const triggers_nested = {
     {
       name: "player_idle",
       description:
-        "Triggered when the player stands still for more than 10 seconds",
-      trigger_conditions: [],
+        "Triggered when the player stands still",
+      trigger_conditions: [
+        {
+          name: "double_equals^idle_time",
+          label: "Idle Time Equals",
+          description:
+            "Checks if the idle time exactly equals the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_greater_than^idle_time",
+          label: "Idle Time Greater Than",
+          description:
+            "Checks if the idle time is greater than the specified value",
+          value_type: "empty",
+        },
+        {
+          name: "double_less_than^idle_time",
+          label: "Idle Time Less Than",
+          description:
+            "Checks if the idle time is less than the specified value",
+          value_type: "empty",
+        },
+      ],
     },
     {
       name: "player_move",
