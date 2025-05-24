@@ -39,9 +39,10 @@ const CustomEnchantBuilderContent = () => {
   const [buttonState, setButtonState] = useState("");
   const [isPopupVisible, setPopupVisible] = useState(false);
 
+
   useEffect(() => {
-    localStorage.setItem("formState", JSON.stringify(formState));
-  }, [formState]);
+    localStorage.setItem(secret ? `formState-${secret}` : "formState", JSON.stringify(formState));
+  }, [formState, secret]);
 
   useEffect(() => {
     if (location.state?.json) {
@@ -58,6 +59,13 @@ const CustomEnchantBuilderContent = () => {
       navigate({ search: query.toString() }, { replace: true });
     } else if (secret !== null && secret !== undefined) {
       setSecret(secret);
+
+      const localKey = `formState-${secret}`;
+      const storedSecretData = localStorage.getItem(localKey);
+      if (storedSecretData) {
+        setFormState(JSON.parse(storedSecretData));
+        return;
+      }
 
       let didFinish = false;
       const delay = setTimeout(() => {
@@ -211,11 +219,10 @@ const CustomEnchantBuilderContent = () => {
         />
         <ToggleSwitchField
           label="Needs Permission"
-          description={`Determines if the player needs permission (customenchantments.enchantment.${
-            formState.enchantment_name
-              ? formState.enchantment_name.toLowerCase()
-              : "<name>"
-          }) to trigger this enchantment`}
+          description={`Determines if the player needs permission (customenchantments.enchantment.${formState.enchantment_name
+            ? formState.enchantment_name.toLowerCase()
+            : "<name>"
+            }) to trigger this enchantment`}
           name="needs_permission"
           checked={formState.needs_permission}
           onChange={handleCheckboxChange}

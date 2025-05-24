@@ -29,6 +29,8 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
           <a
             href="https://timonc.be/custom_enchants/parameters"
             className="minecraft-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             parameters
           </a>{" "}
@@ -36,6 +38,8 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
           <a
             href="https://timonc.be/custom_enchants/expressions"
             className="minecraft-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             expressions
           </a>{" "}
@@ -49,6 +53,8 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
           <a
             href="https://wiki.placeholderapi.com/users/placeholder-list/"
             className="minecraft-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             PlaceholderAPI
           </a>{" "}

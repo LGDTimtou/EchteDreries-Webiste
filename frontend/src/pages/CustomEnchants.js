@@ -21,6 +21,7 @@ import InstructionParameterContent from "../components/custom_enchants/content_p
 const CustomEnchants = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const search = location.search;
 
   const activePage = location.pathname.split("/")[2] || "home";
 
@@ -72,7 +73,7 @@ const CustomEnchants = () => {
   ];
 
   const handlePageChange = (page) => {
-    navigate(`/custom_enchants/${page}`);
+    navigate(`/custom_enchants/${page}${search}`);
   };
 
   const renderRoutes = (routes) =>
