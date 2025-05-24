@@ -1,10 +1,13 @@
 .sidebar {
     width: 250px;
-    background-color: #0d1117; /* Dark background color */
-    color: #c9d1d9; /* Light gray text */
+    background-color: #0d1117;
+    /* Dark background color */
+    color: #c9d1d9;
+    /* Light gray text */
     padding: 10px 7px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    border-right: 1px solid #30363d; /* Border color */
+    border-right: 1px solid #30363d;
+    /* Border color */
 }
 
 
@@ -14,7 +17,8 @@
     padding-left: 10px;
     padding-right: 10px;
     height: 40px;
-    background-color: #0d1117; /* Slightly darker background */
+    background-color: #0d1117;
+    /* Slightly darker background */
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -25,12 +29,15 @@
 }
 
 .sidebar-section-title:hover {
-    background-color: #21262d; /* Hover effect background */
+    background-color: #21262d;
+    /* Hover effect background */
 }
 
 .active {
-    background-color: #21262d; /* Highlight color */
-    color: #58a6ff; /* Active text color */
+    background-color: #21262d;
+    /* Highlight color */
+    color: #58a6ff;
+    /* Active text color */
     font-weight: bold;
 }
 

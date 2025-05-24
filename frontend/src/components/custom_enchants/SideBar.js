@@ -25,9 +25,8 @@ const Sidebar = ({ sections, activePage, setActivePage }) => {
       return (
         <div key={currentIndex} className={`sidebar-section level-${level}`}>
           <div
-            className={`sidebar-section-title ${
-              isActive ? "active" : ""
-            } level-${level}`}
+            className={`sidebar-section-title ${isActive ? "active" : ""
+              } level-${level}`}
             onClick={() => {
               if (section.subsections && section.subsections.length > 0) {
                 toggleSection(currentIndex);

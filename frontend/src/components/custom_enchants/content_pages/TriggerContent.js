@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../styles/custom_enchants/CustomEnchants.css";
 import { yamlToJson } from "../../../util/yamlParser";
 import { global_trigger_conditions } from "../../../data/trigger_conditions/global_trigger_conditions";
-import TipBox from "../custom_components/builder/TipBox";
+import ExtraFunctionalityTipBox from "../custom_components/ExtraFunctionalityTipBox";
 import { trigger_condition_parameters } from "../../../data/trigger_conditions/parameters";
 
 const TriggerContent = ({ category, triggerName, trigger }) => {
@@ -46,37 +46,41 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
     }
   };
 
+  const mappedParameters = trigger.trigger_conditions.flatMap(
+    (trigger_condition) => {
+      let [trigger_condition_type = "", prefix = ""] =
+        trigger_condition.name.split("^");
+      const parameters =
+        trigger_condition_parameters[trigger_condition_type] || [];
 
-  const mappedParameters = trigger.trigger_conditions.flatMap((trigger_condition) => {
-    let [trigger_condition_type = "", prefix = ""] =
-      trigger_condition.name.split("^");
-    const parameters =
-      trigger_condition_parameters[trigger_condition_type] || [];
+      return parameters.map((parameter) => ({
+        ...parameter,
+        name: prefix
+          ? parameter.name
+            ? `${prefix}_${parameter.name}`
+            : prefix
+          : parameter.name,
+      }));
+    }
+  );
 
-    return parameters.map((parameter) => ({
-      ...parameter,
-      name: prefix
-        ? parameter.name
-          ? `${prefix}_${parameter.name}`
-          : prefix
-        : parameter.name,
-    }));
-  });
+  const mappedGlobalParameters = global_trigger_conditions.flatMap(
+    (global_trigger_condition) => {
+      const parameters =
+        trigger_condition_parameters[global_trigger_condition.value_type] || [];
 
-  const mappedGlobalParameters = global_trigger_conditions.flatMap((global_trigger_condition) => {
-    const parameters = trigger_condition_parameters[global_trigger_condition.value_type] || [];
+      const prefix = global_trigger_condition.global_value_prefix;
 
-    const prefix = global_trigger_condition.global_value_prefix;
-
-    return parameters.map((parameter) => ({
-      ...parameter,
-      name: prefix
-        ? parameter.name
-          ? `${prefix}_${parameter.name}`
-          : prefix
-        : parameter.name,
-    }));
-  })
+      return parameters.map((parameter) => ({
+        ...parameter,
+        name: prefix
+          ? parameter.name
+            ? `${prefix}_${parameter.name}`
+            : prefix
+          : parameter.name,
+      }));
+    }
+  );
 
   return (
     <div>
@@ -95,7 +99,9 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
         <p className="subsection-title offset">Trigger Parameters</p>
         {mappedParameters.length > 0 && (
           <div>
-            <p className="subsubsection-title offset">Trigger Specific Parameters</p>
+            <p className="subsubsection-title offset">
+              Trigger Specific Parameters
+            </p>
             {mappedParameters?.map((parameter, index) => (
               <div key={index} className="parameter-item">
                 <span className="parameter-name">%{parameter.name}%:</span>
@@ -107,7 +113,9 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
           </div>
         )}
         <div>
-          <p className="subsubsection-title offset">Global Trigger Parameters</p>
+          <p className="subsubsection-title offset">
+            Global Trigger Parameters
+          </p>
           {mappedGlobalParameters?.map((parameter, index) => (
             <div key={index} className="parameter-item">
               <span className="parameter-name">%{parameter.name}%:</span>
@@ -117,15 +125,15 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
             </div>
           ))}
         </div>
-
-
       </div>
 
       <div className="parameters-section">
         <p className="subsection-title offset">Trigger Conditions</p>
         {trigger.trigger_conditions.length > 0 && (
           <div>
-            <p className="subsubsection-title offset">Trigger Specific Conditions</p>
+            <p className="subsubsection-title offset">
+              Trigger Specific Conditions
+            </p>
             {trigger.trigger_conditions?.map((condition, index) => (
               <div key={index} className="parameter-item">
                 <span className="parameter-name">{condition.label}:</span>
@@ -176,13 +184,9 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
           </button>
         </div>
       )}
-      <TipBox>
-        <p>
-          Have an idea for a new trigger or trigger condition?
-          <br /> Feel free to open an issue on GitHub or reach out to me on
-          Discord!
-        </p>
-      </TipBox>
+      <ExtraFunctionalityTipBox
+        firstLine={"a new trigger or trigger condition"}
+      />
     </div>
   );
 };

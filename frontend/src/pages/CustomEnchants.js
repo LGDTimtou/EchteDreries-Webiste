@@ -17,6 +17,7 @@ import TriggerContent from "../components/custom_enchants/content_pages/TriggerC
 import CommandContent from "../components/custom_enchants/content_pages/CommandContent";
 import InstructionExpressionContent from "../components/custom_enchants/content_pages/InstructionExpressionContent";
 import InstructionParameterContent from "../components/custom_enchants/content_pages/InstructionParameterContent";
+import APIContent from "../components/custom_enchants/content_pages/APIContent";
 
 const CustomEnchants = () => {
   const navigate = useNavigate();
@@ -35,6 +36,11 @@ const CustomEnchants = () => {
       title: "Commands",
       link: "commands",
       component: CommandContent,
+    },
+    {
+      title: "API",
+      link: "api",
+      component: APIContent,
     },
     {
       title: "Custom Enchant Builder",

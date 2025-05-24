@@ -3,7 +3,7 @@ import {
   global_parameters,
   cooldown_message_parameters,
 } from "../../../data/trigger_conditions/parameters";
-import TipBox from "../custom_components/builder/TipBox";
+import ExtraFunctionalityTipBox from "../custom_components/ExtraFunctionalityTipBox";
 
 const InstructionParameterContent = () => {
   return (
@@ -45,14 +45,15 @@ const InstructionParameterContent = () => {
       <div className="parameters-section">
         <p className="subsection-title offset">PlaceholderAPI Parameters</p>
         <p className="minecraft offset">
-          <a href="https://www.spigotmc.org/resources/placeholderapi.6245/"
+          <a
+            href="https://www.spigotmc.org/resources/placeholderapi.6245/"
             className="minecraft-link"
             target="_blank"
             rel="noopener noreferrer"
           >
             PlacheolderAPI
-          </a>
-          {" "}parameters are also supported!
+          </a>{" "}
+          parameters are also supported!
           <br />
           You find a list of all usable parameters{" "}
           <a
@@ -64,16 +65,9 @@ const InstructionParameterContent = () => {
             here
           </a>
         </p>
-
       </div>
 
-      <TipBox>
-        <p>
-          Have an idea for a new parameter?
-          <br /> Feel free to open an issue on GitHub or reach out to me on
-          Discord!
-        </p>
-      </TipBox>
+      <ExtraFunctionalityTipBox firstLine={"a new parameter"} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { built_in_commands } from "../../../data/builtInCommands";
-import TipBox from "../custom_components/builder/TipBox";
+import TipBox from "../custom_components/TipBox";
 
 const CommandContent = ({ subcommand }) => {
   return (

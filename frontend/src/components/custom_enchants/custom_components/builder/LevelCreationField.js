@@ -1,6 +1,6 @@
 import React from "react";
 import LevelField from "./LevelField";
-import TipBox from "./TipBox";
+import TipBox from "../TipBox";
 
 const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
   const handleAddLevelClick = () => {
