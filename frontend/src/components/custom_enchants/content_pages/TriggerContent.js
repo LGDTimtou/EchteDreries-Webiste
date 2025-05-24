@@ -98,7 +98,7 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
             <p className="subsubsection-title offset">Trigger Specific Parameters</p>
             {mappedParameters?.map((parameter, index) => (
               <div key={index} className="parameter-item">
-                <span className="parameter-name">{parameter.name}:</span>
+                <span className="parameter-name">%{parameter.name}%:</span>
                 <span className="parameter-description">
                   {parameter.description}
                 </span>
@@ -110,7 +110,7 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
           <p className="subsubsection-title offset">Global Trigger Parameters</p>
           {mappedGlobalParameters?.map((parameter, index) => (
             <div key={index} className="parameter-item">
-              <span className="parameter-name">{parameter.name}:</span>
+              <span className="parameter-name">%{parameter.name}%:</span>
               <span className="parameter-description">
                 {parameter.description}
               </span>

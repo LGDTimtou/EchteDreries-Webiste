@@ -16,7 +16,7 @@ const InstructionParameterContent = () => {
         <p className="subsection-title offset">Global Parameters</p>
         {global_parameters?.map((parameter, index) => (
           <div key={index} className="parameter-item">
-            <span className="parameter-name">{parameter.name}:</span>
+            <span className="parameter-name">%{parameter.name}%:</span>
             <span className="parameter-description">
               {parameter.description}
             </span>
@@ -27,7 +27,7 @@ const InstructionParameterContent = () => {
         <p className="subsection-title offset">Cooldown Message Parameters</p>
         {cooldown_message_parameters?.map((parameter, index) => (
           <div key={index} className="parameter-item">
-            <span className="parameter-name">{parameter.name}:</span>
+            <span className="parameter-name">%{parameter.name}%:</span>
             <span className="parameter-description">
               {parameter.description}
             </span>
