@@ -127,9 +127,7 @@
   font-size: 0.9rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   /* Subtle shadow */
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   /* Add hover animation */
 }
 
@@ -178,9 +176,7 @@
   /* Prevent interfering with hover */
   opacity: 0;
   /* Initially hidden */
-  transition:
-    opacity 0.2s ease-in-out,
-    visibility 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
   /* Smooth appearance */
   display: block;
   /* Ensure block-level behavior for proper wrapping */
@@ -250,7 +246,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.command-move-buttons {
+.instruction-btns {
   position: absolute;
   right: 9px;
   top: 6px;
@@ -258,26 +254,28 @@
   flex-direction: column;
 }
 
-.move-btn-command {
+.instruction-btn {
+  line-height: 0.3;
   background: none;
   border: none;
   color: var(--text-secondary);
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  padding: 4px;
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.move-btn-command:hover {
+.instruction-btn:hover {
   color: #58a6ff;
   /* Light blue on hover */
   transform: scale(1.1);
 }
 
-.move-btn-command:disabled {
+.instruction-btn.remove:hover {
+  color: #ff4d4d;
+}
+
+.instruction-btn:disabled {
   color: #484f58;
   cursor: not-allowed;
   transform: none;
@@ -291,7 +289,7 @@
   width: 100%;
 }
 
-.instruction-box-fields>* {
+.instruction-box-fields > * {
   flex: 1 1 auto;
 }
 

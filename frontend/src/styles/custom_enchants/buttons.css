@@ -199,9 +199,7 @@
 }
 
 .copy-success {
-  background: linear-gradient(135deg,
-      #2196f3,
-      #1976d2);
+  background: linear-gradient(135deg, #2196f3, #1976d2);
   /* Blauwe kleur voor succes */
   color: white;
   box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
@@ -210,24 +208,6 @@
   /* kleine schaalvergroting */
   pointer-events: none;
   /* voorkom dat de knop opnieuw geklikt kan worden tijdens de feedback */
-}
-
-.remove-btn-command {
-  position: absolute;
-  right: 10px;
-  top: 15px;
-  z-index: 1;
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: color 0.2s ease;
-}
-
-.remove-btn-command:hover {
-  color: #ff4d4d;
 }
 
 .red {

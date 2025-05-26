@@ -172,6 +172,22 @@ const TriggerSelectField = ({
       option.label.toLowerCase().includes(triggerSearchQuery.toLowerCase())
   );
 
+  const getNestedLoadIdentifiers = (instructions) => {
+    return instructions.flatMap((instruction) => {
+      if (
+        instruction.type === "load" &&
+        /\S/.test(instruction.value.identifier)
+      )
+        return { name: instruction.value.identifier };
+      else
+        return Object.values(instruction.value)
+          .filter((instructionValue) => Array.isArray(instructionValue))
+          .flatMap((instructionSet) =>
+            getNestedLoadIdentifiers(instructionSet)
+          );
+    });
+  };
+
   return (
     <div>
       {selectedTriggers.map((trigger) => {
@@ -186,8 +202,13 @@ const TriggerSelectField = ({
                 .includes(triggerConditionSearchQuery.toLowerCase())
           );
 
+        const loadedParameters = trigger.levels.flatMap((level) =>
+          getNestedLoadIdentifiers(level.instructions ?? [])
+        );
+
         const mappedParameters = [
           ...global_parameters,
+          ...loadedParameters,
           ...trigger.possible_trigger_conditions.flatMap((selected) => {
             let [trigger_condition = "", prefix = ""] =
               selected.name.split("^");

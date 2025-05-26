@@ -44,8 +44,7 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
             expressions
           </a>{" "}
           in your instructions. <br />
-          Start typing <strong>%</strong> or <strong>$</strong> for autocomplete
-          suggestions.
+          Start typing <strong>%</strong> for autocomplete suggestions.
         </p>
       </TipBox>
       <TipBox style={{ marginBottom: "20px" }}>

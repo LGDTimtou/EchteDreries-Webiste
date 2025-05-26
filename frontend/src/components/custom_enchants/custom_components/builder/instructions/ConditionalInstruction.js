@@ -41,7 +41,10 @@ const ConditionalInstruction = ({
       <InstructionListField
         title="If"
         targetKey="if"
-        parentIndices={[...parentIndices]}
+        parentIndices={[
+          ...parentIndices.slice(0, -1),
+          [parentIndices.at(-1), "if"],
+        ]}
         instructions={instruction.value.if}
         parameters={parameters}
         onChangeInstructionType={onChangeInstructionType}
@@ -53,7 +56,10 @@ const ConditionalInstruction = ({
       <InstructionListField
         title="Else"
         targetKey="else"
-        parentIndices={[...parentIndices]}
+        parentIndices={[
+          ...parentIndices.slice(0, -1),
+          [parentIndices.at(-1), "else"],
+        ]}
         instructions={instruction.value.else}
         parameters={parameters}
         onChangeInstructionType={onChangeInstructionType}

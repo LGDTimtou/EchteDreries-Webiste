@@ -4,7 +4,7 @@ import RepeatInstruction from "./instructions/RepeatInstruction";
 import SaveLoadInstruction from "./instructions/SaveLoadInstruction";
 import WhileInstruction from "./instructions/WhileInstruction";
 import ConditionalInstruction from "./instructions/ConditionalInstruction";
-import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { FaChevronUp, FaChevronDown, FaTimes } from "react-icons/fa";
 
 const InstructionListField = ({
   title = "Instructions",
@@ -92,24 +92,29 @@ const InstructionListField = ({
             />
           )}
 
-          {/* Control Buttons for Move and Remove */}
-          <button
-            className="remove-btn-command"
-            onClick={() => onRemoveInstruction([...parentIndices, index], targetKey)}
-          >
-            ×
-          </button>
-          <div className="command-move-buttons">
+          <div className="instruction-btns">
             <button
-              className="move-btn-command"
-              onClick={() => onMoveInstruction([...parentIndices, index], -1, targetKey)}
+              className="instruction-btn"
+              onClick={() =>
+                onMoveInstruction([...parentIndices, index], -1, targetKey)
+              }
               disabled={index === 0}
             >
               <FaChevronUp />
             </button>
             <button
-              className="move-btn-command"
-              onClick={() => onMoveInstruction([...parentIndices, index], 1, targetKey)}
+              className="instruction-btn remove"
+              onClick={() =>
+                onRemoveInstruction([...parentIndices, index], targetKey)
+              }
+            >
+              <FaTimes />
+            </button>
+            <button
+              className="instruction-btn"
+              onClick={() =>
+                onMoveInstruction([...parentIndices, index], 1, targetKey)
+              }
               disabled={index === instructions.length - 1}
             >
               <FaChevronDown />

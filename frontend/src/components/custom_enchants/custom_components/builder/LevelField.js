@@ -57,33 +57,41 @@ const LevelField = React.memo(
     };
 
     const updateNestedInstruction = (instructions, path, updater) => {
+      console.log(instructions);
+
       if (path.length === 0) return instructions;
 
-      const [currentIndex, ...restPath] = path;
+      const [[currentIndex, targetValue], ...restPath] = Array.isArray(path[0])
+        ? path
+        : [[path[0], "instructions"], ...path.slice(1)];
 
       return instructions.map((instruction, i) => {
         if (i !== currentIndex) return instruction;
 
         if (restPath.length === 0) return updater(instruction);
 
-        if (typeof instruction.value !== 'object' || instruction.value == null)
+        if (typeof instruction.value !== "object" || instruction.value == null)
           return instruction;
-
-
-        const updatedValue = { ...instruction.value };
-
-        for (const [key, val] of Object.entries(instruction.value))
-          if (Array.isArray(val))
-            updatedValue[key] = updateNestedInstruction(val, restPath, updater);
 
         return {
           ...instruction,
-          value: updatedValue,
+          value: {
+            ...instruction.value,
+            [targetValue]: updateNestedInstruction(
+              instruction.value[targetValue],
+              restPath,
+              updater
+            ),
+          },
         };
       });
     };
 
-    const handleMoveInstruction = (path, direction, targetKey = "instructions") => {
+    const handleMoveInstruction = (
+      path,
+      direction,
+      targetKey = "instructions"
+    ) => {
       let updatedInstructions;
 
       if (path.length === 1) {
@@ -119,7 +127,6 @@ const LevelField = React.memo(
 
       onChange(id, { ...level, instructions: updatedInstructions });
     };
-
 
     const handleAddInstruction = (path, targetKey = "instructions") => {
       const newInstruction = { type: "command", value: "" };
@@ -172,7 +179,6 @@ const LevelField = React.memo(
       onChange(id, { ...level, instructions: updatedInstructions });
     };
 
-
     const handleChangeInstructionType = (path, type) => {
       onChange(id, {
         ...level,
@@ -180,11 +186,13 @@ const LevelField = React.memo(
           level.instructions,
           path,
           (cmd) => {
+            console.log("updating " + cmd);
+
             return {
               type: type,
               value: instructionsDefaultValues[type] ?? "",
             };
-          },
+          }
         ),
       });
     };
@@ -200,7 +208,7 @@ const LevelField = React.memo(
               ...cmd,
               value: value,
             };
-          },
+          }
         ),
       });
     };
@@ -249,7 +257,7 @@ const LevelField = React.memo(
           value={level.cooldown_message}
           autoCompleteOptions={{
             "%": [...cooldown_message_parameters, ...global_parameters].map(
-              (param) => `%${param.name}%`,
+              (param) => `%${param.name}%`
             ),
           }}
           onChange={handleInputChange}
@@ -266,7 +274,7 @@ const LevelField = React.memo(
         />
       </div>
     );
-  },
+  }
 );
 
 export default LevelField;
