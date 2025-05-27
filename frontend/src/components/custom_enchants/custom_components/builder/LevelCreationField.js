@@ -70,12 +70,13 @@ const LevelCreationField = React.memo(({ onChange, levels, parameters }) => {
           onRemove={handleRemoveLevel}
         />
       ))}
-
-      <div className="add-trigger-section">
-        <button className="add-btn-text" onClick={handleAddLevelClick}>
-          + Add Level
-        </button>
-      </div>
+      {levels.length < 256 && (
+        <div className="add-trigger-section">
+          <button className="add-btn-text" onClick={handleAddLevelClick}>
+            + Add Level
+          </button>
+        </div>
+      )}
     </div>
   );
 });
