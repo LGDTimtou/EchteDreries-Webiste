@@ -3,7 +3,7 @@ import TipBox from "./TipBox";
 
 const ExtraFunctionalityTipBox = ({ firstLine }) => {
   const githubURL = "https://github.com/LGDTimtou/CustomEnchants";
-  const discordURL = "TODO";
+  const discordURL = "https://discord.gg/qYg45t33cy";
 
   return (
     <TipBox>
