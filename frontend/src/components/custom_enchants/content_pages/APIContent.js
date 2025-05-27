@@ -89,7 +89,8 @@ public class MyPlugin extends JavaPlugin implements Listener {
         // Checking if the trigger type is BLOCK_DAMAGED
         // Here you could also check what enchantment triggered this call
         if (event.getTriggerType() == TriggerType.BLOCK_DAMAGED) {
-            // Fetching the parameters provided by this trigger to get the respective block
+            // Fetching the parameters provided by this trigger 
+            // to get the respective block
             Integer x = event.getIntParameter("block_x");
             Integer y = event.getIntParameter("block_y");
             Integer z = event.getIntParameter("block_z");
