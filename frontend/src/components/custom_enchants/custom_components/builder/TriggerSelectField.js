@@ -172,8 +172,9 @@ const TriggerSelectField = ({
     const getNestedLoadIdentifiers = (instructions) => {
         return instructions.flatMap((instruction) => {
             if (
-                instruction.type === "load" &&
-                /\S/.test(instruction.value.identifier)
+                (instruction.type === "load" || instruction.type === "save") &&
+                /\S/.test(instruction.value.identifier) &&
+                !instruction.value.identifier.includes("%")
             )
                 return {name: instruction.value.identifier};
             else
