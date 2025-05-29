@@ -1,329 +1,330 @@
 /* General Content Container */
 /* Ensure the entire app takes up the full viewport height */
 .app-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Main layout container without scroll */
 .custom-enchants-container {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-  /* Prevent scrolling on the main container */
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    /* Prevent scrolling on the main container */
 }
 
 .input-field-container {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
 /* Sidebar with independent scrolling */
 .sidebar-container {
-  width: 250px;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
-  background-color: #161b22;
-  overflow-y: scroll;
-  /* Ensure vertical scrolling */
-  overflow-x: hidden;
-  /* Prevent horizontal scrolling */
-  border-right: 1px solid var(--border-color);
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  -webkit-overflow-scrolling: touch;
-  /* Smooth scrolling for mobile */
-  background-color: #0d1117;
+    width: 250px;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    background-color: #161b22;
+    overflow-y: scroll;
+    /* Ensure vertical scrolling */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling for mobile */
+    background-color: #0d1117;
 }
 
 .sidebar-container::-webkit-scrollbar {
-  width: 0;
-  /* Hides the scrollbar */
-  height: 0;
+    width: 0;
+    /* Hides the scrollbar */
+    height: 0;
 }
 
 .sidebar-container {
-  scrollbar-width: none;
-  /* Firefox: hide scrollbar */
+    scrollbar-width: none;
+    /* Firefox: hide scrollbar */
 }
 
 /* Content area with independent scrolling */
 .content-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
-  /* Full height minus header/footer */
-  overflow-y: auto;
-  background-color: #0d1117;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-  -webkit-overflow-scrolling: touch;
-  /* Smooth scrolling for mobile */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    /* Full height minus header/footer */
+    overflow-y: auto;
+    background-color: #0d1117;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling for mobile */
 }
 
 .content-container::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 
 .content-container::-webkit-scrollbar-thumb {
-  background-color: #30363d;
-  /* Dark gray for the scrollbar thumb */
-  border-radius: 8px;
-  border: 2px solid #0d1117;
-  /* Border matches background for a clean look */
+    background-color: #30363d;
+    /* Dark gray for the scrollbar thumb */
+    border-radius: 8px;
+    border: 2px solid #0d1117;
+    /* Border matches background for a clean look */
 }
 
 .content-container::-webkit-scrollbar-thumb:hover {
-  background-color: #484f58;
-  /* Lighter gray on hover */
+    background-color: #484f58;
+    /* Lighter gray on hover */
 }
 
 .content-container::-webkit-scrollbar-track {
-  background-color: #161b22;
-  /* Slightly darker background for the track */
-  border-radius: 8px;
+    background-color: #161b22;
+    /* Slightly darker background for the track */
+    border-radius: 8px;
 }
 
 /* For Firefox */
 .content-container {
-  scrollbar-width: thin;
-  scrollbar-color: #30363d #161b22;
+    scrollbar-width: thin;
+    scrollbar-color: #30363d #161b22;
 }
 
 .empty-div {
-  flex: 1;
+    flex: 1;
 }
 
 /* Content page styling */
 .content-page {
-  flex: 1;
-  background-color: var(--bg-secondary);
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  padding: 30px;
-  max-width: 800px;
-  width: 100%;
-  margin: 20px auto;
-  animation: fadeIn 0.3s ease-in-out;
+    flex: 1;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    margin: 20px auto;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .field-container {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .tag {
-  display: flex;
-  align-items: center;
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  font-family: "Minecraft", monospace;
-  padding: 6px 12px;
-  border-radius: 12px;
-  /* More rounded corners */
-  font-size: 0.9rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  /* Subtle shadow */
-  transition: transform 0.2s, box-shadow 0.2s;
-  /* Add hover animation */
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: "Minecraft", monospace;
+    padding: 6px 12px;
+    border-radius: 12px;
+    gap: 10px;
+    /* More rounded corners */
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Add hover animation */
 }
 
 .tag:hover {
-  transform: translateY(-1px);
-  /* Slight lift on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  /* Enhance shadow on hover */
+    transform: translateY(-1px);
+    /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Enhance shadow on hover */
 }
 
 .tag:hover .tooltip-bubble {
-  opacity: 1;
-  /* Make tooltip visible */
-  visibility: visible;
+    opacity: 1;
+    /* Make tooltip visible */
+    visibility: visible;
 }
 
 .tooltip-bubble {
-  position: absolute;
-  bottom: 180%;
-  /* Position the tooltip slightly higher */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  /* Dark background */
-  color: #fff;
-  /* White text */
-  padding: 8px 12px;
-  /* Add padding inside the bubble */
-  border-radius: 10px;
-  /* Rounded corners */
-  font-size: 0.8rem;
-  /* Small font size */
-  max-width: 400px;
-  /* Tooltip should never exceed 400px */
-  width: max-content;
-  /* Automatically fit content width, up to max-width */
-  white-space: pre-wrap;
-  /* Preserve spaces and wrap text when necessary */
-  word-break: break-word;
-  /* Break long words onto the next line if needed */
-  text-align: center;
-  /* Center the text */
-  z-index: 1000;
-  /* Ensure it appears above other elements */
-  pointer-events: none;
-  /* Prevent interfering with hover */
-  opacity: 0;
-  /* Initially hidden */
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-  /* Smooth appearance */
-  display: block;
-  /* Ensure block-level behavior for proper wrapping */
+    position: absolute;
+    bottom: 180%;
+    /* Position the tooltip slightly higher */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Dark background */
+    color: #fff;
+    /* White text */
+    padding: 8px 12px;
+    /* Add padding inside the bubble */
+    border-radius: 10px;
+    /* Rounded corners */
+    font-size: 0.8rem;
+    /* Small font size */
+    max-width: 400px;
+    /* Tooltip should never exceed 400px */
+    width: max-content;
+    /* Automatically fit content width, up to max-width */
+    white-space: pre-wrap;
+    /* Preserve spaces and wrap text when necessary */
+    word-break: break-word;
+    /* Break long words onto the next line if needed */
+    text-align: center;
+    /* Center the text */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
+    pointer-events: none;
+    /* Prevent interfering with hover */
+    opacity: 0;
+    /* Initially hidden */
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    /* Smooth appearance */
+    display: block;
+    /* Ensure block-level behavior for proper wrapping */
 }
 
 /* Tooltip arrow */
 .tooltip-bubble::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  /* Place the arrow at the bottom of the bubble */
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
-  /* Dark arrow */
+    content: "";
+    position: absolute;
+    top: 100%;
+    /* Place the arrow at the bottom of the bubble */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    /* Dark arrow */
 }
 
 /* Show tooltip when hovering */
 .input-label:hover .tooltip-bubble {
-  opacity: 1;
-  /* Make tooltip visible */
-  visibility: visible;
+    opacity: 1;
+    /* Make tooltip visible */
+    visibility: visible;
 }
 
 .trigger-card {
-  background-color: var(--bg-secondary);
-  /* Match app theme */
-  border-radius: 8px;
-  /* Slightly smaller radius for distinction */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  /* Subtler shadow for differentiation */
-  padding-left: 16px;
-  /* Padding for the content */
-  padding-right: 16px;
-  margin-bottom: 20px;
-  /* Spacing between cards */
-  max-width: calc(100% - 40px);
-  /* Ensure it doesn't overflow the content page */
-  width: 100%;
-  /* Flexibility for responsiveness */
-  animation: fadeIn 0.3s ease-in-out;
-  border: 1px solid var(--border-color);
-  /* Thin border for clarity */
-  position: relative;
-  /* Required for the absolutely positioned button */
+    background-color: var(--bg-secondary);
+    /* Match app theme */
+    border-radius: 8px;
+    /* Slightly smaller radius for distinction */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /* Subtler shadow for differentiation */
+    padding-left: 16px;
+    /* Padding for the content */
+    padding-right: 16px;
+    margin-bottom: 20px;
+    /* Spacing between cards */
+    max-width: calc(100% - 40px);
+    /* Ensure it doesn't overflow the content page */
+    width: 100%;
+    /* Flexibility for responsiveness */
+    animation: fadeIn 0.3s ease-in-out;
+    border: 1px solid var(--border-color);
+    /* Thin border for clarity */
+    position: relative;
+    /* Required for the absolutely positioned button */
 }
 
 .add-trigger-section {
-  position: relative;
-  /* Add this to make the dropdown align correctly */
+    position: relative;
+    /* Add this to make the dropdown align correctly */
 }
 
 .command-card {
-  flex: 1 1 100%;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 15px;
-  padding-left: 15px;
-  padding-right: 10px;
-  margin-bottom: 15px;
-  background-color: var(--bg-light);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .instruction-btns {
-  position: absolute;
-  right: 9px;
-  top: 6px;
-  display: flex;
-  flex-direction: column;
+    position: absolute;
+    right: 9px;
+    top: 6px;
+    display: flex;
+    flex-direction: column;
 }
 
 .instruction-btn {
-  line-height: 0.3;
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
+    line-height: 0.3;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .instruction-btn:hover {
-  color: #58a6ff;
-  /* Light blue on hover */
-  transform: scale(1.1);
+    color: #58a6ff;
+    /* Light blue on hover */
+    transform: scale(1.1);
 }
 
 .instruction-btn.remove:hover {
-  color: #ff4d4d;
+    color: #ff4d4d;
 }
 
 .instruction-btn:disabled {
-  color: #484f58;
-  cursor: not-allowed;
-  transform: none;
+    color: #484f58;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .instruction-box-fields {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: 10px;
-  width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 10px;
+    width: 100%;
 }
 
 .instruction-box-fields > * {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 .instruction-list-field {
-  flex: 0 0 100%;
+    flex: 0 0 100%;
 }
 
 .textarea-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .command-card textarea {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .error-list {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #ffeded;
-  /* Light red background */
-  border: 1px solid #ff4d4d;
-  /* Red border */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(255, 77, 77, 0.2);
-  /* Subtle shadow */
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffeded;
+    /* Light red background */
+    border: 1px solid #ff4d4d;
+    /* Red border */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.2);
+    /* Subtle shadow */
 }
 
 .error-item {
-  font-family: "Minecraft", monospace;
-  font-size: 1rem;
-  color: #b30000;
-  /* Darker red for text */
-  margin-bottom: 8px;
-  line-height: 1.5;
+    font-family: "Minecraft", monospace;
+    font-size: 1rem;
+    color: #b30000;
+    /* Darker red for text */
+    margin-bottom: 8px;
+    line-height: 1.5;
 }

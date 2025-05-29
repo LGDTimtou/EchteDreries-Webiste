@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/home/Home.css";
 import profilePicture from "../assets/images/portret.jpg";
 import renoperfectPicture from "../assets/images/renoperfect.jpg";
-import customEnchantsPicture from "../assets/images/custom_enchants.gif";
+import customEnchantsPicture from "../assets/images/custom_enchants.png";
 import Project from "../components/home/Project";
 import Header from "../components/home/HomeHeader";
 import Footer from "../components/Footer";
@@ -27,7 +27,7 @@ const projects = {
     description:
       "Allows server owners to create custom enchantments functioning just like vanilla enchantments. \n\nUnlike other plugins that require complex configuration files, this plugin offers an easy-to-use online enchantment builder, making enchantment creation as simple as possible. \n\nWith just a few clicks, players can define enchantment triggers, effects, and mechanics that work exactly like standard Minecraft enchantments. \n\nThe plugin also comes with a large selection of pre-configured custom enchantments, ready to be used immediately on any server. \n\n🔹 Key Features: \n✅ Intuitive Online Enchantment Builder \n✅ Works with anvils, enchanting tables, books... \n✅ Pre-Made Custom Enchants \n✅ Server-Friendly & Optimized \n\nWhether you're looking to enhance your Minecraft survival experience, add exciting features to your SMP, or give server owners more creative control, Custom Enchants provides a high level of customization and ease of use! ⚡",
     imageUrl: customEnchantsPicture,
-    link: "https://www.spigotmc.org/resources/⚡advanced⚡-custom-enchants⚡-create-new-enchants.102514/",
+    link: "https://timonc.be/custom_enchants",
     altText: "CustomEnchants",
   },
 };
