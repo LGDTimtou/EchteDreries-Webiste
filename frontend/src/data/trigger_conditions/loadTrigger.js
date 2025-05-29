@@ -8,7 +8,7 @@ import {versions} from "../versions";
 import {defaultLevel} from "../../util/yamlParser";
 import {globalTriggerConditions} from "./globalTriggerConditions";
 import {triggerConditionGroups} from "./triggerConditionGroups";
-import {combineStrings, toTitleCase} from "../../util/util";
+import {combineStrings, localStore, toTitleCase} from "../../util/util";
 
 export const loadTrigger = async (trigger, version) => {
     const triggerConditionParents = [...(trigger.trigger_conditions ?? [])];
@@ -86,7 +86,7 @@ const loadValues = async (value_type, version) => {
             }
         }
     }
-    localStorage.setItem(`valueCache:${cacheKey}`, JSON.stringify(possibleValues));
+    localStore(`valueCache:${cacheKey}`, JSON.stringify(possibleValues))
     return possibleValues
 }
 
