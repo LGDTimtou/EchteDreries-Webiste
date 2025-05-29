@@ -330,71 +330,6 @@ export const triggers_nested = {
             ],
         },
     ],
-    health: [
-        {
-            name: "player_health_change",
-            description: "Triggered when the player's health changes",
-            trigger_conditions: [
-                {
-                    group: "number",
-                    prefix: "health",
-                    description: "the player's health after the change",
-                },
-                {
-                    group: "number",
-                    prefix: "previous_health",
-                    description: "the player's health before the change",
-                },
-                {
-                    group: "number",
-                    prefix: "change_amount",
-                    description: "the amount of health changed",
-                }
-            ],
-        },
-        {
-            name: "player_health_decrease",
-            description: "Triggered when the player's health decreases",
-            trigger_conditions: [
-                {
-                    group: "number",
-                    prefix: "health",
-                    description: "the player's health after the change",
-                },
-                {
-                    group: "number",
-                    prefix: "previous_health",
-                    description: "the player's health before the change",
-                },
-                {
-                    group: "number",
-                    prefix: "decrease_amount",
-                    description: "the amount of health that decreased",
-                }
-            ],
-        },
-        {
-            name: "player_health_increase",
-            description: "Triggered when the player's health increases",
-            trigger_conditions: [
-                {
-                    group: "number",
-                    prefix: "health",
-                    description: "the player's health after the change",
-                },
-                {
-                    group: "number",
-                    prefix: "previous_health",
-                    description: "the player's health before the change",
-                },
-                {
-                    group: "number",
-                    prefix: "increase_amount",
-                    description: "the amount of health that increased",
-                }
-            ],
-        },
-    ],
     inventory: [
         {
             name: "inventory_close",
@@ -609,7 +544,61 @@ export const triggers_nested = {
             ],
         },
     ],
-    take_damage: [
+    health_change: [
+        {
+            name: "health_change",
+            description: "Triggered when the player takes damage or regains health",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "health_change",
+                    description: "the health change amount",
+                },
+                {
+                    group: "cause",
+                    prefix: "change",
+                    description: "the health change",
+                    value_type: "health_change_cause"
+                },
+            ]
+        },
+        {
+            name: "regain_health",
+            description: "Triggered when the player regains health",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "health_regain",
+                    description: "the health regain amount",
+                },
+                {
+                    group: "cause",
+                    prefix: "regain",
+                    description: "the health regain",
+                    value_type: "health_regain_cause"
+                },
+            ]
+        },
         {
             name: "take_damage_from_entity",
             description: "Triggered when the player takes damage from an entity",
@@ -619,6 +608,16 @@ export const triggers_nested = {
                     prefix: "attacker",
                     description: "the entity that damaged the player",
                     value_type: "entity"
+                },
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
                 },
                 {
                     group: "cause",
@@ -644,6 +643,16 @@ export const triggers_nested = {
                     value_type: "mob"
                 },
                 {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
                     group: "cause",
                     prefix: "damage",
                     description: "the damage taken",
@@ -666,6 +675,16 @@ export const triggers_nested = {
                     description: "the player that damaged the player",
                 },
                 {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
                     group: "cause",
                     prefix: "damage",
                     description: "the damage taken",
@@ -683,13 +702,55 @@ export const triggers_nested = {
             description: "Triggered when the player takes damage from a non-entity",
             trigger_conditions: [
                 {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
                     group: "cause",
                     prefix: "damage",
                     description: "the damage taken",
                     value_type: "damage_cause"
                 },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
             ],
         },
+        {
+            name: "take_damage",
+            description: "Triggered when the player takes damage",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage taken",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
+            ],
+        }
     ],
     chat: [
         {

@@ -3,6 +3,7 @@ import {prime_causes} from "./values/causes/primeCauses";
 import {ignite_causes} from "./values/causes/igniteCauses";
 import {damage_causes} from "./values/causes/damageCauses";
 import {inventory_types} from "./values/inventory_type";
+import {regain_health_causes} from "./values/causes/regainHealthCauses";
 
 import {versions} from "../versions";
 import {defaultLevel} from "../../util/yamlParser";
@@ -134,6 +135,12 @@ const triggerConditionMap = {
     },
     ignite_cause: {
         content: ignite_causes,
+    },
+    regain_health_cause: {
+        content: regain_health_causes,
+    },
+    health_change_cause: {
+        content: [...damage_causes, ...regain_health_causes]
     },
     dimension: {
         content: dimensions,
