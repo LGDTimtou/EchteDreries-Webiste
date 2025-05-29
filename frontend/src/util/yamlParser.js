@@ -81,7 +81,7 @@ export const jsonToYaml = (formState) => {
                                 prefix: condition.prefix,
                                 suffix: condition.suffix,
                                 values: condition.fields.map((field) => ({
-                                    operator: field.subValue ?? "equals", // fallback if not set
+                                    operator: field.subValue.name ?? "equals", // fallback if not set
                                     value: field.name,
                                 })),
                             };
