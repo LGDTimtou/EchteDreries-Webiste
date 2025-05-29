@@ -211,7 +211,7 @@ export const yamlToJson = async (yaml) => {
                 )
                     .map(([ignored, condition]) => {
                         const match = loadedTrigger.possible_trigger_conditions.find(
-                            (c) => c.group === condition.group && c.prefix === condition.prefix && c.suffix === condition.suffix
+                            (c) => c.group === condition.group && c.prefix === (condition.prefix ?? "") && c.suffix === (condition.suffix ?? "")
                         );
 
                         if (!match) return null;
@@ -232,7 +232,7 @@ export const yamlToJson = async (yaml) => {
                                 };
                             }),
                         };
-                    }),
+                    }).filter(Boolean),
                 levels: Object.values(
                     enchantmentData.triggers[trigger.name].levels ?? {}
                 ).map((level) => ({
