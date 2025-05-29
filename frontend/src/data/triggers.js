@@ -332,6 +332,27 @@ export const triggers_nested = {
     ],
     inventory: [
         {
+            name: "inventory_open",
+            description: "Triggered when the player opens an inventory",
+            trigger_conditions: [
+                {
+                    group: "inventory",
+                    prefix: "top",
+                    description: "the top inventory that was opened",
+                },
+                {
+                    group: "inventory",
+                    prefix: "bottom",
+                    description: "the bottom inventory that was opened",
+                },
+                {
+                    group: "string",
+                    prefix: "inventory_title",
+                    description: "the title of the inventory that was opened (regexes can be used)",
+                },
+            ],
+        },
+        {
             name: "inventory_close",
             description: "Triggered when the player closes an inventory",
             trigger_conditions: [
