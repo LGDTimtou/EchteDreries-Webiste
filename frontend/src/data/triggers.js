@@ -473,6 +473,21 @@ export const triggers_nested = {
             description: "Triggered when the player starts sneaking",
             trigger_conditions: [],
         },
+        {
+            name: "player_fly_toggle",
+            description: "Triggered when the player toggles flight",
+            trigger_conditions: []
+        },
+        {
+            name: "player_fly_start",
+            description: "Triggered when the player starts flying",
+            trigger_conditions: [],
+        },
+        {
+            name: "player_fly_stop",
+            description: "Triggered when the player stops flying",
+            trigger_conditions: [],
+        },
     ],
     projectiles: [
         {
