@@ -374,6 +374,72 @@ export const triggers_nested = {
             ],
         },
     ],
+    death: [
+        {
+            name: "animal_death",
+            description: "Triggered when an animal dies",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "dead",
+                    description: "the animal that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the animal"
+                }
+            ]
+        },
+        {
+            name: "entity_death",
+            description: "Triggered when an entity dies",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "dead",
+                    description: "the entity that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the entity"
+                }
+            ]
+        },
+        {
+            name: "mob_death",
+            description: "Triggered when a mob dies",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "dead",
+                    description: "the mob that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the mob"
+                }
+            ]
+        },
+        {
+            name: "player_death",
+            description: "Triggered when an other player dies",
+            trigger_conditions: [
+                {
+                    group: "player",
+                    prefix: "dead",
+                    description: "the player that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the player"
+                }
+            ]
+        },
+    ],
     kill: [
         {
             name: "kill_animal",
