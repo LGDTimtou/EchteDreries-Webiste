@@ -1,27 +1,27 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { stackoverflowDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {stackoverflowDark} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import ExtraFunctionalityTipBox from "../custom_components/ExtraFunctionalityTipBox";
 
 const APIContent = () => {
-  return (
-    <div>
-      <p className="content-intro">
-        How to Import and Use the CustomEnchants API
-      </p>
+    return (
+        <div>
+            <p className="content-intro">
+                How to Import and Use the CustomEnchants API
+            </p>
 
-      <div className="parameters-section">
-        <h1 className="subsection-title offset">Importing the API</h1>
-        <h1 className="subsubsection-title offset">Maven</h1>
-        <p className="minecraft offset">
-          To import the CustomEnchants API using Maven, add the following to
-          your <code>pom.xml</code> file:
-        </p>
-        <SyntaxHighlighter
-          language="xml"
-          style={stackoverflowDark}
-          customStyle={{ background: "" }}
-        >
-          {`<repositories>
+            <div className="parameters-section">
+                <h1 className="subsection-title offset">Importing the API</h1>
+                <h1 className="subsubsection-title offset">Maven</h1>
+                <p className="minecraft offset">
+                    To import the CustomEnchants API using Maven, add the following to
+                    your <code>pom.xml</code> file:
+                </p>
+                <SyntaxHighlighter
+                    language="xml"
+                    style={stackoverflowDark}
+                    customStyle={{background: ""}}
+                >
+                    {`<repositories>
   <repository>
     <id>jitpack.io</id>
     <url>https://jitpack.io</url>
@@ -30,46 +30,45 @@ const APIContent = () => {
           
 <dependencies>
   <dependency>
-    <groupId>com.github.LGDTimtou</groupId>
-    <artifactId>CustomEnchants</artifactId>
-    <version>v2.0.0</version> <!-- find the latest version on github -->
+    <groupId>be.timonc.custom-enchants</groupId>
+    <artifactId>core</artifactId>
+    <version>latest</version> <!-- find the latest version on github -->
   </dependency>
 </dependencies>`}
-        </SyntaxHighlighter>
-        <h1 className="subsubsection-title offset">Gradle</h1>
-        <p className="minecraft offset">
-          To import the CustomEnchants API using Gradle, add the following to
-          your <code>build.gradle</code> file:
-        </p>
-        <SyntaxHighlighter
-          language="gradle"
-          style={stackoverflowDark}
-          customStyle={{ background: "" }}
-        >
-          {`repositories {
+                </SyntaxHighlighter>
+                <h1 className="subsubsection-title offset">Gradle</h1>
+                <p className="minecraft offset">
+                    To import the CustomEnchants API using Gradle, add the following to
+                    your <code>build.gradle</code> file:
+                </p>
+                <SyntaxHighlighter
+                    language="gradle"
+                    style={stackoverflowDark}
+                    customStyle={{background: ""}}
+                >
+                    {`repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.LGDTimtou:CustomEnchants:v2.0.0' 
+    implementation 'be.timonc.custom_enchants:core:latest' 
     // find latest version on github
 }`}
-        </SyntaxHighlighter>
-      </div>
-      <div className="parameters-section">
-        <h1 className="subsection-title offset">Example Usage</h1>
-        <h1 className="subsubsection-title offset">
-          Listening for CustomEnchantTriggerEvent
-        </h1>
-        <SyntaxHighlighter
-          language="java"
-          style={stackoverflowDark}
-          customStyle={{ background: "" }}
-        >
-          {`import be.timonc.customenchantments.api.CustomEnchantTriggerEvent;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+                </SyntaxHighlighter>
+            </div>
+            <div className="parameters-section">
+                <h1 className="subsection-title offset">Example Usage</h1>
+                <h1 className="subsubsection-title offset">
+                    Listening for CustomEnchantTriggerEvent
+                </h1>
+                <SyntaxHighlighter
+                    language="java"
+                    style={stackoverflowDark}
+                    customStyle={{background: ""}}
+                >
+                    {`import be.timonc.customenchantments.api.CustomEnchantTriggerEvent;
+import be.timonc.customenchantments.enchantments.created.fields.triggers.TriggerType;
+import ...;
 
 public class MyPlugin extends JavaPlugin implements Listener {
 
@@ -101,11 +100,11 @@ public class MyPlugin extends JavaPlugin implements Listener {
     }
 }
 `}
-        </SyntaxHighlighter>
-      </div>
-      <ExtraFunctionalityTipBox firstLine={"new API functionality?"} />
-    </div>
-  );
+                </SyntaxHighlighter>
+            </div>
+            <ExtraFunctionalityTipBox firstLine={"new API functionality?"}/>
+        </div>
+    );
 };
 
 export default APIContent;
