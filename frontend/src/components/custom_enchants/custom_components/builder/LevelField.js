@@ -2,7 +2,7 @@ import React from "react";
 import InputField from "../InputField";
 import ToggleSwitchField from "../ToggleSwitchField";
 import InstructionListField from "./InstructionListField";
-import {cooldown_message_parameters,} from "../../../../data/trigger_conditions/parameters";
+import { cooldown_message_parameters, } from "../../../../data/trigger_conditions/parameters";
 
 const instructionsDefaultValues = {
     repeat: {
@@ -33,9 +33,9 @@ const instructionsDefaultValues = {
 };
 
 const LevelField = React.memo(
-    ({id, level, parameters, onChange, onRemove}) => {
+    ({ id, level, parameters, onChange, onRemove }) => {
         const handleInputChange = (e) => {
-            const {name, value} = e.target;
+            const { name, value } = e.target;
 
             const updatedLevel = {
                 ...level,
@@ -45,7 +45,7 @@ const LevelField = React.memo(
         };
 
         const handleCheckboxChange = (event) => {
-            const {name, checked} = event.target;
+            const { name, checked } = event.target;
             const updatedLevel = {
                 ...level,
                 [name]: checked,
@@ -122,11 +122,12 @@ const LevelField = React.memo(
                 );
             }
 
-            onChange(id, {...level, instructions: updatedInstructions});
+            onChange(id, { ...level, instructions: updatedInstructions });
         };
 
         const handleAddInstruction = (path, targetKey = "instructions") => {
-            const newInstruction = {type: "command", value: ""};
+            const newInstruction = { type: "command", value: "" };
+
 
             let updatedInstructions;
             if (path.length === 0) {
@@ -145,7 +146,7 @@ const LevelField = React.memo(
                 );
             }
 
-            onChange(id, {...level, instructions: updatedInstructions});
+            onChange(id, { ...level, instructions: updatedInstructions });
         };
 
         const handleRemoveInstruction = (path, targetKey = "instructions") => {
@@ -173,7 +174,7 @@ const LevelField = React.memo(
                 );
             }
 
-            onChange(id, {...level, instructions: updatedInstructions});
+            onChange(id, { ...level, instructions: updatedInstructions });
         };
 
         const handleChangeInstructionType = (path, type) => {
@@ -211,7 +212,7 @@ const LevelField = React.memo(
         };
 
         return (
-            <div className="trigger-card" style={{paddingBottom: "20px"}}>
+            <div className="trigger-card" style={{ paddingBottom: "20px" }}>
                 <h3 className="subsubsection-title offset"> Level {id + 1}</h3>
 
                 {id !== 0 && (
@@ -222,7 +223,7 @@ const LevelField = React.memo(
                 <div className="field-container">
                     <InputField
                         label="Cooldown"
-                        description="Cooldown time in seconds before the enchantment can trigger again at this level"
+                        description="Cooldown for this level in seconds before the enchantment can trigger again"
                         placeholder=""
                         type="number"
                         name="cooldown"
@@ -231,7 +232,7 @@ const LevelField = React.memo(
                     />
                     <InputField
                         label="Chance"
-                        description="The chance (in %) that the commands will be executed when the enchantment is triggered"
+                        description="The chance in percentage of the instructions executing when the enchantment is triggered"
                         placeholder=""
                         type="number"
                         name="chance"
@@ -240,7 +241,7 @@ const LevelField = React.memo(
                     />
                     <ToggleSwitchField
                         label="Cancel Event"
-                        description="If enabled, this level of the enchantment will cancel the triggering event"
+                        description="Whether this level should should cancel the triggering spigot event"
                         name="cancel_event"
                         checked={level.cancel_event}
                         onChange={handleCheckboxChange}
@@ -262,7 +263,7 @@ const LevelField = React.memo(
                 <InstructionListField
                     parentIndices={[]}
                     instructions={level.instructions}
-                    parameters={{"%": parameters}}
+                    parameters={{ "%": parameters }}
                     onChangeInstructionType={handleChangeInstructionType}
                     onChangeInstructionValue={handleChangeInstructionValue}
                     onRemoveInstruction={handleRemoveInstruction}
