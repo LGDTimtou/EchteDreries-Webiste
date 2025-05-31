@@ -128,6 +128,7 @@ const LevelField = React.memo(
         const handleAddInstruction = (path, targetKey = "instructions") => {
             const newInstruction = { type: "command", value: "" };
 
+
             let updatedInstructions;
             if (path.length === 0) {
                 updatedInstructions = [...level.instructions, newInstruction];
