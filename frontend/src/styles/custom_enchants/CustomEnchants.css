@@ -1,8 +1,8 @@
 @font-face {
-  font-family: "Minecraft";
-  src: url("../../assets/fonts/minecraft.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "Minecraft";
+    src: url("../../assets/fonts/minecraft.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 @import "./base.css";

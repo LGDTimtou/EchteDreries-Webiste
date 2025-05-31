@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InputField from "../custom_components/InputField";
 import SelectField from "../custom_components/SelectField";
@@ -16,9 +16,13 @@ import YamlActionButtonsField from "../custom_components/builder/YamlActionButto
 import YamlPopup from "../custom_components/builder/YamlPopup";
 import LoadingDots from "../custom_components/builder/LoadingDots";
 import { checkConstraints } from "../../../util/constraints";
-import { defaultFormState, jsonToYaml } from "../../../util/yamlParser";
-import { yamlToJson } from "../../../util/yamlParser";
+import {
+  defaultFormState,
+  jsonToYaml,
+  yamlToJson,
+} from "../../../util/yamlParser";
 import ToggleSwitchField from "../custom_components/ToggleSwitchField";
+import { localStore } from "../../../util/util";
 
 const BACKEND_URL = "https://timonc-backend.onrender.com/api";
 //const BACKEND_URL = "http://localhost:8000/api";
@@ -39,10 +43,9 @@ const CustomEnchantBuilderContent = () => {
   const [buttonState, setButtonState] = useState("");
   const [isPopupVisible, setPopupVisible] = useState(false);
 
-
   useEffect(() => {
-    localStorage.setItem(secret ? `formState-${secret}` : "formState", JSON.stringify(formState));
-  }, [formState, secret]);
+    localStore("formState", JSON.stringify(formState));
+  }, [formState]);
 
   useEffect(() => {
     if (location.state?.json) {
@@ -59,13 +62,6 @@ const CustomEnchantBuilderContent = () => {
       navigate({ search: query.toString() }, { replace: true });
     } else if (secret !== null && secret !== undefined) {
       setSecret(secret);
-
-      const localKey = `formState-${secret}`;
-      const storedSecretData = localStorage.getItem(localKey);
-      if (storedSecretData) {
-        setFormState(JSON.parse(storedSecretData));
-        return;
-      }
 
       let didFinish = false;
       const delay = setTimeout(() => {
@@ -219,10 +215,11 @@ const CustomEnchantBuilderContent = () => {
         />
         <ToggleSwitchField
           label="Needs Permission"
-          description={`Determines if the player needs permission (customenchantments.enchantment.${formState.enchantment_name
-            ? formState.enchantment_name.toLowerCase()
-            : "<name>"
-            }) to trigger this enchantment`}
+          description={`Determines if the player needs permission (customenchantments.enchantment.${
+            formState.enchantment_name
+              ? formState.enchantment_name.toLowerCase()
+              : "<name>"
+          }) to trigger this enchantment`}
           name="needs_permission"
           checked={formState.needs_permission}
           onChange={handleCheckboxChange}

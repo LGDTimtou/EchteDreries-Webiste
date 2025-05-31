@@ -1,972 +1,914 @@
-const health_trigger_conditions = [
-  {
-    name: "double_equals^health",
-    label: "Health Equals",
-    description:
-      "Checks if the current health exactly equals the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_greater_than^health",
-    label: "Health Greater Than",
-    description:
-      "Checks if the current health is greater than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_less_than^health",
-    label: "Health Less Than",
-    description:
-      "Checks if the current health is less than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_equals^previous_health",
-    label: "Previous Health Equals",
-    description:
-      "Checks if the previous health exactly equals the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_greater_than^previous_health",
-    label: "Previous Health Greater Than",
-    description:
-      "Checks if the previous health is greater than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_less_than^previous_health",
-    label: "Previous Health Less Than",
-    description:
-      "Checks if the previous health is less than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_equals^health_change",
-    label: "Health Change Equals",
-    description:
-      "Checks if the amount of health changed exactly equals the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_greater_than^health_change",
-    label: "Health Change Greater Than",
-    description:
-      "Checks if the amount of health changed is greater than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_less_than^health_change",
-    label: "Health Change Less Than",
-    description:
-      "Checks if the amount of health changed is less than the specified value",
-    value_type: "empty",
-  },
-];
-
-const movement_trigger_conditions = [
-  {
-    name: "double_equals^from_x",
-    label: "From X Equals",
-    description:
-      "Checks if the X-coordinate of the origin position equals the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_greater_than^from_x",
-    label: "From X Greater Than",
-    description:
-      "Checks if the X-coordinate of the origin position is greater than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_less_than^from_x",
-    label: "From X Less Than",
-    description:
-      "Checks if the X-coordinate of the origin position is less than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_equals^from_y",
-    label: "From Y Equals",
-    description:
-      "Checks if the Y-coordinate of the origin position equals the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_greater_than^from_y",
-    label: "From Y Greater Than",
-    description:
-      "Checks if the Y-coordinate of the origin position is greater than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_less_than^from_y",
-    label: "From Y Less Than",
-    description:
-      "Checks if the Y-coordinate of the origin position is less than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_equals^from_z",
-    label: "From Z Equals",
-    description:
-      "Checks if the Z-coordinate of the origin position equals the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_greater_than^from_z",
-    label: "From Z Greater Than",
-    description:
-      "Checks if the Z-coordinate of the origin position is greater than the specified value",
-    value_type: "empty",
-  },
-  {
-    name: "double_less_than^from_z",
-    label: "From Z Less Than",
-    description:
-      "Checks if the Z-coordinate of the origin position is less than the specified value",
-    value_type: "empty",
-  },
-];
-
 export const triggers_nested = {
-  armor: [
-    {
-      name: "armor_de_equip",
-      description: "Triggered when an armor piece is removed or replaced.",
-      trigger_conditions: [
-        {
-          name: "item^new_armor",
-          label: "New armor piece",
-          description:
-            "The armor piece that is equipped in place of the old one. This can be 'AIR' if no new armor is equipped. Defaults to any",
-          value_type: "armor",
-        },
-        {
-          name: "item^old_armor",
-          label: "Old armor piece",
-          description:
-            "The armor piece that was previously equipped and is now removed. Defaults to any",
-          value_type: "armor",
-        },
-      ],
-    },
-    {
-      name: "armor_equip",
-      description:
-        "Triggered when an armor piece is equipped, whether replacing another or equipping into an empty slot.",
-      trigger_conditions: [
-        {
-          name: "item^new_armor",
-          label: "New armor piece",
-          description:
-            "The armor piece that is being equipped. Defaults to any",
-          value_type: "armor",
-        },
-        {
-          name: "item^old_armor",
-          label: "Old armor piece",
-          description:
-            "The armor piece that was replaced. Will be 'AIR' if the slot was previously empty. Defaults to any",
-          value_type: "armor",
-        },
-      ],
-    },
-  ],
-  block: [
-    {
-      name: "block_damaged",
-      description: "Triggered when the player damages a block",
-      trigger_conditions: [
-        {
-          name: "block",
-          label: "Damaged Block",
-          description: "The block that was damaged. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-    {
-      name: "block_fertilize",
-      description: "Triggered when the player fertilizes a block",
-      trigger_conditions: [
-        {
-          name: "block",
-          label: "Fertilized Block",
-          description: "The block that was fertilized. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-    {
-      name: "block_ignite",
-      description: "Triggered when the player ignites a block",
-      trigger_conditions: [
-        {
-          name: "block",
-          label: "Ignited Block",
-          description: "The block that was ignited. Defaults to any",
-          value_type: "block",
-        },
-        {
-          name: "cause^ignite",
-          label: "Ignite Cause",
-          description: "What caused this block to ignite. Defaults to any",
-          value_type: "ignite_cause",
-        },
-      ],
-    },
-    {
-      name: "block_place",
-      description: "Triggered when a certain block is placed by the player",
-      trigger_conditions: [
-        {
-          name: "block^placed",
-          label: "Placed Block",
-          description: "The block that was placed. Defaults to any",
-          value_type: "block",
-        },
-        {
-          name: "block^against",
-          label: "Placed Against Block",
-          description: "The block that it was placed against. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-    {
-      name: "block_break",
-      description: "Triggered when a certain block is broken by the player",
-      trigger_conditions: [
-        {
-          name: "block",
-          label: "Broken Block",
-          description: "The block that was broken. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-  ],
-  block_other: [
-    {
-      name: "activate_sculk_sensor",
-      description: "Triggered when a sculk sensor is activated",
-      trigger_conditions: [],
-    },
-    {
-      name: "bell_rung",
-      description: "Triggered when a bell is rung",
-      trigger_conditions: [],
-    },
-    {
-      name: "change_sign",
-      description: "Triggered when a sign is changed",
-      trigger_conditions: [
-        {
-          name: "string^lines",
-          label: "String Lines",
-          description:
-            "The lines of the sign (regexes can be used). Defaults to any",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "prime_tnt",
-      description: "Triggered when TNT is primed",
-      trigger_conditions: [
-        {
-          name: "cause^prime",
-          label: "Prime Cause",
-          description: "What caused this TNT to prime. Defaults to any",
-          value_type: "empty",
-        },
-      ],
-    },
-  ],
-  click: [
-    {
-      name: "left_click",
-      description: "Triggered when the player left-clicks",
-      trigger_conditions: [],
-    },
-    {
-      name: "left_click_air",
-      description: "Triggered when the player left-clicks in the air",
-      trigger_conditions: [],
-    },
-    {
-      name: "left_click_block",
-      description: "Triggered when the player left-clicks a block",
-      trigger_conditions: [
-        {
-          name: "block",
-          label: "Clicked Block",
-          description: "The block that was clicked. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-    {
-      name: "right_click",
-      description: "Triggered when the player right-clicks",
-      trigger_conditions: [],
-    },
-    {
-      name: "right_click_air",
-      description: "Triggered when the player right-clicks in the air",
-      trigger_conditions: [],
-    },
-    {
-      name: "right_click_block",
-      description: "Triggered when the player right-clicks a block",
-      trigger_conditions: [
-        {
-          name: "block",
-          label: "Clicked Block",
-          description: "The block that was clicked. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-    {
-      name: "right_click_entity",
-      description: "Triggered when the player right-clicks an entity",
-      trigger_conditions: [
-        {
-          name: "entity^clicked",
-          label: "Clicked Entity",
-          description: "The entity that was clicked. Defaults to any",
-          value_type: "entity",
-        },
-      ],
-    },
-  ],
-  damage: [
-    {
-      name: "damage_animal",
-      description: "Triggered when the player damages an animal",
-      trigger_conditions: [
-        {
-          name: "entity^animal",
-          label: "Damaged Animal",
-          description: "The animal that was damaged. Defaults to any",
-          value_type: "animal",
-        },
-        {
-          name: "double_equals^animal_health",
-          label: "Animal Health Equals",
-          description:
-            "Checks if the animal's health exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^animal_health",
-          label: "Animal Health Greater Than",
-          description:
-            "Checks if the animal's health is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^animal_health",
-          label: "Animal Health Less Than",
-          description:
-            "Checks if the animal's health is less than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^damage",
-          label: "Damage Equals",
-          description:
-            "Checks if the damage done exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^damage",
-          label: "Damage Greater Than",
-          description:
-            "Checks if the damage done is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^damage",
-          label: "Damage Less Than",
-          description:
-            "Checks if the damage done is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "damage_entity",
-      description: "Triggered when the player damages an entity",
-      trigger_conditions: [
-        {
-          name: "entity^entity",
-          label: "Damaged Entity",
-          description: "The entity that was damaged. Defaults to any",
-          value_type: "entity",
-        },
-        {
-          name: "double_equals^entity_health",
-          label: "Entity Health Equals",
-          description:
-            "Checks if the animal's health exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^entity_health",
-          label: "Entity Health Greater Than",
-          description:
-            "Checks if the entity's health is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^entity_health",
-          label: "Entity Health Less Than",
-          description:
-            "Checks if the entity's health is less than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^damage",
-          label: "Damage Equals",
-          description:
-            "Checks if the damage done exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^damage",
-          label: "Damage Greater Than",
-          description:
-            "Checks if the damage done is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^damage",
-          label: "Damage Less Than",
-          description:
-            "Checks if the damage done is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "damage_mob",
-      description: "Triggered when the player damages a mob",
-      trigger_conditions: [
-        {
-          name: "entity^mob",
-          label: "Damaged Mob",
-          description: "The mob that was damaged. Defaults to any",
-          value_type: "mob",
-        },
-        {
-          name: "double_equals^mob_health",
-          label: "Mob Health Equals",
-          description:
-            "Checks if the mob's health exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^mob_health",
-          label: "Mob Health Greater Than",
-          description:
-            "Checks if the mob's health is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^mob_health",
-          label: "Mob Health Less Than",
-          description:
-            "Checks if the mob's health is less than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^damage",
-          label: "Damage Equals",
-          description:
-            "Checks if the damage done exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^damage",
-          label: "Damage Greater Than",
-          description:
-            "Checks if the damage done is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^damage",
-          label: "Damage Less Than",
-          description:
-            "Checks if the damage done is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "damage_player",
-      description: "Triggered when the player damages another player",
-      trigger_conditions: [
-        {
-          name: "player^damaged",
-          label: "Damaged Player",
-          description: "The player that was damaged. Defaults to any",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^damaged_health",
-          label: "Damaged Health Equals",
-          description:
-            "Checks if the damaged player's health exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^damaged_health",
-          label: "Damaged Health Greater Than",
-          description:
-            "Checks if the damaged player's health is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^damaged_health",
-          label: "Damaged Health Less Than",
-          description:
-            "Checks if the damaged player's health is less than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^damage",
-          label: "Damage Equals",
-          description:
-            "Checks if the damage done exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^damage",
-          label: "Damage Greater Than",
-          description:
-            "Checks if the damage done is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^damage",
-          label: "Damage Less Than",
-          description:
-            "Checks if the damage done is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-  ],
-  fishing_rod: [
-    {
-      name: "fishing_rod_caught",
-      description: "Triggered when an item is caught using a fishing rod",
-      example: "fishing_rod_caught",
-      trigger_conditions: [
-        {
-          name: "item^caught",
-          label: "Caught Item",
-          description: "The item that was caught. Defaults to any",
-          value_type: "item",
-        },
-      ],
-    },
-    {
-      name: "fishing_rod_hit_entity",
-      description: "Triggered when a fishing rod hits an entity",
-      trigger_conditions: [
-        {
-          name: "entity^hit",
-          label: "Hit Entity",
-          description: "The entity that was hit. Defaults to any",
-          value_type: "entity",
-        },
-      ],
-    },
-    {
-      name: "fishing_rod_hit_player",
-      description: "Triggered when a fishing rod hits a player",
-      trigger_conditions: [
-        {
-          name: "player^hit",
-          label: "Hit Player",
-          description: "The player that was hit. Defaults to any",
-          value_type: "empty",
-        },
-      ],
-    },
-  ],
-  health: [
-    {
-      name: "player_health_change",
-      description: "Triggered when the player's health changes",
-      trigger_conditions: health_trigger_conditions,
-    },
-    {
-      name: "player_health_decrease",
-      description: "Triggered when the player's health decreases",
-      trigger_conditions: health_trigger_conditions,
-    },
-    {
-      name: "player_health_increase",
-      description: "Triggered when the player's health increases",
-      trigger_conditions: health_trigger_conditions,
-    },
-  ],
-  inventory: [
-    {
-      name: "inventory_close",
-      description: "Triggered when the player closes an inventory",
-      trigger_conditions: [
-        {
-          name: "inventory^top",
-          label: "Top Inventory",
-          description: "The top inventory that was closed",
-          value_type: "inventory",
-        },
-        {
-          name: "inventory^bottom",
-          label: "Bottom Inventory",
-          description: "The bottom inventory that was closed",
-          value_type: "inventory",
-        },
-        {
-          name: "string^title",
-          label: "Inventory Title",
-          description: "The title of the inventory that was closed",
-          value_type: "empty",
-        },
-      ],
-    },
-  ],
-  kill: [
-    {
-      name: "kill_animal",
-      description: "Triggered when the player kills an animal",
-      trigger_conditions: [
-        {
-          name: "entity^animal",
-          label: "Killed Animal",
-          description: "The animal that was killed. Defaults to any",
-          value_type: "animal",
-        },
-      ],
-    },
-    {
-      name: "kill_entity",
-      description: "Triggered when the player kills an entity",
-      trigger_conditions: [
-        {
-          name: "entity^entity",
-          label: "Killed Entity",
-          description: "The entity that was killed. Defaults to any",
-          value_type: "entity",
-        },
-      ],
-    },
-    {
-      name: "kill_mob",
-      description: "Triggered when the player kills a mob",
-      trigger_conditions: [
-        {
-          name: "entity^mob",
-          label: "Killed Mob",
-          description: "The mob that was killed. Defaults to any",
-          value_type: "mob",
-        },
-      ],
-    },
-    {
-      name: "kill_player",
-      description: "Triggered when the player kills another player",
-      trigger_conditions: [
-        {
-          name: "player^killed",
-          label: "Killed Player",
-          description: "The player that was killed. Defaults to any",
-          value_type: "empty",
-        },
-      ],
-    },
-  ],
-  movement: [
-    {
-      name: "player_idle",
-      description:
-        "Triggered when the player stands still",
-      trigger_conditions: [
-        {
-          name: "double_equals^idle_time",
-          label: "Idle Time Equals",
-          description:
-            "Checks if the idle time exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^idle_time",
-          label: "Idle Time Greater Than",
-          description:
-            "Checks if the idle time is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^idle_time",
-          label: "Idle Time Less Than",
-          description:
-            "Checks if the idle time is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "player_move",
-      description: "Triggered when the player moves",
-      trigger_conditions: movement_trigger_conditions,
-    },
-    {
-      name: "player_swim",
-      description: "Triggered when the player swims",
-      trigger_conditions: movement_trigger_conditions,
-    },
-    {
-      name: "player_sneak",
-      description: "Triggered when the player sneaks",
-      trigger_conditions: [],
-    },
-  ],
-  projectiles: [
-    {
-      name: "projectile_hit_block",
-      description:
-        "Triggered when a projectile launched by the player hits a block",
-      trigger_conditions: [
-        {
-          name: "entity^projectile",
-          label: "Projectile",
-          description: "The projectile that was launched. Defaults to any",
-          value_type: "projectile",
-        },
-        {
-          name: "block",
-          label: "Hit Block",
-          description: "The block that was hit. Defaults to any",
-          value_type: "block",
-        },
-      ],
-    },
-    {
-      name: "projectile_hit_entity",
-      description:
-        "Triggered when a projectile launched by the player hits an entity",
-      trigger_conditions: [
-        {
-          name: "entity^projectile",
-          label: "Projectile",
-          description: "The projectile that was launched. Defaults to any",
-          value_type: "projectile",
-        },
-        {
-          name: "entity^entity",
-          label: "Hit Entity",
-          description: "The entity that was hit. Defaults to any",
-          value_type: "entity",
-        },
-      ],
-    },
-    {
-      name: "projectile_hit_player",
-      description:
-        "Triggered when a projectile launched by the player hits a player",
-      trigger_conditions: [
-        {
-          name: "entity^projectile",
-          label: "Projectile",
-          description: "The projectile that was launched. Defaults to any",
-          value_type: "projectile",
-        },
-        {
-          name: "player^vicitm",
-          label: "Hit Player",
-          description: "The player that was hit. Defaults to any",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "projectile_land",
-      description: "Triggered when a projectile launched by the player lands",
-      example: "projectile_land",
-      trigger_conditions: [
-        {
-          name: "entity^projectile",
-          label: "Projectile",
-          description: "The projectile that was launched. Defaults to any",
-          value_type: "projectile",
-        },
-      ],
-    },
-  ],
-  take_damage: [
-    {
-      name: "take_damage_from_entity",
-      description: "Triggered when the player takes damage from an entity",
-      trigger_conditions: [
-        {
-          name: "entity^entity",
-          label: "Damaging Entity",
-          description: "The entity that damaged the player. Defaults to any",
-          value_type: "entity",
-        },
-        {
-          name: "cause^damage",
-          label: "Damage Cause",
-          description: "What caused the damage. Defaults to any",
-          value_type: "damage_cause",
-        },
-      ],
-    },
-    {
-      name: "take_damage_from_mob",
-      description: "Triggered when the player takes damage from a mob",
-      trigger_conditions: [
-        {
-          name: "entity^mob",
-          label: "Damaging Mob",
-          description: "The mob that damaged the player. Defaults to any",
-          value_type: "mob",
-        },
-        {
-          name: "cause^damage",
-          label: "Damage Cause",
-          description: "What caused the damage. Defaults to any",
-          value_type: "damage_cause",
-        },
-      ],
-    },
-    {
-      name: "take_damage_from_player",
-      description: "Triggered when the player takes damage from another player",
-      trigger_conditions: [
-        {
-          name: "player^damager",
-          label: "Damaging Player",
-          description: "The player that damaged the player. Defaults to any",
-          value_type: "empty",
-        },
-        {
-          name: "cause^damage",
-          label: "Damage Cause",
-          description: "What caused the damage. Defaults to any",
-          value_type: "damage_cause",
-        },
-      ],
-    },
-    {
-      name: "take_damage_from_non_entity",
-      description: "Triggered when the player takes damage from a non-entity",
-      trigger_conditions: [
-        {
-          name: "cause^damage",
-          label: "Damage Cause",
-          description: "What caused the damage. Defaults to any",
-          value_type: "damage_cause",
-        },
-      ],
-    },
-  ],
-  chat: [
-    {
-      name: "player_chat",
-      description: "Triggered when the player sends a chat message",
-      trigger_conditions: [
-        {
-          name: "string^message",
-          label: "Message",
-          description: "The message that the player sent",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^length",
-          label: "Length Equals",
-          description:
-            "Checks if the message length exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^length",
-          label: "Length Greater Than",
-          description:
-            "Checks if the message length is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^length",
-          label: "Length Less Than",
-          description:
-            "Checks if the message length is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-    {
-      name: "player_receive_chat",
-      description: "Triggered when the player receives a chat message",
-      trigger_conditions: [
-        {
-          name: "string^message",
-          label: "Message",
-          description: "The message that the player received",
-          value_type: "empty",
-        },
-        {
-          name: "double_equals^length",
-          label: "Length Equals",
-          description:
-            "Checks if the message length exactly equals the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_greater_than^length",
-          label: "Length Greater Than",
-          description:
-            "Checks if the message length is greater than the specified value",
-          value_type: "empty",
-        },
-        {
-          name: "double_less_than^length",
-          label: "Length Less Than",
-          description:
-            "Checks if the message length is less than the specified value",
-          value_type: "empty",
-        },
-      ],
-    },
-  ],
+    armor: [
+        {
+            name: "armor_de_equip",
+            description: "Triggered when an armor piece is removed or replaced.",
+            trigger_conditions: [
+                {
+                    group: "item",
+                    prefix: "new_armor",
+                    description: "the armor piece that is equipped in place of the old one. This can be 'AIR' if no new armor is equipped",
+                    value_type: "armor"
+                },
+                {
+                    group: "item",
+                    prefix: "old_armor",
+                    description: "the armor piece that was previously equipped and is now removed",
+                    value_type: "armor"
+                },
+            ],
+        },
+        {
+            name: "armor_equip",
+            description:
+                "Triggered when an armor piece is equipped, whether replacing another or equipping into an empty slot.",
+            trigger_conditions: [
+                {
+                    group: "item",
+                    prefix: "new_armor",
+                    description: "the armor piece that is being equipped",
+                    value_type: "armor"
+                },
+                {
+                    group: "item",
+                    prefix: "old_armor",
+                    description: "the armor piece that was replaced. Will be 'AIR' if the slot was previously empty",
+                    value_type: "armor"
+                },
+            ],
+        },
+    ],
+    block: [
+        {
+            name: "block_damaged",
+            description: "Triggered when the player damages a block",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "damaged",
+                    description: "the block that was damaged",
+                },
+            ],
+        },
+        {
+            name: "block_fertilize",
+            description: "Triggered when the player fertilizes a block",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "fertilized",
+                    description: "the block that was fertilized",
+                },
+            ],
+        },
+        {
+            name: "block_ignite",
+            description: "Triggered when the player ignites a block",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "ignited",
+                    description: "the block that was ignited",
+                },
+                {
+                    group: "cause",
+                    prefix: "ignite",
+                    description: "the ignition",
+                    value_type: "ignite_cause"
+                },
+            ],
+        },
+        {
+            name: "block_place",
+            description: "Triggered when a certain block is placed by the player",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "placed",
+                    description: "the block that was placed",
+                },
+                {
+                    group: "block",
+                    prefix: "against",
+                    label: "Placed Against Block",
+                    description: "the block it was placed against",
+                },
+            ],
+        },
+        {
+            name: "block_break",
+            description: "Triggered when a certain block is broken by the player",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "broken",
+                    description: "the block that was broken",
+                },
+            ],
+        },
+    ],
+    block_other: [
+        {
+            name: "activate_sculk_sensor",
+            description: "Triggered when a sculk sensor is activated",
+            trigger_conditions: [],
+        },
+        {
+            name: "bell_rung",
+            description: "Triggered when a bell is rung",
+            trigger_conditions: [],
+        },
+        {
+            name: "change_sign",
+            description: "Triggered when a sign is changed",
+            trigger_conditions: [
+                {
+                    group: "string",
+                    prefix: "lines",
+                    description: "the lines of the sign (regexes can be used)",
+                },
+            ],
+        },
+        {
+            name: "prime_tnt",
+            description: "Triggered when TNT is primed",
+            trigger_conditions: [
+                {
+                    group: "cause",
+                    prefix: "prime",
+                    description: "the prime",
+                    value_type: "prime_cause"
+                },
+            ],
+        },
+    ],
+    click: [
+        {
+            name: "left_click",
+            description: "Triggered when the player left-clicks",
+            trigger_conditions: [],
+        },
+        {
+            name: "left_click_air",
+            description: "Triggered when the player left-clicks in the air",
+            trigger_conditions: [],
+        },
+        {
+            name: "left_click_block",
+            description: "Triggered when the player left-clicks a block",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "clicked",
+                    description: "the block that was clicked",
+                },
+            ],
+        },
+        {
+            name: "right_click",
+            description: "Triggered when the player right-clicks",
+            trigger_conditions: [],
+        },
+        {
+            name: "right_click_air",
+            description: "Triggered when the player right-clicks in the air",
+            trigger_conditions: [],
+        },
+        {
+            name: "right_click_block",
+            description: "Triggered when the player right-clicks a block",
+            trigger_conditions: [
+                {
+                    group: "block",
+                    prefix: "clicked",
+                    description: "the block that was clicked",
+
+                },
+            ],
+        },
+        {
+            name: "right_click_entity",
+            description: "Triggered when the player right-clicks an entity",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "clicked",
+                    description: "the entity that was clicked",
+                    value_type: "entity"
+                },
+            ],
+        },
+    ],
+    damage: [
+        {
+            name: "damage_animal",
+            description: "Triggered when the player damages an animal",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "damaged",
+                    description: "the animal that was damaged",
+                    value_type: "animal"
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage done to the animal",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage done to the animal"
+                },
+            ],
+        },
+        {
+            name: "damage_entity",
+            description: "Triggered when the player damages an entity",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "damaged",
+                    description: "the entity that was damaged",
+                    value_type: "entity"
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage done to the entity",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage done to the entity",
+                },
+            ],
+        },
+        {
+            name: "damage_mob",
+            description: "Triggered when the player damages a mob",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "damaged",
+                    description: "the mob that was damaged",
+                    value_type: "mob"
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage done to the mob",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage done to the mob",
+                },
+            ],
+        },
+        {
+            name: "damage_player",
+            description: "Triggered when the player damages another player",
+            trigger_conditions: [
+                {
+                    group: "player",
+                    prefix: "damaged",
+                    description: "the player that was damaged",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage done to the player",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage done to the player",
+                },
+            ],
+        },
+    ],
+    fishing_rod: [
+        {
+            name: "fishing_rod_caught",
+            description: "Triggered when an item is caught using a fishing rod",
+            example: "fishing_rod_caught",
+            trigger_conditions: [
+                {
+                    group: "item",
+                    prefix: "caught",
+                    description: "the item that was caught",
+                    value_type: "item"
+                },
+            ],
+        },
+        {
+            name: "fishing_rod_hit_entity",
+            description: "Triggered when a fishing rod hits an entity",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "hit",
+                    description: "the entity that was hit",
+                    value_type: "entity"
+                },
+            ],
+        },
+        {
+            name: "fishing_rod_hit_player",
+            description: "Triggered when a fishing rod hits a player",
+            trigger_conditions: [
+                {
+                    group: "player",
+                    prefix: "hit",
+                    description: "the player that was hit",
+                },
+            ],
+        },
+    ],
+    inventory: [
+        {
+            name: "inventory_open",
+            description: "Triggered when the player opens an inventory",
+            trigger_conditions: [
+                {
+                    group: "inventory",
+                    prefix: "top",
+                    description: "the top inventory that was opened",
+                },
+                {
+                    group: "inventory",
+                    prefix: "bottom",
+                    description: "the bottom inventory that was opened",
+                },
+                {
+                    group: "string",
+                    prefix: "inventory_title",
+                    description: "the title of the inventory that was opened (regexes can be used)",
+                },
+            ],
+        },
+        {
+            name: "inventory_close",
+            description: "Triggered when the player closes an inventory",
+            trigger_conditions: [
+                {
+                    group: "inventory",
+                    prefix: "top",
+                    description: "the top inventory that was closed",
+                },
+                {
+                    group: "inventory",
+                    prefix: "bottom",
+                    description: "the bottom inventory that was closed",
+                },
+                {
+                    group: "string",
+                    prefix: "inventory_title",
+                    description: "the title of the inventory that was closed (regexes can be used)",
+                },
+            ],
+        },
+    ],
+    death: [
+        {
+            name: "animal_death",
+            description: "Triggered when an animal dies",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "dead",
+                    description: "the animal that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the animal"
+                }
+            ]
+        },
+        {
+            name: "entity_death",
+            description: "Triggered when an entity dies",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "dead",
+                    description: "the entity that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the entity"
+                }
+            ]
+        },
+        {
+            name: "mob_death",
+            description: "Triggered when a mob dies",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "dead",
+                    description: "the mob that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the mob"
+                }
+            ]
+        },
+        {
+            name: "player_death",
+            description: "Triggered when an other player dies",
+            trigger_conditions: [
+                {
+                    group: "player",
+                    prefix: "dead",
+                    description: "the player that died"
+                },
+                {
+                    group: "cause",
+                    prefix: "last_damage",
+                    description: "the last damage that killed the player"
+                }
+            ]
+        },
+    ],
+    kill: [
+        {
+            name: "kill_animal",
+            description: "Triggered when the player kills an animal",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "killed",
+                    description: "the animal that was killed",
+                    value_type: "animal"
+                },
+            ],
+        },
+        {
+            name: "kill_entity",
+            description: "Triggered when the player kills an entity",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "killed",
+                    description: "the entity that was killed",
+                    value_type: "entity"
+                },
+            ],
+        },
+        {
+            name: "kill_mob",
+            description: "Triggered when the player kills a mob",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "killed",
+                    description: "the mob that was killed",
+                    value_type: "mob"
+                },
+            ],
+        },
+        {
+            name: "kill_player",
+            description: "Triggered when the player kills another player",
+            trigger_conditions: [
+                {
+                    group: "player",
+                    prefix: "killed",
+                    description: "the player that was killed",
+                },
+            ],
+        },
+    ],
+    movement: [
+        {
+            name: "player_idle",
+            description:
+                "Triggered when the player stands still",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "idle_time",
+                    description: "the idle time in seconds",
+                },
+
+            ],
+        },
+        {
+            name: "player_move",
+            description: "Triggered when the player moves",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "from_x",
+                    description: "the X coordinate the player moved from",
+                },
+                {
+                    group: "number",
+                    prefix: "from_y",
+                    description: "the Y coordinate the player moved from",
+                },
+                {
+                    group: "number",
+                    prefix: "from_z",
+                    description: "the Z coordinate the player moved from",
+                },
+            ],
+        },
+        {
+            name: "player_swim",
+            description: "Triggered when the player swims",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "from_x",
+                    description: "the X coordinate the player swam from",
+                },
+                {
+                    group: "number",
+                    prefix: "from_y",
+                    description: "the Y coordinate the player swam from",
+                },
+                {
+                    group: "number",
+                    prefix: "from_z",
+                    description: "the Z coordinate the player swam from",
+                },
+            ],
+        },
+        {
+            name: "player_sneak_toggle",
+            description: "Triggered when the player toggles sneak",
+            trigger_conditions: []
+        },
+        {
+            name: "player_sneak_up",
+            description: "Triggered when the player stops sneaking",
+            trigger_conditions: [],
+        },
+        {
+            name: "player_sneak_down",
+            description: "Triggered when the player starts sneaking",
+            trigger_conditions: [],
+        },
+        {
+            name: "player_fly_toggle",
+            description: "Triggered when the player toggles flight",
+            trigger_conditions: []
+        },
+        {
+            name: "player_fly_start",
+            description: "Triggered when the player starts flying",
+            trigger_conditions: [],
+        },
+        {
+            name: "player_fly_stop",
+            description: "Triggered when the player stops flying",
+            trigger_conditions: [],
+        },
+    ],
+    projectiles: [
+        {
+            name: "projectile_hit_block",
+            description:
+                "Triggered when a projectile launched by the player hits a block",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "projectile",
+                    description: "the projectile that was launched",
+                    value_type: "projectile"
+                },
+                {
+                    group: "block",
+                    prefix: "hit",
+                    description: "the block that was hit",
+                },
+            ],
+        },
+        {
+            name: "projectile_hit_entity",
+            description:
+                "Triggered when a projectile launched by the player hits an entity",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "projectile",
+                    description: "the projectile that was launched",
+                    value_type: "projectile"
+                },
+                {
+                    group: "entity",
+                    prefix: "hit",
+                    description: "the entity that was hit",
+                    value_type: "entity"
+                },
+            ],
+        },
+        {
+            name: "projectile_hit_player",
+            description:
+                "Triggered when a projectile launched by the player hits a player",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "projectile",
+                    description: "the projectile that was launched",
+                    value_type: "projectile"
+                },
+                {
+                    group: "player",
+                    prefix: "hit",
+                    description: "the player that was hit",
+                },
+            ],
+        },
+        {
+            name: "projectile_land",
+            description: "Triggered when a projectile launched by the player lands",
+            example: "projectile_land",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "projectile",
+                    description: "the projectile that was launched",
+                    value_type: "projectile"
+                },
+            ],
+        },
+    ],
+    health_change: [
+        {
+            name: "health_change",
+            description: "Triggered when the player takes damage or regains health",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "health_change",
+                    description: "the health change amount",
+                },
+                {
+                    group: "cause",
+                    prefix: "change",
+                    description: "the health change",
+                    value_type: "health_change_cause"
+                },
+            ]
+        },
+        {
+            name: "regain_health",
+            description: "Triggered when the player regains health",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "health_regain",
+                    description: "the health regain amount",
+                },
+                {
+                    group: "cause",
+                    prefix: "regain",
+                    description: "the health regain",
+                    value_type: "health_regain_cause"
+                },
+            ]
+        },
+        {
+            name: "take_damage_from_entity",
+            description: "Triggered when the player takes damage from an entity",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "attacker",
+                    description: "the entity that damaged the player",
+                    value_type: "entity"
+                },
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage taken",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
+            ],
+        },
+        {
+            name: "take_damage_from_mob",
+            description: "Triggered when the player takes damage from a mob",
+            trigger_conditions: [
+                {
+                    group: "entity",
+                    prefix: "attacker",
+                    description: "the mob that damaged the player",
+                    value_type: "mob"
+                },
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage taken",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
+            ],
+        },
+        {
+            name: "take_damage_from_player",
+            description: "Triggered when the player takes damage from another player",
+            trigger_conditions: [
+                {
+                    group: "player",
+                    prefix: "attacker",
+                    description: "the player that damaged the player",
+                },
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage taken",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
+            ],
+        },
+        {
+            name: "take_damage_from_non_entity",
+            description: "Triggered when the player takes damage from a non-entity",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage taken",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
+            ],
+        },
+        {
+            name: "take_damage",
+            description: "Triggered when the player takes damage",
+            trigger_conditions: [
+                {
+                    group: "number",
+                    prefix: "new_health",
+                    description: "the new health of the player",
+                },
+                {
+                    group: "number",
+                    prefix: "previous_health",
+                    description: "the previous health of the player",
+                },
+                {
+                    group: "cause",
+                    prefix: "damage",
+                    description: "the damage taken",
+                    value_type: "damage_cause"
+                },
+                {
+                    group: "number",
+                    prefix: "damage",
+                    description: "the damage taken",
+                }
+            ],
+        }
+    ],
+    chat: [
+        {
+            name: "player_chat",
+            description: "Triggered when the player sends a chat message",
+            trigger_conditions: [
+                {
+                    group: "string",
+                    prefix: "message",
+                    description: "the message that the player sent (regexes can be used)",
+                },
+                {
+                    group: "number",
+                    prefix: "length",
+                    description: "the message length",
+                },
+            ],
+        },
+        {
+            name: "player_receive_chat",
+            description: "Triggered when the player receives a chat message",
+            trigger_conditions: [
+                {
+                    group: "string",
+                    prefix: "message",
+                    description: "the message that the player received (regexes can be used)",
+                },
+                {
+                    group: "number",
+                    prefix: "length",
+                    description: "the message length",
+                },
+            ],
+        },
+    ],
 };
 
 function flattenAndAddLabels(triggersNested) {
-  const titleCase = (str) =>
-    str
-      .replace(/_/g, " ")
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+    const titleCase = (str) =>
+        str
+            .replace(/_/g, " ")
+            .toLowerCase()
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
 
-  const flattenedList = [];
-  Object.values(triggersNested).forEach((category) => {
-    category.forEach((item) => {
-      flattenedList.push({
-        ...item,
-        label: titleCase(item.name),
-      });
+    const flattenedList = [];
+    Object.values(triggersNested).forEach((category) => {
+        category.forEach((item) => {
+            flattenedList.push({
+                ...item,
+                label: titleCase(item.name),
+            });
+        });
     });
-  });
-  return flattenedList;
+    return flattenedList;
 }
 
 export const triggers = flattenAndAddLabels(triggers_nested);

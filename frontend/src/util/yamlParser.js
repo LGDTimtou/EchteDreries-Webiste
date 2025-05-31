@@ -17,7 +17,7 @@ export const defaultFormState = {
   conflicts_with: [],
   anvil_cost: 10,
   in_enchanting_table: true,
-  weight: 50,
+  weight: 10,
   min_cost_base: 2,
   min_cost_incr: 10,
   max_cost_base: 8,
@@ -30,7 +30,7 @@ export const defaultFormState = {
 };
 
 export const defaultLevel = {
-  cooldown: 60,
+  cooldown: 5,
   chance: 100,
   cancel_event: false,
   cooldown_message: "",
@@ -68,19 +68,24 @@ export const jsonToYaml = (formState) => {
       },
       custom_locations:
         formState.default_enchantment_location ||
-          formState.custom_enchantment_locations.length === 0
+        formState.custom_enchantment_locations.length === 0
           ? []
           : formState.custom_enchantment_locations.map((loc) => loc.name),
       triggers: Object.assign(
         {},
         ...formState.triggers.map((trigger) => ({
           [trigger.name]: {
-            conditions: Object.assign(
-              {},
-              ...trigger.selected_trigger_conditions.map((condition) => ({
-                [condition.name]: condition.fields.map((field) => field.name),
-              }))
-            ),
+            conditions: trigger.selected_trigger_conditions.map((condition) => {
+              return {
+                group: condition.group,
+                prefix: condition.prefix,
+                suffix: condition.suffix,
+                values: condition.fields.map((field) => ({
+                  operator: field.subValue ?? "equals", // fallback if not set
+                  value: field.name,
+                })),
+              };
+            }),
             levels: Object.assign(
               {},
               ...trigger.levels.map((level, index) => ({
@@ -204,31 +209,42 @@ export const yamlToJson = async (yaml) => {
         selected_trigger_conditions: Object.entries(
           enchantmentData.triggers[trigger.name].conditions ?? {}
         )
-          .map(([conditionName, fields]) => ({ [conditionName]: fields }))
-          .map((conditionObj) => {
-            const [conditionName, fields] = Object.entries(conditionObj)[0];
-
+          .map(([ignored, condition]) => {
             const match = loadedTrigger.possible_trigger_conditions.find(
-              (c) => c.name === conditionName
+              (c) =>
+                c.group === condition.group &&
+                c.prefix === (condition.prefix ?? "") &&
+                c.suffix === (condition.suffix ?? "")
             );
-            console.log(match.possible_values);
 
             if (!match) return null;
-            console.log(fields);
 
             return {
               ...match,
-              fields: fields.map(
-                (field) =>
-                  match.possible_values.find(
-                    (value) => value.name === field.toLowerCase()
-                  ) ?? {
-                    name: field.toString().toLowerCase(),
-                    label: toTitleCase(field.toString()),
-                  }
-              ),
+              fields: condition.values.map((triggerConditionValue) => {
+                const matched = match.possible_values.find(
+                  (value) =>
+                    value.name ===
+                    triggerConditionValue.value.toString().toLowerCase()
+                );
+
+                if (matched)
+                  return {
+                    ...matched,
+                    subValue: triggerConditionValue.operator,
+                  };
+
+                return {
+                  name: triggerConditionValue.value.toString().toLowerCase(),
+                  label: toTitleCase(
+                    triggerConditionValue.value.toString().toLowerCase()
+                  ),
+                  subValue: triggerConditionValue.operator,
+                };
+              }),
             };
-          }),
+          })
+          .filter(Boolean),
         levels: Object.values(
           enchantmentData.triggers[trigger.name].levels ?? {}
         ).map((level) => ({
@@ -241,8 +257,6 @@ export const yamlToJson = async (yaml) => {
       };
     })
   );
-
-  console.log(formState);
 
   return formState;
 };
@@ -265,7 +279,6 @@ function formatInstructions(instructions) {
 
   return formattedInstructions;
 }
-
 
 function parseYamlInstructions(instructions) {
   return instructions.map((instruction) => {
@@ -322,9 +335,7 @@ function parseYamlInstructions(instructions) {
           value: {
             condition: instruction.while.condition,
             loop_parameter: instruction.while.loop_parameter,
-            instructions: parseYamlInstructions(
-              instruction.while.instructions
-            ),
+            instructions: parseYamlInstructions(instruction.while.instructions),
           },
         };
       }
@@ -334,16 +345,11 @@ function parseYamlInstructions(instructions) {
           type: "conditional",
           value: {
             condition: instruction.conditional.condition,
-            if: parseYamlInstructions(
-              instruction.conditional.if
-            ),
-            else: parseYamlInstructions(
-              instruction.conditional.else
-            ),
+            if: parseYamlInstructions(instruction.conditional.if),
+            else: parseYamlInstructions(instruction.conditional.else),
           },
         };
       }
-
     }
 
     // If the instruction does not match any expected type
