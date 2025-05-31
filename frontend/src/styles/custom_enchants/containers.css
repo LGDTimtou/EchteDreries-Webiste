@@ -214,7 +214,8 @@
     padding-left: 16px;
     /* Padding for the content */
     padding-right: 16px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     /* Spacing between cards */
     max-width: calc(100% - 40px);
     /* Ensure it doesn't overflow the content page */
@@ -299,9 +300,9 @@
 }
 
 .textarea-container {
+    margin-bottom: 10px;
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    align-items: center;
 }
 
 .command-card textarea {

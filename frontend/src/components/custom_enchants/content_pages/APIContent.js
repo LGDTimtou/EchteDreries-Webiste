@@ -32,7 +32,7 @@ const APIContent = () => {
   <dependency>
     <groupId>be.timonc.custom-enchants</groupId>
     <artifactId>core</artifactId>
-    <version>latest</version> <!-- find the latest version on github -->
+    <version>latest</version>
   </dependency>
 </dependencies>`}
                 </SyntaxHighlighter>
@@ -52,7 +52,6 @@ const APIContent = () => {
 
 dependencies {
     implementation 'be.timonc.custom_enchants:core:latest' 
-    // find latest version on github
 }`}
                 </SyntaxHighlighter>
             </div>

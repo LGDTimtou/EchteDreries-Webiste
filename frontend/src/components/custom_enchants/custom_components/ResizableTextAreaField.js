@@ -1,114 +1,115 @@
-import { useRef } from "react";
+import {useRef} from "react";
 import AutoCompleteDropdown from "./builder/AutoCompleteDropdown";
 
 const ResizableTextArea = ({
-  label,
-  placeholder,
-  name,
-  value = "",
-  onChange,
-  description,
-  rows = 3,
-  maxWidth = "100%",
-  autoCompleteOptions = [],
-}) => {
-  const textareaRef = useRef(null);
+                               label,
+                               placeholder,
+                               name,
+                               value = "",
+                               onChange,
+                               description,
+                               rows = 3,
+                               maxWidth = "100%",
+                               autoCompleteOptions = [],
+                           }) => {
+    const textareaRef = useRef(null);
 
-  const calculateDropdownPosition = (percentIndex, charWidth) => {
-    if (!textareaRef.current) return;
+    const calculateDropdownPosition = (percentIndex, charWidth) => {
+        if (!textareaRef.current) return;
 
-    const textarea = textareaRef.current;
-    const text = textarea.value.substring(0, percentIndex);
-    const fontSize = parseFloat(window.getComputedStyle(textarea).fontSize);
-    const lineHeight = fontSize * 1.2;
+        const textarea = textareaRef.current;
+        const text = textarea.value.substring(0, percentIndex);
+        const fontSize = parseFloat(window.getComputedStyle(textarea).fontSize);
+        const lineHeight = fontSize * 1.2;
 
-    const textareaWidth = textarea.clientWidth;
-    const computedStyle = window.getComputedStyle(textarea);
+        const textareaWidth = textarea.clientWidth;
+        const computedStyle = window.getComputedStyle(textarea);
 
-    const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
-    const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+        const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+        const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
 
-    // Adjusted width
-    const adjustedWidth = textareaWidth - paddingLeft - paddingRight;
-    const maxCharsPerLine = Math.floor(adjustedWidth / charWidth);
+        // Adjusted width
+        const adjustedWidth = textareaWidth - paddingLeft - paddingRight;
+        const maxCharsPerLine = Math.floor(adjustedWidth / charWidth);
 
-    let lines = [];
-    let currentLine = "";
+        let lines = [];
+        let currentLine = "";
 
-    for (let word of text.split(" ")) {
-      // If the word alone exceeds the max line length
-      if (word.length >= maxCharsPerLine) {
-        // If current line has text, push it first
+        for (let word of text.split(" ")) {
+            // If the word alone exceeds the max line length
+            if (word.length >= maxCharsPerLine) {
+                // If current line has text, push it first
+                if (currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = "";
+                }
+
+                // Break the word across multiple lines
+                while (word.length > 0) {
+                    if (word.length > maxCharsPerLine) {
+                        lines.push(word.slice(0, maxCharsPerLine));
+                        word = word.slice(maxCharsPerLine);
+                    } else {
+                        currentLine = word;
+                        word = "";
+                    }
+                }
+            } else {
+                // Check if the word fits in the current line
+                if (
+                    currentLine.length + word.length + (currentLine ? 1 : 0) >
+                    maxCharsPerLine
+                ) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine ? " " : "") + word;
+                }
+            }
+        }
+
+        // Add the last line
         if (currentLine.length > 0) {
-          lines.push(currentLine);
-          currentLine = "";
+            lines.push(currentLine);
         }
 
-        // Break the word across multiple lines
-        while (word.length > 0) {
-          if (word.length > maxCharsPerLine) {
-            lines.push(word.slice(0, maxCharsPerLine));
-            word = word.slice(maxCharsPerLine);
-          } else {
-            currentLine = word;
-            word = "";
-          }
-        }
-      } else {
-        // Check if the word fits in the current line
-        if (
-          currentLine.length + word.length + (currentLine ? 1 : 0) >
-          maxCharsPerLine
-        ) {
-          lines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine += (currentLine ? " " : "") + word;
-        }
-      }
-    }
+        const lastLine = lines[lines.length - 1] || "";
+        const left = Math.min(lastLine.length * charWidth);
 
-    // Add the last line
-    if (currentLine.length > 0) {
-      lines.push(currentLine);
-    }
+        const top = lineHeight * (lines.length - (lines.length === 0 ? 0 : 1));
 
-    const lastLine = lines[lines.length - 1] || "";
-    const left = Math.min(lastLine.length * charWidth);
-
-    const top = lineHeight * (lines.length - (lines.length === 0 ? 0 : 1));
-
-    return {
-      top: top + 60,
-      left: left + 5,
+        return {
+            top: top + 40,
+            left: left + 10,
+        };
     };
-  };
 
-  return (
-    <div className="textarea-container" style={{ position: "relative" }}>
-      <label className="input-label">
-        {label}
-        <div className="tooltip-bubble">{description}</div>
-      </label>
-      <textarea
-        className="textarea-field"
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={(e) => onChange({ target: { name, value: e.target.value } })}
-        ref={textareaRef}
-        rows={rows}
-        style={{ width: { maxWidth } }}
-      />
-      <AutoCompleteDropdown
-        options={autoCompleteOptions}
-        currentText={value}
-        onChange={(newValue) => onChange({ target: { name, value: newValue } })}
-        calculateDropdownPosition={calculateDropdownPosition}
-        textareaRef={textareaRef}
-      />
-    </div>
-  );
+    return (
+        <div className="textarea-container" style={{position: "relative", width: maxWidth}}>
+            <label className="input-label">
+                {label}
+                <div className="tooltip-bubble">{description}</div>
+            </label>
+            <div style={{position: "relative", width: "100%"}}>
+            <textarea
+                className="textarea-field"
+                placeholder={placeholder}
+                name={name}
+                value={value}
+                onChange={(e) => onChange({target: {name, value: e.target.value}})}
+                ref={textareaRef}
+                rows={rows}
+            />
+                <AutoCompleteDropdown
+                    options={autoCompleteOptions}
+                    currentText={value}
+                    onChange={(newValue) => onChange({target: {name, value: newValue}})}
+                    calculateDropdownPosition={calculateDropdownPosition}
+                    textareaRef={textareaRef}
+                />
+            </div>
+        </div>
+    );
 };
 
 export default ResizableTextArea;

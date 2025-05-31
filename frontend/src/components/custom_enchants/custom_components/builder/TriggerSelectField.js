@@ -5,6 +5,8 @@ import {defaultLevel} from "../../../../util/yamlParser";
 import LevelCreationField from "./LevelCreationField";
 import {global_parameters} from "../../../../data/trigger_conditions/parameters";
 import {operators} from "../../../../data/trigger_conditions/operators";
+import ResizableTextAreaField from "../ResizableTextAreaField";
+import {FaTimes} from "react-icons/fa";
 
 const TriggerSelectField = ({
                                 selectedTriggers,
@@ -186,6 +188,15 @@ const TriggerSelectField = ({
         });
     };
 
+    const setNewCustomTriggerConditions = (trigger, newCustomConditions) => {
+        const updatedTriggers = selectedTriggers.map((t) =>
+            t.name === trigger.name
+                ? {...t, custom_trigger_conditions: newCustomConditions}
+                : t
+        );
+        onChange("triggers", updatedTriggers);
+    }
+
     return (
         <div>
             {selectedTriggers.map((trigger) => {
@@ -222,101 +233,156 @@ const TriggerSelectField = ({
                             className="trigger-remove-btn"
                             onClick={() => handleRemoveTrigger(trigger.name)}
                         >
-                            ×
+                            <FaTimes/>
                         </button>
 
                         <p className="minecraft-gray"> - {trigger.description}</p>
 
-                        <div className="content-box">
+                        <div>
                             <h2 className="subsection-title">Trigger Conditions</h2>
+                            <div className={trigger.selected_trigger_conditions.length === 0 ? "" : "trigger-card"}
+                                 style={trigger.selected_trigger_conditions.length === 0 ? {} : {
+                                     paddingTop: "10px",
+                                     paddingBottom: "10px"
+                                 }}>
+                                {trigger.selected_trigger_conditions.map((triggerCondition) => {
+                                    return (
+                                        <div
+                                            key={`${trigger.name}-${triggerCondition.name}`}
+                                            style={{display: "flex", alignItems: "center", gap: "8px"}}
+                                        >
+                                            <AddableSelectField
+                                                name={triggerCondition.name}
+                                                label={triggerCondition.label}
+                                                description={triggerCondition.description}
+                                                options={triggerCondition.possible_values}
+                                                values={triggerCondition.fields}
+                                                onChange={(triggerConditionName, fields) =>
+                                                    handleAddTriggerConditionFields(
+                                                        trigger.name,
+                                                        triggerConditionName,
+                                                        fields
+                                                    )
+                                                }
+                                                customOptionsAllowed={true}
+                                                subFieldOptions={operators}
+                                                style={{flexGrow: 1}}
+                                            />
+                                            <button
+                                                className="condition-remove-btn"
+                                                onClick={() =>
+                                                    handleRemoveCondition(trigger.name, triggerCondition.name)
+                                                }
+                                            >
+                                                <FaTimes/>
+                                            </button>
+                                        </div>
+                                    )
+                                })}
+                                <div
+                                    className="add-trigger-condition-section"
+                                    style={{position: "relative"}}
+                                >
+                                    {filteredConditionOptions.length !== 0 && (
+                                        <button
+                                            className="add-btn-text"
+                                            onClick={() => toggleConditionDropdown(trigger.name)}
+                                        >
+                                            + Add Trigger Condition
+                                        </button>
+                                    )}
+                                    {openDropdown === `conditions:${trigger.name}` && (
+                                        <div className="dropdown-options">
+                                            <input
+                                                type="text"
+                                                className="input-field"
+                                                placeholder="Search conditions..."
+                                                value={triggerConditionSearchQuery}
+                                                onChange={(e) =>
+                                                    setTriggerConditionSearchQuery(e.target.value)
+                                                }
+                                                style={{
+                                                    marginBottom: "8px",
+                                                    width: "calc(100% - 30px)",
+                                                }}
+                                            />
+                                            {filteredConditionOptions.map((option) => (
+                                                <div
+                                                    key={option.name}
+                                                    className="dropdown-option"
+                                                    onClick={() =>
+                                                        handleSelectTriggerCondition(trigger.name, option)
+                                                    }
+                                                >
+                                                    {option.label}
+                                                </div>
+                                            ))}
+                                            {filteredConditionOptions.length === 0 && (
+                                                <div
+                                                    className="dropdown-option"
+                                                    style={{color: "var(--text-secondary)"}}
+                                                >
+                                                    No trigger conditions found
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className={trigger.custom_trigger_conditions.length === 0 ? "" : "trigger-card"}
+                                 style={trigger.custom_trigger_conditions.length === 0 ? {} : {
+                                     paddingTop: "10px",
+                                     paddingBottom: "10px",
+                                 }}>
 
-                            {trigger.selected_trigger_conditions.map((triggerCondition) => {
-                                return (
+                                {trigger.custom_trigger_conditions.map((customCondition, index) => (
                                     <div
-                                        key={`${trigger.name}-${triggerCondition.name}`}
-                                        className="trigger-card"
-                                        style={{display: "flex", alignItems: "center", gap: "8px"}}
+                                        key={index}
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "8px",
+                                        }}
                                     >
-                                        <AddableSelectField
-                                            name={triggerCondition.name}
-                                            label={triggerCondition.label}
-                                            description={triggerCondition.description}
-                                            options={triggerCondition.possible_values}
-                                            values={triggerCondition.fields}
-                                            onChange={(triggerConditionName, fields) =>
-                                                handleAddTriggerConditionFields(
-                                                    trigger.name,
-                                                    triggerConditionName,
-                                                    fields
-                                                )
-                                            }
-                                            customOptionsAllowed={true}
-                                            subFieldOptions={operators}
-                                            style={{flexGrow: 1, marginTop: "16px"}}
+                                        <ResizableTextAreaField
+                                            label={`Custom Condition ${index + 1}`}
+                                            name={`custom_condition_${index}`}
+                                            description="A custom condition that should be checked before this enchantment triggers (parameters and expressions are supported)"
+                                            value={customCondition}
+                                            onChange={(e) => {
+                                                const newCustomConditions = [...trigger.custom_trigger_conditions];
+                                                newCustomConditions[index] = e.target.value;
+                                                setNewCustomTriggerConditions(trigger, newCustomConditions)
+                                            }}
+                                            autoCompleteOptions={{"%": mappedParameters}}
+                                            maxWidth={"99%"}
                                         />
                                         <button
                                             className="condition-remove-btn"
-                                            onClick={() =>
-                                                handleRemoveCondition(trigger.name, triggerCondition.name)
-                                            }
-                                            style={{flexShrink: 0}}
+                                            onClick={() => {
+                                                const newCustomConditions = trigger.custom_trigger_conditions.filter(
+                                                    (_, i) => i !== index
+                                                );
+                                                setNewCustomTriggerConditions(trigger, newCustomConditions)
+                                            }}
                                         >
-                                            ×
+                                            <FaTimes/>
                                         </button>
                                     </div>
-                                )
-                            })}
-
-                            <div
-                                className="add-trigger-condition-section"
-                                style={{position: "relative"}}
-                            >
-                                {filteredConditionOptions.length !== 0 && (
-                                    <button
-                                        className="add-btn-text"
-                                        onClick={() => toggleConditionDropdown(trigger.name)}
-                                    >
-                                        + Add Trigger Condition
-                                    </button>
-                                )}
-                                {openDropdown === `conditions:${trigger.name}` && (
-                                    <div className="dropdown-options">
-                                        <input
-                                            type="text"
-                                            className="input-field"
-                                            placeholder="Search conditions..."
-                                            value={triggerConditionSearchQuery}
-                                            onChange={(e) =>
-                                                setTriggerConditionSearchQuery(e.target.value)
-                                            }
-                                            style={{
-                                                marginBottom: "8px",
-                                                width: "calc(100% - 30px)",
-                                            }}
-                                        />
-                                        {filteredConditionOptions.map((option) => (
-                                            <div
-                                                key={option.name}
-                                                className="dropdown-option"
-                                                onClick={() =>
-                                                    handleSelectTriggerCondition(trigger.name, option)
-                                                }
-                                            >
-                                                {option.label}
-                                            </div>
-                                        ))}
-                                        {filteredConditionOptions.length === 0 && (
-                                            <div
-                                                className="dropdown-option"
-                                                style={{color: "var(--text-secondary)"}}
-                                            >
-                                                No trigger conditions found
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
+                                ))}
+                                <button
+                                    className="add-btn-text"
+                                    style={{marginTop: "15px"}}
+                                    onClick={(e) => {
+                                        const newCustomConditions = [...trigger.custom_trigger_conditions, ""];
+                                        setNewCustomTriggerConditions(trigger, newCustomConditions)
+                                    }}
+                                >
+                                    + Add Custom Trigger Condition
+                                </button>
                             </div>
                         </div>
+
 
                         <div className="content-box">
                             <h2 className="subsection-title">Levels</h2>

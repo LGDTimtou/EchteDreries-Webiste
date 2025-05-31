@@ -50,6 +50,7 @@ export const loadTrigger = async (trigger, version) => {
         description: trigger.description,
         possible_trigger_conditions: triggerConditions,
         selected_trigger_conditions: [],
+        custom_trigger_conditions: [],
         levels: [defaultLevel],
     };
 };
