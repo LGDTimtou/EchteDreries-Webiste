@@ -286,7 +286,6 @@
 .instruction-box-fields {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     column-gap: 10px;
     width: 100%;
 }
