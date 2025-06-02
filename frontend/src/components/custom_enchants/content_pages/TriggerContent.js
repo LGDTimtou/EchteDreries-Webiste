@@ -70,8 +70,8 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
                   combineStrings(
                     "_",
                     triggerConditionParent.prefix,
-                    triggerConditionParent.group
-                  )
+                    triggerConditionParent.group,
+                  ),
                 )}
               </p>
               {triggerConditionGroups[triggerConditionParent.group].values.map(
@@ -80,7 +80,7 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
                     "_",
                     triggerConditionParent.prefix,
                     triggerConditionParent.group,
-                    triggerCondition.suffix
+                    triggerCondition.suffix,
                   );
                   return (
                     <div className="parameter-item">
@@ -94,7 +94,7 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
                       </span>
                     </div>
                   );
-                }
+                },
               )}
             </div>
           ))}
@@ -110,8 +110,8 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
                 combineStrings(
                   "_",
                   triggerConditionParent.prefix,
-                  triggerConditionParent.group
-                )
+                  triggerConditionParent.group,
+                ),
               )}
             </p>
             {triggerConditionGroups[triggerConditionParent.group].values.map(
@@ -120,7 +120,7 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
                   "_",
                   triggerConditionParent.prefix,
                   triggerConditionParent.group,
-                  triggerCondition.suffix
+                  triggerCondition.suffix,
                 );
                 return (
                   <div className="parameter-item">
@@ -132,7 +132,7 @@ const TriggerContent = ({ category, triggerName, trigger }) => {
                     </span>
                   </div>
                 );
-              }
+              },
             )}
           </div>
         ))}

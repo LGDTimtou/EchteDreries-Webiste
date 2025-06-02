@@ -4,7 +4,7 @@ import {versions} from "../data/versions";
 import {enchantment_targets} from "../data/targets";
 import {enchantment_tags} from "../data/tags";
 import {triggers} from "../data/triggers";
-import {loadTrigger} from "../data/trigger_conditions/loadTrigger";
+import {loadTrigger, loadValues} from "../data/trigger_conditions/loadTrigger";
 import {enchanted_item_custom_locations} from "../data/enchanted_item_custom_locations";
 
 export const defaultFormState = {
@@ -12,7 +12,8 @@ export const defaultFormState = {
     enchantment_name: "",
     needs_permission: false,
     depends: [],
-    targets: [],
+    supported: [],
+    primary: [],
     tags: [],
     conflicts_with: [],
     anvil_cost: 10,
@@ -57,7 +58,8 @@ export const jsonToYaml = (formState) => {
                 conflicts_with: formState.conflicts_with.map(
                     (enchantment) => enchantment.name
                 ),
-                targets: formState.targets.map((target) => target.name),
+                supported: formState.supported.map((item) => item.name),
+                primary: formState.primary.map((item) => item.name),
                 tags: Object.assign(
                     {},
                     ...formState.tags.map((tag) => ({[tag.name.toLowerCase()]: true}))
@@ -151,8 +153,11 @@ export const yamlToJson = async (yaml) => {
         name: name,
         label: toTitleCase(name),
     }));
-    formState.targets = enchantment_targets.filter((target) =>
-        (definition.targets ?? []).includes(target.name)
+    formState.supported = [...enchantment_targets, ...await loadValues("item", formState.minecraft_version)].filter((target) =>
+        (definition.supported ?? []).includes(target.name)
+    );
+    formState.primary = [...enchantment_targets, ...await loadValues("item", formState.minecraft_version)].filter((target) =>
+        (definition.primary ?? []).includes(target.name)
     );
     formState.tags = enchantment_tags.filter((tag) =>
         filteredTags.includes(tag.name.toLowerCase())

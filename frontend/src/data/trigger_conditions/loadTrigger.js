@@ -55,7 +55,7 @@ export const loadTrigger = async (trigger, version) => {
     };
 };
 
-const loadValues = async (value_type, version) => {
+export const loadValues = async (value_type, version) => {
     const cacheKey = `${version}:${value_type}`;
     const localData = localStorage.getItem(`valueCache:${cacheKey}`);
     if (localData) {

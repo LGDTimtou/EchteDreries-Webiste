@@ -19,6 +19,7 @@ import {checkConstraints} from "../../../util/constraints";
 import {defaultFormState, jsonToYaml, yamlToJson,} from "../../../util/yamlParser";
 import ToggleSwitchField from "../custom_components/ToggleSwitchField";
 import {localStore} from "../../../util/util";
+import {loadValues} from "../../../data/trigger_conditions/loadTrigger";
 
 const BACKEND_URL = "https://timonc-backend.onrender.com/api";
 //const BACKEND_URL = "http://localhost:8000/api";
@@ -38,10 +39,19 @@ const CustomEnchantBuilderContent = () => {
     const [errors, setErrors] = useState([]);
     const [buttonState, setButtonState] = useState("");
     const [isPopupVisible, setPopupVisible] = useState(false);
+    const [dynamicSupportedOptions, setDynamicSupportedOptions] = useState(enchantment_targets);
 
     useEffect(() => {
         localStore("formState", JSON.stringify(formState));
     }, [formState]);
+
+    useEffect(() => {
+        (async () => {
+            const values = await loadValues("item", formState.minecraft_version);
+            const merged = [...enchantment_targets, ...values];
+            setDynamicSupportedOptions(merged);
+        })();
+    }, [formState.minecraft_version]);
 
     useEffect(() => {
         if (location.state?.json) {
@@ -225,11 +235,11 @@ const CustomEnchantBuilderContent = () => {
             <div className="content-box">
                 <h2 className="content-box-title">Enchantment Definition</h2>
                 <AddableSelectField
-                    name="targets"
-                    label="Targets"
-                    description="The target items for your enchantment"
-                    options={enchantment_targets}
-                    values={formState.targets}
+                    name="supported"
+                    label="Supported"
+                    description="Items on which this enchantment can be applied using an anvil or using the /enchant command"
+                    options={dynamicSupportedOptions}
+                    values={formState.supported}
                     onChange={handleAddableSelectboxChange}
                 />
                 <AddableSelectField
@@ -283,7 +293,17 @@ const CustomEnchantBuilderContent = () => {
                 </div>
 
                 {formState.in_enchanting_table && (
-                    <div>
+                    <div className="content-box">
+                        {formState.supported.length > 0 && (
+                            <AddableSelectField
+                                name="primary"
+                                label="Primary"
+                                description="Items for which this enchantment appears in an enchanting table (leave empty to use all supported items)."
+                                options={formState.supported}
+                                values={formState.primary}
+                                onChange={handleAddableSelectboxChange}
+                            />
+                        )}
                         <div className="field-container">
                             <InputField
                                 label="Minimum Cost Base"
